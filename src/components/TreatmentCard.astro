@@ -1,0 +1,196 @@
+---
+interface Props {
+  name: string;
+  sanskritName?: string;
+  description: string;
+  image?: string;
+  category?: 'massage' | 'dhara' | 'basti' | 'specialized' | 'signature';
+  icon?: string;
+  featured?: boolean;
+  link?: string;
+}
+
+const {
+  name,
+  sanskritName,
+  description,
+  image,
+  category = 'massage',
+  icon,
+  featured = false,
+  link = '/program'
+} = Astro.props;
+---
+
+<article class:list={['treatment-card', { 'treatment-card--featured': featured }]}>
+  <!-- Photo -->
+  <div class="treatment-card__image">
+    {image ? (
+      <img src={image} alt={name} loading="lazy" />
+    ) : (
+      <div class="treatment-card__placeholder">
+        <svg class="treatment-card__placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+        <span class="treatment-card__placeholder-label">[ {name.toLowerCase().replace(/\s+/g, '-')}.webp ]</span>
+      </div>
+    )}
+  </div>
+
+  <!-- Content -->
+  <div class="treatment-card__content">
+    <h3 class="treatment-card__title">{name}</h3>
+    {sanskritName && (
+      <p class="treatment-card__sanskrit">{sanskritName}</p>
+    )}
+    <p class="treatment-card__description">{description}</p>
+    <a href={link} class="treatment-card__link">
+      Learn more
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
+  </div>
+</article>
+
+<style>
+  .treatment-card {
+    position: relative;
+    background-color: var(--color-cream-base);
+    border: 1px solid var(--color-cream-deep);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .treatment-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(63, 74, 50, 0.12);
+  }
+
+  .treatment-card--featured {
+    background-color: var(--color-cream-base);
+    border-color: var(--color-sage);
+  }
+
+  /* Photo section - takes visual priority */
+  .treatment-card__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: var(--color-cream-deep);
+  }
+
+  .treatment-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .treatment-card:hover .treatment-card__image img {
+    transform: scale(1.03);
+  }
+
+  /* Placeholder for images */
+  .treatment-card__placeholder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+      rgba(124, 139, 111, 0.15) 0%,
+      rgba(239, 230, 216, 0.5) 100%
+    );
+  }
+
+  .treatment-card__placeholder-icon {
+    width: 3rem;
+    height: 3rem;
+    color: var(--color-sage);
+    opacity: 0.4;
+  }
+
+  .treatment-card__placeholder-label {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6875rem;
+    color: var(--color-sage);
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.125rem;
+    white-space: nowrap;
+    font-family: 'Karla', monospace;
+    letter-spacing: 0.03em;
+  }
+
+  /* Content section */
+  .treatment-card__content {
+    padding: 1.5rem;
+  }
+
+  .treatment-card__title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--color-olive);
+  }
+
+  .treatment-card__sanskrit {
+    font-size: 0.875rem;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+    color: var(--color-sage);
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  .treatment-card__description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--color-olive);
+    opacity: 0.85;
+  }
+
+  .treatment-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-sage);
+    transition: color 0.2s ease;
+  }
+
+  .treatment-card__link:hover {
+    color: var(--color-olive);
+  }
+
+  .treatment-card__link svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+  }
+
+  .treatment-card__link:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .treatment-card__content {
+      padding: 1.25rem;
+    }
+  }
+</style>

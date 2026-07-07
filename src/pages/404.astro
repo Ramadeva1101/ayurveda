@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you are looking for could not be found."
+>
+  <Navbar />
+
+  <main id="main-content" class="error-page">
+    <div class="container">
+      <div class="error-content">
+
+        <!-- Decorative Lotus -->
+        <div class="error-lotus" aria-hidden="true">
+          <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M60 10 Q75 30 60 50 Q45 30 60 10" stroke="currentColor" stroke-width="1" fill="none" opacity="0.3"/>
+            <path d="M60 15 Q80 30 70 50 Q55 40 60 15" stroke="currentColor" stroke-width="1" fill="none" opacity="0.25"/>
+            <path d="M60 15 Q40 30 50 50 Q65 40 60 15" stroke="currentColor" stroke-width="1" fill="none" opacity="0.25"/>
+            <path d="M60 20 Q90 35 75 55 Q60 45 60 20" stroke="currentColor" stroke-width="1" fill="none" opacity="0.2"/>
+            <path d="M60 20 Q30 35 45 55 Q60 45 60 20" stroke="currentColor" stroke-width="1" fill="none" opacity="0.2"/>
+            <circle cx="60" cy="35" r="5" fill="currentColor" opacity="0.15"/>
+          </svg>
+        </div>
+
+        <!-- Error Code -->
+        <p class="error-code" aria-label="Error 404">404</p>
+
+        <!-- Heading -->
+        <h1 class="error-title">Page Not Found</h1>
+
+        <!-- Description -->
+        <p class="error-description">
+          The page you are looking for may have moved or no longer exists.
+        </p>
+
+        <!-- Decorative Divider -->
+        <SectionDivider variant="simple" class="error-divider" />
+
+        <!-- Actions -->
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Back to Home
+          </a>
+          <a href="/contact" class="btn btn-outline">Contact Us</a>
+        </div>
+
+        <!-- Decorative leaves -->
+        <div class="error-decor" aria-hidden="true">
+          <svg class="leaf-left" viewBox="0 0 40 60" fill="none">
+            <path d="M20 60 Q5 40 20 10 Q35 40 20 60" stroke="currentColor" stroke-width="0.75" fill="none" opacity="0.15"/>
+            <path d="M20 60 L20 10" stroke="currentColor" stroke-width="0.5" opacity="0.1"/>
+          </svg>
+          <svg class="leaf-right" viewBox="0 0 40 60" fill="none">
+            <path d="M20 60 Q5 40 20 10 Q35 40 20 60" stroke="currentColor" stroke-width="0.75" fill="none" opacity="0.15"/>
+            <path d="M20 60 L20 10" stroke="currentColor" stroke-width="0.5" opacity="0.1"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background-color: var(--color-cream-base);
+  }
+
+  .error-content {
+    text-align: center;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: relative;
+  }
+
+  .error-lotus {
+    margin-bottom: 2rem;
+    color: var(--color-gold);
+  }
+
+  .error-lotus svg {
+    width: 6rem;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .error-code {
+    font-size: clamp(4rem, 15vw, 7rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.025em;
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--color-cream-deep);
+    text-shadow: 2px 2px 0 var(--color-gold);
+  }
+
+  .error-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.5rem, 1rem + 2vw, 2rem);
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    color: var(--color-olive);
+  }
+
+  .error-description {
+    font-family: 'Karla', sans-serif;
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
+    margin-bottom: 2rem;
+    color: var(--color-sage);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .error-divider {
+    max-width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2.5rem;
+  }
+
+  .error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (min-width: 640px) {
+    .error-actions {
+      flex-direction: row;
+    }
+  }
+
+  .error-decor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: -10;
+    overflow: hidden;
+  }
+
+  .leaf-left,
+  .leaf-right {
+    position: absolute;
+    width: 4rem;
+    height: 6rem;
+    color: var(--color-olive);
+  }
+
+  .leaf-left {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(-15deg);
+  }
+
+  .leaf-right {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(15deg);
+  }
+
+  @media (max-width: 640px) {
+    .error-actions {
+      flex-direction: column;
+    }
+
+    .leaf-left,
+    .leaf-right {
+      width: 3rem;
+      height: 4rem;
+      opacity: 0.5;
+    }
+  }
+</style>

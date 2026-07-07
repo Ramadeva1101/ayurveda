@@ -1,0 +1,349 @@
+/* Ayurvedic Wellness House - Global Styles */
+
+/* Import fonts from fontsource packages */
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/700.css";
+@import "@fontsource/fraunces/400-italic.css";
+@import "@fontsource/fraunces/500-italic.css";
+@import "@fontsource/karla/400.css";
+@import "@fontsource/karla/500.css";
+@import "@fontsource/karla/600.css";
+@import "@fontsource/karla/700.css";
+
+/* ============================================
+   CSS Custom Properties
+   ============================================ */
+:root {
+  --color-cream-base: #FAF6F0;
+  --color-cream-deep: #EFE6D8;
+  --color-olive: #3F4A32;
+  --color-olive-light: #4A5A3E;
+  --color-olive-dark: #2E3A24;
+  --color-sage: #7C8B6F;
+  --color-sage-light: #9BA892;
+  --color-sage-dark: #5F6E54;
+  --color-gold: #B8935A;
+  --color-gold-light: #C9A876;
+  --color-gold-dark: #9A7845;
+
+  --text-h1: clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  --text-h2: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  --text-h3: clamp(1.375rem, 1rem + 1.5vw, 2rem);
+  --text-h4: clamp(1.125rem, 0.875rem + 1vw, 1.5rem);
+  --text-body: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
+  --text-small: clamp(0.8125rem, 0.75rem + 0.25vw, 0.9375rem);
+}
+
+/* ============================================
+   Base Reset
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-olive);
+  background-color: var(--color-cream-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-olive);
+  margin-top: 0;
+}
+
+h1 { font-size: var(--text-h1); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); }
+h4 { font-size: var(--text-h4); }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-olive);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-sage);
+}
+
+/* ============================================
+   Selection & Focus
+   ============================================ */
+::selection {
+  background-color: var(--color-sage);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-sage);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Skip to Content
+   ============================================ */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-olive);
+  color: white;
+  font-weight: 500;
+  border-radius: 0 0 0.5rem 0.5rem;
+  z-index: 9999;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  color: white;
+}
+
+/* ============================================
+   Scrollbar
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-sage);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-olive);
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.section {
+  padding-top: clamp(4rem, 8vw, 8rem);
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+}
+
+.section--alt {
+  background-color: var(--color-cream-deep);
+}
+
+.section--dark {
+  background-color: var(--color-olive);
+}
+
+.section--dark h1,
+.section--dark h2,
+.section--dark h3,
+.section--dark h4,
+.section--dark p {
+  color: var(--color-cream-base);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-radius: 0.125rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--color-olive);
+  color: white;
+  border-color: var(--color-olive);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-olive-dark);
+  border-color: var(--color-olive-dark);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-cream-base);
+  border-color: var(--color-cream-base);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-cream-base);
+  color: var(--color-olive);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-olive);
+  border-color: var(--color-sage);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-sage);
+  color: white;
+}
+
+/* ============================================
+   Image Placeholder
+   ============================================ */
+.img-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-cream-deep);
+  overflow: hidden;
+}
+
+.img-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(124, 139, 111, 0.08) 0%,
+    rgba(239, 230, 216, 0.3) 100%
+  );
+}
+
+.img-placeholder__icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-sage);
+  opacity: 0.4;
+}
+
+.img-placeholder__label {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6875rem;
+  color: var(--color-sage);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  font-family: 'Karla', monospace;
+  letter-spacing: 0.03em;
+}
+
+/* ============================================
+   Schedule Card
+   ============================================ */
+.schedule-card {
+  padding: 2rem;
+  background-color: var(--color-cream-base);
+  border-left: 3px solid var(--color-gold);
+}
+
+.schedule-card__title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-olive);
+  margin-bottom: 0.5rem;
+}
+
+.schedule-card__time {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-sage);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.schedule-card__description {
+  font-size: 0.9375rem;
+  color: var(--color-olive);
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* ============================================
+   Testimonial Card
+   ============================================ */
+.testimonial-card {
+  padding: 2rem;
+  background-color: var(--color-cream-base);
+  border: 1px solid var(--color-cream-deep);
+}
+
+.testimonial-card__quote {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--color-olive);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.testimonial-card__author {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-sage);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

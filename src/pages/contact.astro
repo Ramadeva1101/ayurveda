@@ -1,0 +1,593 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import { getCollection } from 'astro:content';
+
+const allTreatments = await getCollection('treatments');
+
+// Build dropdown options from treatments collection + package tiers
+const treatmentOptions = allTreatments.map(t => ({
+  value: t.data.name.toLowerCase().replace(/\s+/g, '-'),
+  label: t.data.name,
+}));
+---
+
+<!-- TODO: replace with the client's real WhatsApp Business number -->
+<!-- TODO: sign up for Formspree/Web3Forms, replace the placeholder endpoint below with the real one -->
+<!-- TODO: replace placeholder address, hours, and Instagram link with the client's real details -->
+
+<BaseLayout
+  title="Get in Touch"
+  description="Contact Ayurvedic Wellness House to book a consultation, ask about treatments, or learn more about our wellness packages."
+>
+  <Navbar />
+
+  <main id="main-content">
+
+    <!-- Page Header -->
+    <section class="page-header section">
+      <div class="container">
+        <p class="page-eyebrow">Contact</p>
+        <h1 class="page-title">Get in Touch</h1>
+        <p class="page-description">
+          The fastest way to reach us is by WhatsApp. You can also fill in the form and we'll get back to you within one business day.
+        </p>
+      </div>
+    </section>
+
+    <SectionDivider variant="simple" />
+
+    <!-- Main Contact Section -->
+    <section class="contact section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- Left Column: Form + Quick Contact -->
+          <div class="contact-left">
+
+            <!-- Quick Contact -->
+            <!-- TODO: replace with the client's real WhatsApp Business number -->
+            <div class="quick-contact">
+              <h2 class="quick-contact__title">Chat With Us</h2>
+              <p class="quick-contact__text">
+                The fastest way to reach us is via WhatsApp. We typically respond within the hour during business hours.
+              </p>
+              <!-- TODO: replace the phone number in the href below with the client's real WhatsApp number -->
+              <a
+                href="https://wa.me/6285926461359?text=Hello%2C%20I%27d%20like%20to%20ask%20about%20your%20treatments"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary quick-wa-btn"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Chat on WhatsApp
+              </a>
+            </div>
+
+            <SectionDivider variant="simple" />
+
+            <!-- Contact Form -->
+            <div class="form-section">
+              <h2 class="form-title">Send a Message</h2>
+              <p class="form-subtitle">We'll reply within one business day.</p>
+
+              <!-- TODO: sign up for Formspree/Web3Forms, replace the placeholder endpoint below with the real one -->
+              <form
+                class="contact-form"
+                id="contact-form"
+                x-data="{
+                  errors: {},
+                  submitted: false,
+                  submit() {
+                    this.errors = {};
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const message = document.getElementById('message').value.trim();
+
+                    if (!name) this.errors.name = 'Please enter your name.';
+                    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) this.errors.email = 'Please enter a valid email address.';
+                    if (!message) this.errors.message = 'Please enter your message.';
+
+                    if (Object.keys(this.errors).length === 0) {
+                      this.submitted = true;
+                      document.getElementById('form-success').style.display = 'block';
+                      document.getElementById('contact-form').style.display = 'none';
+                    }
+                  }
+                }"
+                @submit.prevent="submit()"
+              >
+                <div class="form-group" :class="{ 'form-group--error': errors.name }">
+                  <label for="name" class="form-label">Name <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-input"
+                    placeholder="Your full name"
+                    autocomplete="name"
+                  />
+                  <p class="form-error" x-show="errors.name" x-text="errors.name" x-cloak></p>
+                </div>
+
+                <div class="form-group" :class="{ 'form-group--error': errors.email }">
+                  <label for="email" class="form-label">Email or WhatsApp <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    placeholder="email@example.com or +62 8xx xxxx xxxx"
+                  />
+                  <p class="form-error" x-show="errors.email" x-text="errors.email" x-cloak></p>
+                </div>
+
+                <div class="form-group">
+                  <label for="inquiry" class="form-label">Treatment or Package</label>
+                  <select id="inquiry" name="inquiry" class="form-input form-select">
+                    <option value="">Select an option...</option>
+                    <optgroup label="Treatments">
+                      {treatmentOptions.map(opt => (
+                        <option value={opt.value}>{opt.label}</option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Packages">
+                      <option value="ayurvedic-consultation">Ayurvedic Consultation</option>
+                      <option value="one-day-ayurvedic-experience">One-Day Ayurvedic Experience</option>
+                      <option value="3-day-ayurvedic-nusantara-detox">3-Day Ayurvedic Nusantara Detox</option>
+                      <option value="5-day-ayurvedic-nusantara-detox">5-Day Ayurvedic Nusantara Detox</option>
+                      <option value="7-day-ayurvedic-nusantara-detox">7-Day Ayurvedic Nusantara Detox</option>
+                      <option value="10-day-ayurvedic-nusantara-deep-detox">10-Day Ayurvedic Nusantara Deep Detox</option>
+                      <option value="14-day-ayurvedic-nusantara-deep-detox-rejuvenation">14-Day Ayurvedic Nusantara Deep Detox + Rejuvenation</option>
+                      <option value="21-day-classical-ayurvedic-nusantara-deep-detox-rejuvenation">21-Day Classical Ayurvedic Nusantara Deep Detox + Rejuvenation</option>
+                      <option value="custom-package">Custom Package</option>
+                    </optgroup>
+                    <option value="other">Other / General Inquiry</option>
+                  </select>
+                </div>
+
+                <div class="form-group" :class="{ 'form-group--error': errors.message }">
+                  <label for="message" class="form-label">Message <span class="required">*</span></label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    class="form-input form-textarea"
+                    rows="5"
+                    placeholder="Tell us what you're looking for or any questions you have..."
+                  ></textarea>
+                  <p class="form-error" x-show="errors.message" x-text="errors.message" x-cloak></p>
+                </div>
+
+                <button type="submit" class="btn btn-outline form-submit">
+                  Send Message
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </form>
+
+              <!-- Success state -->
+              <div id="form-success" class="form-success" style="display: none;" x-data>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h3>Message sent!</h3>
+                <p>We'll get back to you within one business day. For urgent inquiries, reach us directly on WhatsApp.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Location Info + Map -->
+          <div class="contact-right">
+
+            <!-- Location Info -->
+            <div class="location-info">
+              <h2 class="location-title">Visit Us</h2>
+
+              <div class="info-items">
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="info-label">Location</p>
+                    <p class="info-value">Accommodation Homestage at Bali Silent Retreat<br />Bali, Indonesia.</p>
+                  </div>
+                </div>
+
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                  </div>
+                  <div>
+                    <!-- TODO: replace with the client's actual operating hours -->
+                    <p class="info-label">Hours</p>
+                    <p class="info-value">Mon–Sat, 9:00 AM–6:00 PM<br />Closed Sundays and public holidays</p>
+                  </div>
+                </div>
+
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                  </div>
+                  <div>
+                    <!-- TODO: replace with the client's actual Instagram handle -->
+                    <p class="info-label">Instagram</p>
+                    <a href="https://instagram.com/ayurvedicwellnesshouse" target="_blank" rel="noopener noreferrer" class="info-link">@ayurvedicwellnesshouse</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google Maps Embed -->
+            <div class="map-embed">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.0395!2d115.2630!3d-8.5069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMzAnMjMuMiJTIDExNcKwMTUnNDMuMSJF!5e0!3m2!1sen!2sid!4v1234567890"
+                width="100%"
+                height="300"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Ayurvedic Wellness House location"
+              ></iframe>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  /* Page Header */
+  .page-header {
+    background-color: var(--color-cream-base);
+    padding-top: clamp(6rem, 12vw, 10rem);
+    padding-bottom: clamp(3rem, 6vw, 6rem);
+    text-align: center;
+  }
+
+  .page-eyebrow {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2rem, 1.25rem + 3vw, 3.5rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1.5rem;
+  }
+
+  .page-description {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
+    color: var(--color-olive);
+    opacity: 0.75;
+    max-width: 44ch;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Contact Grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  /* Quick Contact */
+  .quick-contact {
+    margin-bottom: 3rem;
+  }
+
+  .quick-contact__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 0.75rem;
+  }
+
+  .quick-contact__text {
+    font-size: 0.9375rem;
+    color: var(--color-sage);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .quick-wa-btn {
+    background-color: var(--color-olive);
+    border-color: var(--color-olive);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-radius: 0.125rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    border: 2px solid var(--color-olive);
+  }
+
+  .quick-wa-btn:hover {
+    background-color: var(--color-olive-dark);
+    border-color: var(--color-olive-dark);
+    color: white;
+  }
+
+  .quick-wa-btn svg {
+    flex-shrink: 0;
+  }
+
+  /* Form Section */
+  .form-section {
+    margin-top: 3rem;
+  }
+
+  .form-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 0.375rem;
+  }
+
+  .form-subtitle {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-sage);
+    margin-bottom: 2rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group--error .form-input {
+    border-color: #c0392b;
+  }
+
+  .form-label {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-olive);
+  }
+
+  .required {
+    color: var(--color-gold);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 1rem;
+    border-radius: 0.125rem;
+    border: 1px solid var(--color-cream-deep);
+    background-color: var(--color-cream-base);
+    color: var(--color-olive);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    appearance: none;
+  }
+
+  .form-input::placeholder {
+    color: var(--color-sage);
+    opacity: 0.6;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-sage);
+    box-shadow: 0 0 0 3px rgba(124, 139, 111, 0.1);
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237C8B6F' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-error {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    color: #c0392b;
+    margin: 0;
+  }
+
+  [x-cloak] {
+    display: none !important;
+  }
+
+  .form-submit {
+    align-self: flex-start;
+  }
+
+  /* Form Success */
+  .form-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: var(--color-cream-deep);
+    border-radius: 0.25rem;
+  }
+
+  .form-success svg {
+    width: 3rem;
+    height: 3rem;
+    color: var(--color-sage);
+    margin-bottom: 1rem;
+  }
+
+  .form-success h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-success p {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.9375rem;
+    color: var(--color-sage);
+    margin: 0;
+    max-width: 28ch;
+  }
+
+  /* Location Info */
+  .location-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1.5rem;
+  }
+
+  .info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .info-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .info-icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(184, 147, 90, 0.1);
+    color: var(--color-gold);
+  }
+
+  .info-icon svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .info-label {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-olive);
+    opacity: 0.6;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-value {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.9375rem;
+    color: var(--color-olive);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .info-link {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.9375rem;
+    color: var(--color-sage);
+    transition: color 0.2s ease;
+  }
+
+  .info-link:hover {
+    color: var(--color-olive);
+  }
+
+  /* Map Embed */
+  .map-embed {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0.125rem;
+    border: 1px solid var(--color-cream-deep);
+    background-color: var(--color-cream-deep);
+  }
+
+  .map-embed iframe {
+    display: block;
+    width: 100%;
+    height: 300px;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      gap: 3rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

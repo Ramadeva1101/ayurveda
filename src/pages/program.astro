@@ -1,0 +1,335 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import TreatmentCard from '../components/TreatmentCard.astro';
+import { getCollection } from 'astro:content';
+
+const allTreatments = await getCollection('treatments');
+
+const categories = [
+  {
+    id: 'massage',
+    label: 'Massage & Body Therapy',
+    treatments: allTreatments.filter(t => t.data.category === 'massage'),
+  },
+  {
+    id: 'dhara',
+    label: 'Dhara — Oil & Liquid Flow Therapy',
+    treatments: allTreatments.filter(t => t.data.category === 'dhara'),
+  },
+  {
+    id: 'basti',
+    label: 'Basti — Localized Oil Retention Therapy',
+    treatments: allTreatments.filter(t => t.data.category === 'basti'),
+  },
+  {
+    id: 'specialized',
+    label: 'Specialized Treatments',
+    treatments: allTreatments.filter(t => t.data.category === 'specialized'),
+  },
+  {
+    id: 'signature',
+    label: 'One-on-One & Signature',
+    treatments: allTreatments.filter(t => t.data.category === 'signature'),
+  },
+];
+
+const featuredTreatments = allTreatments.filter(t => t.data.featured);
+---
+
+<BaseLayout
+  title="Our Ayurvedic Programs"
+  description="The full treatment menu at Ayurvedic Wellness House — massage, Dhara, Basti, specialized therapies, and personalized Ayurvedic consultations."
+>
+  <Navbar />
+
+  <main id="main-content">
+
+    <!-- Page Header -->
+    <section class="page-header section">
+      <div class="container">
+        <p class="page-eyebrow">Programs</p>
+        <h1 class="page-title">Our Ayurvedic Programs</h1>
+        <p class="page-description">
+          Every treatment is built on classical Ayurvedic principles and adapted to your specific needs. A consultation is required before your first session.
+        </p>
+      </div>
+    </section>
+
+    <!-- Featured Treatments Grid -->
+    <section class="featured-treatments section">
+      <div class="container">
+        <div class="featured-header">
+          <h2 class="featured-title">Featured Treatments</h2>
+          <p class="featured-subtitle">
+            Each therapy serves a specific purpose. Programs are designed around your consultation findings.
+          </p>
+        </div>
+        <div class="treatments-grid">
+          {featuredTreatments.map((treatment) => (
+            <TreatmentCard
+              name={treatment.data.name}
+              sanskritName={treatment.data.sanskritName}
+              description={treatment.data.description}
+              category={treatment.data.category}
+              icon={treatment.data.icon}
+              featured={true}
+              link={`/program#${treatment.id}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider variant="simple" />
+
+    <!-- All Treatments by Category -->
+    <section class="programs section">
+      <div class="container">
+
+        {categories.map((cat) => (
+          <div class="treatment-category" id={cat.id}>
+            <div class="category-header">
+              <h2 class="category-title">{cat.label}</h2>
+              <span class="category-count">{cat.treatments.length} treatment{cat.treatments.length !== 1 ? 's' : ''}</span>
+            </div>
+            <div class="treatment-grid">
+              {cat.treatments.map((treatment) => (
+                <TreatmentCard
+                  name={treatment.data.name}
+                  sanskritName={treatment.data.sanskritName}
+                  description={treatment.data.description}
+                  category={treatment.data.category}
+                  icon={treatment.data.icon}
+                  featured={treatment.data.featured}
+                  link={`/program#${treatment.id}`}
+                />
+              ))}
+            </div>
+            {cat.id !== categories[categories.length - 1].id && (
+              <div class="category-divider"></div>
+            )}
+          </div>
+        ))}
+
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="programs-cta section section--dark">
+      <div class="container">
+        <div class="cta-inner">
+          <h2 class="cta-title">Begin with a Consultation</h2>
+          <p class="cta-text">
+            Every treatment plan starts here. We'll assess your constitution, discuss your health goals, and recommend a program tailored to you.
+          </p>
+          <div class="cta-actions">
+            <a href="/contact" class="btn btn-secondary">Schedule a Consultation</a>
+            <a href="/packages" class="btn-outline-white">View Packages</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  /* Page Header */
+  .page-header {
+    background-color: var(--color-cream-base);
+    padding-top: clamp(6rem, 12vw, 10rem);
+    padding-bottom: clamp(3rem, 6vw, 6rem);
+    text-align: center;
+  }
+
+  .page-eyebrow {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2rem, 1.25rem + 3vw, 3.5rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1.5rem;
+  }
+
+  .page-description {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
+    color: var(--color-olive);
+    opacity: 0.75;
+    max-width: 44ch;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Featured Treatments Section */
+  .featured-treatments {
+    background-color: var(--color-cream-base);
+  }
+
+  .featured-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .featured-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: var(--text-h2);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1rem;
+  }
+
+  .featured-subtitle {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.75;
+    max-width: 40ch;
+    margin: 0 auto;
+  }
+
+  .treatments-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .treatments-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .treatments-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Treatment Categories */
+  .treatment-category {
+    margin-bottom: 4rem;
+  }
+
+  .category-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .category-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.375rem, 1rem + 1.5vw, 1.75rem);
+    font-weight: 400;
+    color: var(--color-olive);
+  }
+
+  .category-count {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .treatment-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .treatment-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .treatment-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .category-divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-cream-deep);
+    margin-top: 4rem;
+  }
+
+  /* CTA Section */
+  .programs-cta {
+    text-align: center;
+  }
+
+  .cta-inner {
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-cream-base);
+    margin-bottom: 1rem;
+  }
+
+  .cta-text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-cream-base);
+    opacity: 0.85;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .btn-outline-white {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-radius: 0.125rem;
+    border: 2px solid var(--color-cream-base);
+    background-color: transparent;
+    color: var(--color-cream-base);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+  }
+
+  .btn-outline-white:hover {
+    background-color: var(--color-cream-base);
+    color: var(--color-olive);
+  }
+</style>

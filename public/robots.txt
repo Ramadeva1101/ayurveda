@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ayurvedicwellnesshouse.com/sitemap-index.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1

@@ -1,0 +1,223 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  bio: string;
+  image?: string;
+  variant?: 'large' | 'small';
+  instagram?: string;
+}
+
+const {
+  name,
+  role,
+  bio,
+  image,
+  variant = 'small',
+  instagram
+} = Astro.props;
+---
+
+<article class:list={['profile-card', `profile-card--${variant}`]}>
+  <!-- Image -->
+  <div class="profile-card__image-wrapper">
+    {image ? (
+      <img
+        src={image}
+        alt={`${name} - ${role}`}
+        class="profile-card__image"
+        loading="lazy"
+      />
+    ) : (
+      <div class="profile-card__placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+    )}
+
+    <!-- Decorative frame -->
+    <div class="profile-card__frame" aria-hidden="true"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="profile-card__content">
+    <h3 class="profile-card__name">{name}</h3>
+    <p class="profile-card__role">{role}</p>
+    <p class="profile-card__bio">{bio}</p>
+
+    {instagram && (
+      <a
+        href={`https://instagram.com/${instagram}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="profile-card__social"
+        aria-label={`${name} di Instagram`}
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <span>@{instagram}</span>
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-card--large {
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-card--small {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+
+  /* Image wrapper */
+  .profile-card__image-wrapper {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .profile-card--large .profile-card__image-wrapper {
+    width: 12rem;
+    height: 12rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-card--small .profile-card__image-wrapper {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .profile-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-cream-deep);
+    color: var(--color-sage);
+  }
+
+  .profile-card__placeholder svg {
+    width: 50%;
+    height: 50%;
+  }
+
+  /* Decorative frame */
+  .profile-card__frame {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+  }
+
+  .profile-card--large .profile-card__frame {
+    border: 2px solid var(--color-gold);
+    opacity: 0.3;
+    transform: translate(8px, 8px);
+    z-index: -1;
+  }
+
+  .profile-card--small .profile-card__frame {
+    border: 1px solid var(--color-gold);
+    opacity: 0.2;
+    transform: translate(4px, 4px);
+    z-index: -1;
+  }
+
+  /* Content */
+  .profile-card__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-card--large .profile-card__content {
+    align-items: center;
+  }
+
+  .profile-card--small .profile-card__content {
+    flex: 1 1 0%;
+  }
+
+  .profile-card__name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--color-olive);
+  }
+
+  .profile-card--large .profile-card__name {
+    font-size: 1.5rem;
+  }
+
+  .profile-card__role {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: var(--color-gold);
+  }
+
+  .profile-card__bio {
+    font-size: 0.875rem;
+    line-height: 1.625;
+    margin-bottom: 1rem;
+    color: var(--color-olive);
+    opacity: 0.85;
+  }
+
+  .profile-card--small .profile-card__bio {
+    margin-bottom: 0.75rem;
+  }
+
+  .profile-card__social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-sage);
+    transition: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-duration: 200ms;
+  }
+
+  .profile-card__social:hover {
+    color: var(--color-olive);
+  }
+
+  .profile-card__social svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  /* Responsive for small variant */
+  @media (max-width: 640px) {
+    .profile-card--small {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+interface Props {
+  variant?: 'default' | 'ornate' | 'simple';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+---
+
+<div class:list={['section-divider', `section-divider--${variant}`, className]}>
+  <svg
+    class="divider-svg"
+    viewBox="0 0 400 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <!-- Main curved line -->
+    <path
+      d="M0,20 Q100,5 200,20 T400,20"
+      class="divider-line"
+      stroke-width="1"
+      fill="none"
+    />
+
+    <!-- Center ornament (lotus-inspired) -->
+    <g class="divider-ornament" transform="translate(200, 20)">
+      <!-- Lotus petals -->
+      <path d="M0,-8 Q5,-15 0,-20 Q-5,-15 0,-8" class="petal" />
+      <path d="M0,-8 Q5,-15 0,-20 Q-5,-15 0,-8" class="petal" transform="rotate(45)" />
+      <path d="M0,-8 Q5,-15 0,-20 Q-5,-15 0,-8" class="petal" transform="rotate(90)" />
+      <path d="M0,-8 Q5,-15 0,-20 Q-5,-15 0,-8" class="petal" transform="rotate(135)" />
+      <path d="M0,-8 Q5,-15 0,-20 Q-5,-15 0,-8" class="petal" transform="rotate(180)" />
+      <path d="M0,-8 Q5,-15 0,-20 Q-5,-15 0,-8" class="petal" transform="rotate(225)" />
+      <path d="M0,-8 Q5,-15 0,-20 Q-5,-15 0,-8" class="petal" transform="rotate(270)" />
+      <path d="M0,-8 Q5,-15 0,-20 Q-5,-15 0,-8" class="petal" transform="rotate(315)" />
+
+      <!-- Small center circle -->
+      <circle r="3" class="center-dot" />
+
+      <!-- Small side dots -->
+      <circle cx="-15" cy="0" r="1.5" class="side-dot" />
+      <circle cx="15" cy="0" r="1.5" class="side-dot" />
+    </g>
+
+    <!-- Side flourishes -->
+    <path
+      d="M120,20 Q140,12 160,20"
+      class="divider-line"
+      stroke-width="0.75"
+      fill="none"
+    />
+    <path
+      d="M240,20 Q260,28 280,20"
+      class="divider-line"
+      stroke-width="0.75"
+      fill="none"
+    />
+  </svg>
+</div>
+
+<style>
+  .section-divider {
+    width: 100%;
+    overflow: hidden;
+    padding: 2rem 0;
+  }
+
+  .divider-svg {
+    width: 100%;
+    height: auto;
+    max-height: 3rem;
+  }
+
+  .divider-line {
+    stroke: var(--color-gold);
+    opacity: 0.5;
+  }
+
+  .divider-ornament {
+    color: var(--color-gold);
+  }
+
+  .petal {
+    fill: none;
+    stroke: var(--color-gold);
+    stroke-width: 0.75;
+    opacity: 0.6;
+  }
+
+  .center-dot {
+    fill: var(--color-gold);
+    opacity: 0.8;
+  }
+
+  .side-dot {
+    fill: var(--color-gold);
+    opacity: 0.5;
+  }
+
+  /* Variant: ornate (larger ornament) */
+  .section-divider--ornate .divider-svg {
+    max-height: 4rem;
+  }
+
+  .section-divider--ornate .petal {
+    stroke-width: 1;
+    opacity: 0.7;
+  }
+
+  /* Variant: simple (just a line) */
+  .section-divider--simple .divider-svg {
+    max-height: 1.5rem;
+  }
+
+  .section-divider--simple .divider-ornament,
+  .section-divider--simple .side-dot {
+    display: none;
+  }
+
+  .section-divider--simple .divider-line {
+    opacity: 0.3;
+  }
+
+  /* Animation for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .petal {
+      animation: none;
+    }
+  }
+</style>
