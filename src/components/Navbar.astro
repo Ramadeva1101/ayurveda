@@ -178,6 +178,9 @@ const isHome = currentPath === '/';
     padding: 1rem 0;
     min-height: 5rem;
     transition: padding 0.3s ease;
+    /* iPhone notch: pad the sides of the inner bar */
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
   }
 
   .navbar.scrolled .navbar-inner,
@@ -272,8 +275,11 @@ const isHome = currentPath === '/';
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    /* Apple HIG minimum tap target: 44×44px */
+    width: 2.75rem;
+    height: 2.75rem;
+    min-width: 44px;
+    min-height: 44px;
     gap: 0.375rem;
     background: transparent;
     border: none;
@@ -281,6 +287,8 @@ const isHome = currentPath === '/';
     padding: 0.375rem;
     border-radius: 0.25rem;
     transition: background-color 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   @media (min-width: 1024px) {
@@ -326,7 +334,9 @@ const isHome = currentPath === '/';
 
   .mobile-menu.is-open {
     display: block;
-    max-height: 400px;
+    max-height: 500px;
+    /* also account for iPhone safe-area at bottom */
+    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 
   .navbar--home:not(.scrolled) .mobile-menu {

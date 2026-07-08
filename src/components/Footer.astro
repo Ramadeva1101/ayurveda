@@ -114,7 +114,8 @@ const currentYear = new Date().getFullYear();
   .footer {
     background-color: var(--color-cream-deep);
     padding-top: 4rem;
-    padding-bottom: 2rem;
+    /* iPhone home indicator safe area */
+    padding-bottom: max(2rem, env(safe-area-inset-bottom) + 1rem);
   }
 
   .footer-grid {

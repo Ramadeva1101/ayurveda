@@ -46,6 +46,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden; /* prevent horizontal scroll on mobile */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -68,6 +69,7 @@ body {
   background-color: var(--color-cream-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* belt-and-suspenders for mobile */
 }
 
 /* ============================================
@@ -163,8 +165,16 @@ a:hover {
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  /* iPhone safe-area horizontal padding */
+  padding-left: max(1.25rem, env(safe-area-inset-left) + 1rem);
+  padding-right: max(1.25rem, env(safe-area-inset-right) + 1rem);
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: max(1.5rem, env(safe-area-inset-left) + 1.5rem);
+    padding-right: max(1.5rem, env(safe-area-inset-right) + 1.5rem);
+  }
 }
 
 .section {
@@ -207,6 +217,8 @@ a:hover {
   cursor: pointer;
   transition: all 0.25s ease;
   text-decoration: none;
+  touch-action: manipulation; /* eliminate 300ms tap delay on iOS */
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {

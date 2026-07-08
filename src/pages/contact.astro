@@ -235,19 +235,31 @@ const treatmentOptions = allTreatments.map(t => ({
               </div>
             </div>
 
-            <!-- Google Maps Embed -->
+            <!-- Google Maps Embed — Bali Silent Retreat -->
             <div class="map-embed">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.0395!2d115.2630!3d-8.5069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMzAnMjMuMiJTIDExNcKwMTUnNDMuMSJF!5e0!3m2!1sen!2sid!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.2036494793616!2d115.1326527!3d-8.4248589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd225ce6550b529%3A0x9762329b747fa3b!2sBali%20Silent%20Retreat!5e0!3m2!1sen!2sid!4v1720450000000"
                 width="100%"
-                height="300"
+                height="340"
                 style="border:0;"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                title="Ayurvedic Wellness House location"
+                title="Ayurvedic Wellness House — Bali Silent Retreat location on Google Maps"
               ></iframe>
             </div>
+            <!-- Open in Maps link -->
+            <a
+              href="https://maps.app.goo.gl/JDncqz7JfRuuXLhS7"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="map-directions-link"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+              </svg>
+              Get Directions
+            </a>
 
           </div>
 
@@ -580,6 +592,41 @@ const treatmentOptions = allTreatments.map(t => ({
     display: block;
     width: 100%;
     height: 300px;
+  }
+
+  .info-note {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--color-sage);
+    opacity: 0.8;
+    margin: 0.25rem 0 0;
+    font-style: italic;
+  }
+
+  /* Map Directions Link */
+  .map-directions-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.875rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-sage);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .map-directions-link:hover {
+    color: var(--color-olive);
+  }
+
+  .map-directions-link svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
   }
 
   @media (max-width: 768px) {
