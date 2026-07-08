@@ -1,0 +1,650 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+
+// Photo + Quote testimonials — replace src with real guest images
+const testimonials = [
+  {
+    src: '/images/testimonials/guest-1.webp',
+    alt: 'Guest testimonial — Ayurvedic Wellness House',
+    quote: 'After years of chronic tension, the Shirodhara session was the first time I felt genuine stillness. The difference was noticeable within minutes and held for days afterward.',
+    name: 'Guest',
+    location: 'Bali, Indonesia',
+  },
+  {
+    src: '/images/testimonials/guest-2.webp',
+    alt: 'Guest testimonial — Ayurvedic Wellness House',
+    quote: 'The consultation was thorough in a way I\'d never experienced elsewhere. Dr. Komang didn\'t just prescribe a treatment — she explained why.',
+    name: 'Guest',
+    location: 'Jakarta, Indonesia',
+  },
+  {
+    src: '/images/testimonials/guest-3.webp',
+    alt: 'Guest testimonial — Ayurvedic Wellness House',
+    quote: 'The combination of Ayurvedic and Nusantara healing traditions gave me insights I never expected. I left feeling renewed in body and spirit.',
+    name: 'Guest',
+    location: 'Singapore',
+  },
+  {
+    src: '/images/testimonials/guest-4.webp',
+    alt: 'Guest testimonial — Ayurvedic Wellness House',
+    quote: 'My week-long detox program was transformative. The team\'s knowledge and care made every session feel meaningful and deeply healing.',
+    name: 'Guest',
+    location: 'Surabaya, Indonesia',
+  },
+  {
+    src: '/images/testimonials/guest-5.webp',
+    alt: 'Guest testimonial — Ayurvedic Wellness House',
+    quote: 'I came for a consultation and left with a completely new understanding of my own body. This place changed my relationship with my health.',
+    name: 'Guest',
+    location: 'Denpasar, Bali',
+  },
+  {
+    src: '/images/testimonials/guest-6.webp',
+    alt: 'Guest testimonial — Ayurvedic Wellness House',
+    quote: 'The environment at Bali Silent Retreat felt like part of the treatment itself. Surrounded by nature, I was able to truly relax and let go.',
+    name: 'Guest',
+    location: 'Yogyakarta, Indonesia',
+  },
+];
+
+// Video testimonials
+const videoTestimonials = [
+  {
+    src: '/videos/testimonial-1.mp4',
+    poster: '/images/testimonials/video-poster-1.webp',
+    name: 'Guest',
+    location: 'Bali, Indonesia',
+  },
+  {
+    src: '/videos/testimonial-2.mp4',
+    poster: '/images/testimonials/video-poster-2.webp',
+    name: 'Guest',
+    location: 'Jakarta, Indonesia',
+  },
+];
+---
+
+<BaseLayout
+  title="Testimonials"
+  description="Guest experiences at Ayurvedic Wellness House — real stories from those who have begun their healing journey with us."
+>
+  <Navbar />
+
+  <main id="main-content">
+
+    <!-- Page Header -->
+    <section class="page-header section">
+      <div class="container">
+        <p class="page-eyebrow">Guest Experiences</p>
+        <h1 class="page-title">What Our Guests Say</h1>
+        <p class="page-description">
+          Real stories from those who have begun their healing journey with us.
+        </p>
+      </div>
+    </section>
+
+    <!-- Photo + Quote Carousel -->
+    <section class="testi section">
+      <div class="testi-carousel-wrap">
+        <div class="testi-carousel" id="testiCarousel">
+
+          {[...testimonials, ...testimonials].map((item, i) => (
+            <div class="testi-card">
+              <!-- Image -->
+              <div class="testi-card__img">
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  loading={i < 3 ? 'eager' : 'lazy'}
+                  onerror={`this.onerror=null; this.style.display='none'; this.parentElement.classList.add('img-missing');`}
+                />
+              </div>
+              <!-- Content -->
+              <div class="testi-card__body">
+                <div class="testi-card__quote-icon">
+                  <svg viewBox="0 0 36 28" fill="currentColor">
+                    <path d="M0 28V16.8C0 7.467 3.733 1.867 11.2 0L12 2.333C8.4 3.5 6.933 6.3 6.8 10.5H14V28H0zm22 0V16.8C22 7.467 25.733 1.867 33.2 0L34 2.333C30.4 3.5 28.933 6.3 28.8 10.5H36V28H22z"/>
+                  </svg>
+                </div>
+                <blockquote class="testi-card__quote">
+                  <p>{item.quote}</p>
+                </blockquote>
+                <div class="testi-card__meta">
+                  <div class="testi-card__line"></div>
+                  <p class="testi-card__name">{item.name}</p>
+                  <p class="testi-card__location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    {item.location}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider />
+
+    <!-- Video Testimonials -->
+    {videoTestimonials.length > 0 && (
+      <section class="videos section section--alt">
+        <div class="container">
+          <h2 class="videos__title">Guest Videos</h2>
+          <p class="videos__subtitle">Hear directly from our guests about their healing experience.</p>
+          <div class="videos__grid">
+            {videoTestimonials.map((item) => (
+              <div class="video-card">
+                <div class="video-card__media">
+                  <video
+                    src={item.src}
+                    poster={item.poster}
+                    controls
+                    preload="none"
+                    onerror={`this.onerror=null; this.parentElement.classList.add('media-error'); this.parentElement.innerHTML='<div class=\\'placeholder\\'><svg viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'1.5\\'><polygon points=\\'23 7 16 12 23 17 23 7\\'></polygon><rect x=\\'1\\' y=\\'5\\' width=\\'15\\' height=\\'14\\' rx=\\'2\\' ry=\\'2\\'></rect></svg><span>${item.src}</span></div>'`}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="video-card__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </div>
+                </div>
+                <div class="video-card__info">
+                  <p class="video-card__name">{item.name}</p>
+                  <p class="video-card__location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    {item.location}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <SectionDivider variant="simple" />
+
+    <!-- CTA -->
+    <section class="testi-cta section">
+      <div class="container">
+        <div class="cta-inner">
+          <h2 class="cta-title">Ready to Begin Your Healing Journey?</h2>
+          <p class="cta-text">
+            Every healing journey starts with a single step. We are here to guide yours.
+          </p>
+          <div class="cta-actions">
+            <a href="/contact" class="btn btn-primary">Book a Consultation</a>
+            <a href="/packages" class="btn btn-outline">View Wellness Programs</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  /* Page Header */
+  .page-header {
+    background-color: var(--color-cream-base);
+    padding-top: clamp(6rem, 12vw, 10rem);
+    padding-bottom: clamp(1rem, 2vw, 2.5rem);
+    text-align: center;
+  }
+
+  .testi.section {
+    padding-top: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .page-eyebrow {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2rem, 1.25rem + 3vw, 3.5rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1rem;
+  }
+
+  .page-description {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
+    color: var(--color-olive);
+    opacity: 0.75;
+    max-width: 40ch;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Testimonial Carousel */
+  .testi-carousel-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .testi-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    padding: 0.25rem 2rem 1.5rem;
+    /* hide scrollbar */
+    scrollbar-width: none;
+  }
+
+  .testi-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testi-carousel:active {
+    cursor: grabbing;
+  }
+
+  /* Testimonial Card */
+  .testi-card {
+    background-color: var(--color-cream-deep);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* carousel sizing */
+    flex: 0 0 clamp(18rem, 30vw, 24rem);
+  }
+
+  .testi-card__img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: var(--color-olive);
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .testi-card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .testi-card:hover .testi-card__img img {
+    transform: scale(1.05);
+  }
+
+  .testi-card__img.img-missing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-olive);
+  }
+
+  .testi-card__img.img-missing::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border: 2px solid rgba(250, 246, 240, 0.3);
+    border-radius: 50%;
+  }
+
+  .testi-card__body {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .testi-card__quote-icon {
+    width: 2rem;
+    height: auto;
+    color: var(--color-gold);
+    opacity: 0.5;
+    margin-bottom: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  .testi-card__quote-icon svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .testi-card__quote {
+    margin: 0 0 1.25rem;
+    flex: 1;
+  }
+
+  .testi-card__quote p {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(0.9375rem, 0.875rem + 0.25vw, 1.0625rem);
+    font-style: italic;
+    color: var(--color-olive);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .testi-card__meta {
+    margin-top: auto;
+  }
+
+  .testi-card__line {
+    width: 2rem;
+    height: 1px;
+    background-color: var(--color-gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .testi-card__name {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-olive);
+    margin: 0 0 0.25rem;
+  }
+
+  .testi-card__location {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--color-sage);
+    margin: 0;
+  }
+
+  .testi-card__location svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  /* Videos Section */
+  .videos__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.5rem, 1rem + 2vw, 2rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .videos__subtitle {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.7;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .videos__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .videos__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .video-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-card__media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background-color: var(--color-cream-deep);
+    overflow: hidden;
+  }
+
+  .video-card__media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .video-card__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: rgba(255, 255, 255, 0.92);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-olive);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .video-card__play svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.125rem;
+  }
+
+  .video-card:hover .video-card__play {
+    transform: translate(-50%, -50%) scale(1.1);
+    background-color: var(--color-gold);
+    color: white;
+  }
+
+  .video-card__media.media-error video {
+    display: none;
+  }
+
+  .video-card__media.media-error .placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-cream-deep);
+    color: var(--color-sage);
+    font-family: 'Karla', sans-serif;
+    font-size: 0.75rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .placeholder svg {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.4;
+  }
+
+  .video-card__info {
+    padding: 1rem 0 0;
+  }
+
+  .video-card__name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--color-olive);
+    margin-bottom: 0.25rem;
+  }
+
+  .video-card__location {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--color-sage);
+    margin: 0;
+  }
+
+  .video-card__location svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .cta-inner {
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-olive);
+    margin-bottom: 1rem;
+  }
+
+  .cta-text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.8;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-radius: 0.125rem;
+    border: 2px solid var(--color-sage);
+    background-color: transparent;
+    color: var(--color-olive);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+  }
+
+  .btn-outline:hover {
+    background-color: var(--color-sage);
+    color: white;
+  }
+</style>
+
+<script>
+  (function () {
+    var carousel = document.getElementById('testiCarousel');
+    if (!carousel) return;
+
+    var SPEED = 0.6;
+    var paused = false;
+    var isDragging = false;
+    var dragStartX = 0;
+    var scrollStartX = 0;
+    var touchStartX = 0;
+    var touchScrollX = 0;
+
+    // Seamless infinite loop — cards are duplicated x2 in the HTML
+    function loopIfNeeded() {
+      var half = carousel.scrollWidth / 2;
+      if (carousel.scrollLeft >= half) {
+        carousel.scrollLeft -= half;
+      }
+    }
+
+    // Auto-scroll tick via requestAnimationFrame
+    function tick() {
+      if (!paused && !isDragging) {
+        carousel.scrollLeft += SPEED;
+        loopIfNeeded();
+      }
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+
+    // Pause when mouse is over the carousel
+    carousel.addEventListener('mouseenter', function () { paused = true; });
+    carousel.addEventListener('mouseleave', function () { paused = false; });
+
+    // Mouse drag
+    carousel.addEventListener('mousedown', function (e) {
+      isDragging = true;
+      dragStartX = e.clientX;
+      scrollStartX = carousel.scrollLeft;
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      var delta = dragStartX - e.clientX;
+      carousel.scrollLeft = scrollStartX + delta;
+      loopIfNeeded();
+    });
+
+    window.addEventListener('mouseup', function () {
+      isDragging = false;
+    });
+
+    // Touch
+    carousel.addEventListener('touchstart', function (e) {
+      touchStartX = e.touches[0].clientX;
+      touchScrollX = carousel.scrollLeft;
+      paused = true;
+    }, { passive: true });
+
+    carousel.addEventListener('touchmove', function (e) {
+      var delta = touchStartX - e.touches[0].clientX;
+      carousel.scrollLeft = touchScrollX + delta;
+      loopIfNeeded();
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', function () {
+      paused = false;
+    });
+  })();
+</script>

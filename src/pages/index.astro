@@ -4,62 +4,11 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
-import TreatmentCard from '../components/TreatmentCard.astro';
-
-const featuredTreatments = [
-  {
-    name: 'Abhyanga',
-    description: 'Warm herbal oil applied over the full body to ease muscle tension, support circulation, and calm the nervous system.',
-    link: '/program#massage'
-  },
-  {
-    name: 'Shirodhara',
-    sanskritName: 'शिरोधारा',
-    description: 'A continuous stream of warm herbal oil poured over the forehead to induce deep relaxation and mental stillness.',
-    link: '/program#dhara'
-  },
-  {
-    name: 'Svedana',
-    sanskritName: 'स्वेदन',
-    description: 'Whole-body herbal steam that warms the tissues, loosens muscles, and supports the body\'s detoxification process.',
-    link: '/program#specialized'
-  },
-  {
-    name: 'Reflexology',
-    sanskritName: ' Padaabhyanga',
-    description: 'Targeted pressure applied to specific points on the feet and hands to relieve tension and support circulation.',
-    link: '/program#massage'
-  },
-  {
-    name: 'Pizhichil',
-    sanskritName: 'पिजिचिल',
-    description: 'A continuous flow of warm medicated oil combined with gentle massage strokes.',
-    link: '/program#massage'
-  },
-  {
-    name: 'Ayurvedic One-on-One',
-    description: 'A private consultation with an Ayurvedic practitioner to build a personalized wellness plan.',
-    link: '/contact'
-  }
-];
-
-const weeklyActivities = [
-  {
-    title: 'Ayurveda Introduction',
-    time: 'Tuesdays, 2:00 PM',
-    description: 'An introduction to core Ayurvedic principles for everyday health.'
-  },
-  {
-    title: 'Water Purification',
-    time: 'Fridays, 10:00 AM',
-    description: 'A traditional hot-spring purification practice, guided by a traditional healer.'
-  }
-];
 ---
 
 <BaseLayout
   title="Ayurvedic Wellness House"
-  description="Authentic Ayurvedic treatment led by Dr. Komang Sudarmi, BAMS., MS., PhD (Ayurveda). Combining traditional Indian Ayurveda with Indonesian healing wisdom."
+  description="Authentic Ayurvedic treatment combining traditional Indian medicine with Indonesian healing wisdom at Bali Silent Retreat."
 >
   <Navbar />
 
@@ -67,7 +16,6 @@ const weeklyActivities = [
 
     <!-- SECTION 1: Hero -->
     <section class="hero">
-      <!-- Hero Background Image -->
       <div class="hero__image" aria-hidden="true">
         <img
           src="/images/hero-desktop.webp"
@@ -76,174 +24,101 @@ const weeklyActivities = [
           loading="eager"
         />
       </div>
-      <!-- Dark overlay for text readability -->
       <div class="hero__overlay" aria-hidden="true"></div>
 
-      <!-- Hero Content -->
       <div class="hero__content">
         <div class="container">
-          <p class="hero__eyebrow">Ayurvedic Wellness House</p>
-          <h1 class="hero__title">Heal With The Ancient Wisdom.</h1>
-          <p class="hero__description">
-            Authentic Ayurvedic treatment led by a licensed physician. Combining traditional Indian medicine with Indonesian healing wisdom, each program is built around your specific constitution and health goals.
-          </p>
+          <h1 class="hero__title">Where Ayurveda Meets the Healing Wisdom of Nusantara</h1>
           <div class="hero__actions">
-            <a href="/program" class="btn btn-primary">View Programs</a>
-            <a href="/contact" class="btn btn-secondary">Get in Touch</a>
+            <a href="/contact" class="btn btn-primary">Book Consultation</a>
+            <a href="/program" class="btn btn-secondary">Explore Programs</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: Philosophy Intro -->
+    <!-- SECTION 2: Philosophy -->
     <section class="philosophy section">
       <div class="container">
         <div class="philosophy__inner">
-          <h2 class="philosophy__title">Our Approach</h2>
-          <div class="philosophy__content">
-            <p>
-              Ayurveda treats the whole person — body, mind, and spirit — not isolated symptoms. Every program begins with a consultation to understand your unique constitution (prakriti) and current imbalances (vikriti).
-            </p>
-            <p>
-              We draw from classical Ayurvedic texts, herbal medicine, therapeutic touch, and lifestyle guidance — adapted through clinical experience and ongoing research to build a personalized plan for you.
-            </p>
-          </div>
+          <h2 class="section-eyebrow">Our Philosophy</h2>
+          <h3 class="philosophy__title">Ancient Ayurveda. Traditional Indonesian (Nusantara) Wisdom. One Personalized Healing Journey.</h3>
+          <p class="philosophy__text">
+            At Ayurvedic Wellness House, we believe that true healing comes from understanding each person as a whole — body, mind, and spirit. We bring together the time-tested wisdom of Classical Ayurveda and the rich healing heritage of Nusantara to create personalized wellness experiences that honor both traditions.
+          </p>
         </div>
       </div>
     </section>
 
     <SectionDivider variant="simple" />
 
-    <!-- SECTION 3: Founder Strip -->
-    <section class="founder section section--alt">
+    <!-- SECTION 3: Why Choose Us -->
+    <section class="why-us section section--alt">
       <div class="container">
-        <div class="founder__inner">
-          <!-- Portrait -->
-          <div class="founder__portrait">
-            <a href="/about" class="founder__portrait-link">
-              <div class="founder__portrait-image">
-                <div class="founder__portrait-placeholder">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                    <polyline points="21 15 16 10 5 21"></polyline>
-                  </svg>
-                </div>
-                <span class="founder__portrait-label">[ dr-komang-portrait.webp — 800x1000px ]</span>
-              </div>
-            </a>
-          </div>
-
-          <!-- Bio -->
-          <div class="founder__bio">
-            <p class="founder__name">Dr. Komang Sudarmi, BAMS., MS., PhD (Ayurveda)</p>
-            <p class="founder__role">Ayurvedic Physician, Researcher, Educator</p>
-            <p class="founder__text">
-              Trained in India and Europe, Dr. Komang brings over two decades of clinical practice to Ayurvedic Wellness House. Her approach integrates classical Ayurvedic protocols with contemporary health science — rooted in tradition, informed by evidence.
-            </p>
-            <a href="/about" class="founder__link">
-              Learn more about Dr. Komang
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
+        <h2 class="section-eyebrow">Why Choose Us</h2>
+        <div class="why-us__grid">
+          <div class="why-us__card">
+            <div class="why-us__icon">
+              <!-- Sprout Icon representing Authentic Ayurveda -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 20h10"></path>
+                <path d="M12 20v-8"></path>
+                <path d="M12 12a5 5 0 0 0-5-5H3"></path>
+                <path d="M12 14a5 5 0 0 1 5-5h4"></path>
               </svg>
-            </a>
+            </div>
+            <h3 class="why-us__card-title">Authentic Ayurveda</h3>
+            <p class="why-us__card-text">Led by Dr. Komang Sudarmi — a licensed Ayurvedic physician with over a decade of clinical practice.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <SectionDivider />
-
-    <!-- SECTION 4: Featured Treatments -->
-    <section class="treatments section">
-      <div class="container">
-        <div class="treatments__header">
-          <h2 class="treatments__title">Core Treatments</h2>
-          <p class="treatments__subtitle">
-            Each therapy serves a specific purpose. Programs are designed around your consultation findings.
-          </p>
-        </div>
-        <div class="treatments__grid">
-          {featuredTreatments.map((treatment) => (
-            <TreatmentCard
-              name={treatment.name}
-              sanskritName={treatment.sanskritName}
-              description={treatment.description}
-              link={treatment.link}
-              featured={true}
-            />
-          ))}
-        </div>
-        <div class="treatments__cta">
-          <a href="/program" class="btn btn-outline">View All Treatments</a>
+          <div class="why-us__card">
+            <div class="why-us__icon">
+              <!-- Elegant Leaf Icon representing Nusantara Healing & Herbs -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8a8.5 8.5 0 0 1-9 10z"></path>
+                <path d="M19 2c-2.26 4.33-5.27 7.14-8 8"></path>
+              </svg>
+            </div>
+            <h3 class="why-us__card-title">Traditional Indonesian (Nusantara) Healing</h3>
+            <p class="why-us__card-text">Combining the healing wisdom of Indonesia's archipelago with authentic Ayurvedic protocols.</p>
+          </div>
+          <div class="why-us__card">
+            <div class="why-us__icon">
+              <!-- Heart Icon representing Personalized Programs -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+              </svg>
+            </div>
+            <h3 class="why-us__card-title">Personalized Programs</h3>
+            <p class="why-us__card-text">Every treatment plan begins with a consultation to understand your unique constitution and needs.</p>
+          </div>
+          <div class="why-us__card">
+            <div class="why-us__icon">
+              <!-- Mountain Icon representing Natural Healing at Batukaru -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
+                <path d="M12 21v-4"></path>
+              </svg>
+            </div>
+            <h3 class="why-us__card-title">Natural Healing</h3>
+            <p class="why-us__card-text">Set within Bali Silent Retreat — surrounded by rice fields, tropical forests, and Mount Batukaru.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <SectionDivider variant="simple" />
 
-    <!-- SECTION 5: Weekly Activities -->
-    <section class="activities section section--alt">
+    <!-- SECTION 4: CTA -->
+    <section class="home-cta section">
       <div class="container">
-        <div class="activities__header">
-          <h2 class="activities__title">Weekly Sessions</h2>
-        </div>
-        <div class="activities__grid">
-          {weeklyActivities.map((activity) => (
-            <div class="schedule-card">
-              <h3 class="schedule-card__title">{activity.title}</h3>
-              <p class="schedule-card__time">{activity.time}</p>
-              <p class="schedule-card__description">{activity.description}</p>
-            </div>
-          ))}
-        </div>
-        <p class="activities__location">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-          Meet at the co-work space above the office.
-        </p>
-      </div>
-    </section>
-
-    <SectionDivider />
-
-    <!-- SECTION 6: Guest Reflections -->
-    <section class="testimonials section">
-      <div class="container">
-        <div class="testimonials__header">
-          <h2 class="testimonials__title">Guest Reflections</h2>
-        </div>
-        <div class="testimonials__grid">
-          <div class="testimonial-card">
-            <p class="testimonial-card__quote">
-              "After years of chronic tension, the Shirodhara session was the first time I felt genuine stillness. The difference was noticeable within minutes and held for days afterward."
-            </p>
-            <p class="testimonial-card__author">[Guest Name]</p>
-          </div>
-          <div class="testimonial-card">
-            <p class="testimonial-card__quote">
-              "The consultation was thorough in a way I'd never experienced elsewhere. Dr. Komang didn't just prescribe a treatment — she explained why."
-            </p>
-            <p class="testimonial-card__author">[Guest Name]</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 7: Closing CTA -->
-    <section class="closing section section--dark">
-      <div class="container">
-        <div class="closing__inner">
-          <h2 class="closing__title">Begin Your Program</h2>
-          <p class="closing__text">
-            Every treatment plan starts with a consultation. We'll assess your constitution, discuss your health goals, and recommend a program tailored to you.
+        <div class="home-cta__inner">
+          <h2 class="home-cta__title">Begin Your Healing Journey</h2>
+          <p class="home-cta__text">
+            Whether you seek relief from specific health concerns, a deep detox, or simply a renewed sense of balance — we are here to guide you.
           </p>
-          <div class="closing__actions">
-            <a href="/contact" class="btn btn-secondary">Schedule a Consultation</a>
-            <a href="/packages" class="btn btn-outline-white">View Packages</a>
+          <div class="home-cta__actions">
+            <a href="/contact" class="btn btn-primary">Book a Consultation</a>
+            <a href="/packages" class="btn btn-outline">View Wellness Programs</a>
           </div>
         </div>
       </div>
@@ -256,15 +131,12 @@ const weeklyActivities = [
 </BaseLayout>
 
 <style>
-  /* ========================================
-     SECTION 1: Hero
-     ======================================== */
+  /* SECTION 1: Hero */
   .hero {
     position: relative;
     min-height: 100vh;
     display: flex;
-    align-items: flex-end;
-    padding-bottom: clamp(4rem, 8vw, 8rem);
+    align-items: center;
     overflow: hidden;
   }
 
@@ -287,8 +159,8 @@ const weeklyActivities = [
     z-index: 1;
     background: linear-gradient(
       to bottom,
-      rgba(20, 25, 15, 0.45) 0%,
-      rgba(20, 25, 15, 0.8) 100%
+      rgba(20, 25, 15, 0.5) 0%,
+      rgba(20, 25, 15, 0.75) 100%
     );
   }
 
@@ -296,9 +168,9 @@ const weeklyActivities = [
     .hero__overlay {
       background: linear-gradient(
         to right,
-        rgba(20, 25, 15, 0.88) 0%,
-        rgba(20, 25, 15, 0.65) 45%,
-        rgba(20, 25, 15, 0.35) 100%
+        rgba(20, 25, 15, 0.85) 0%,
+        rgba(20, 25, 15, 0.6) 45%,
+        rgba(20, 25, 15, 0.3) 100%
       );
     }
   }
@@ -308,36 +180,18 @@ const weeklyActivities = [
     z-index: 2;
     width: 100%;
     padding-top: 8rem;
-  }
-
-  .hero__eyebrow {
-    font-family: 'Karla', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-gold);
-    margin-bottom: 1rem;
+    padding-bottom: 4rem;
   }
 
   .hero__title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    font-size: clamp(2rem, 1.25rem + 4vw, 4rem);
     font-weight: 400;
     font-style: italic;
     color: var(--color-cream-base);
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    max-width: 14ch;
-  }
-
-  .hero__description {
-    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
-    color: var(--color-cream-base);
-    opacity: 0.9;
-    max-width: 50ch;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    max-width: 18ch;
   }
 
   .hero__actions {
@@ -346,207 +200,118 @@ const weeklyActivities = [
     gap: 1rem;
   }
 
-  /* ========================================
-     SECTION 2: Philosophy
-     ======================================== */
+  /* SECTION 2: Philosophy */
   .philosophy {
     background-color: var(--color-cream-base);
   }
 
   .philosophy__inner {
-    max-width: 48rem;
+    max-width: 52rem;
     margin: 0 auto;
     text-align: center;
   }
 
   .philosophy__title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: var(--text-h2);
+    font-size: clamp(1.5rem, 1rem + 2vw, 2.25rem);
     font-weight: 400;
     color: var(--color-olive);
-    margin-bottom: 2rem;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
   }
 
-  .philosophy__content {
-    text-align: left;
-  }
-
-  .philosophy__content p {
-    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+  .philosophy__text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
     color: var(--color-olive);
     opacity: 0.85;
     line-height: 1.75;
   }
 
-  /* ========================================
-     SECTION 3: Founder
-     ======================================== */
-  .founder__inner {
+  /* SECTION 3: Why Choose Us */
+  .why-us__grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  @media (min-width: 1024px) {
-    .founder__inner {
-      grid-template-columns: 5fr 7fr;
-      gap: 5rem;
-    }
-  }
-
-  .founder__portrait-link {
-    display: block;
-  }
-
-  .founder__portrait-image {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    background-color: var(--color-cream-base);
-  }
-
-  .founder__portrait-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-sage);
-    opacity: 0.4;
-  }
-
-  .founder__portrait-placeholder svg {
-    width: 4rem;
-    height: 4rem;
-  }
-
-  .founder__portrait-label {
-    position: absolute;
-    bottom: 0.75rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.6875rem;
-    color: var(--color-sage);
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.125rem;
-    white-space: nowrap;
-    font-family: 'Karla', monospace;
-  }
-
-  .founder__bio {
-    order: -1;
-  }
-
-  @media (min-width: 1024px) {
-    .founder__bio {
-      order: 0;
-    }
-  }
-
-  .founder__name {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
-    font-weight: 500;
-    color: var(--color-olive);
-    margin-bottom: 0.25rem;
-  }
-
-  .founder__role {
-    font-family: 'Karla', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-gold);
-    margin-bottom: 1.5rem;
-  }
-
-  .founder__text {
-    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
-    color: var(--color-olive);
-    opacity: 0.85;
-    line-height: 1.75;
-    margin-bottom: 1.5rem;
-  }
-
-  .founder__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'Karla', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-sage);
-    transition: color 0.2s ease;
-  }
-
-  .founder__link:hover {
-    color: var(--color-olive);
-  }
-
-  .founder__link svg {
-    width: 1rem;
-    height: 1rem;
-    transition: transform 0.2s ease;
-  }
-
-  .founder__link:hover svg {
-    transform: translateX(4px);
-  }
-
-  /* ========================================
-     SECTION 4: Featured Treatments
-     ======================================== */
-  .treatments {
-    background-color: var(--color-cream-base);
-  }
-
-  .treatments__header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .treatments__title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: var(--text-h2);
-    font-weight: 400;
-    color: var(--color-olive);
-    margin-bottom: 1rem;
-  }
-
-  .treatments__subtitle {
-    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
-    color: var(--color-olive);
-    opacity: 0.75;
-    max-width: 40ch;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    max-width: 64rem;
     margin: 0 auto;
   }
 
-  .treatments__grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1.5rem;
-  }
-
   @media (min-width: 640px) {
-    .treatments__grid {
+    .why-us__grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (min-width: 1024px) {
-    .treatments__grid {
-      grid-template-columns: repeat(3, 1fr);
+    .why-us__grid {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
-  .treatments__cta {
+  .why-us__card {
     text-align: center;
-    margin-top: 3rem;
+    padding: 1.5rem;
+  }
+
+  .why-us__icon {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 auto 1rem;
+    color: var(--color-gold);
+  }
+
+  .why-us__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .why-us__card-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-olive);
+    margin-bottom: 0.5rem;
+  }
+
+  .why-us__card-text {
+    font-size: 0.9375rem;
+    color: var(--color-sage);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* SECTION 4: CTA */
+  .home-cta {
+    background-color: var(--color-cream-base);
+  }
+
+  .home-cta__inner {
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  .home-cta__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1rem;
+  }
+
+  .home-cta__text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.8;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .home-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
   }
 
   .btn-outline {
@@ -574,146 +339,19 @@ const weeklyActivities = [
     color: white;
   }
 
-  /* ========================================
-     SECTION 5: Activities
-     ======================================== */
-  .activities__header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .activities__title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: var(--text-h2);
-    font-weight: 400;
-    color: var(--color-olive);
-  }
-
-  .activities__grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1.5rem;
-    max-width: 48rem;
-    margin: 0 auto 2rem;
-  }
-
-  @media (min-width: 640px) {
-    .activities__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .activities__location {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  /* Section eyebrow */
+  .section-eyebrow {
     font-family: 'Karla', sans-serif;
-    font-size: 0.875rem;
-    color: var(--color-sage);
-    text-align: center;
-  }
-
-  .activities__location svg {
-    width: 1.125rem;
-    height: 1.125rem;
-    color: var(--color-gold);
-  }
-
-  /* ========================================
-     SECTION 6: Testimonials
-     ======================================== */
-  .testimonials {
-    background-color: var(--color-cream-base);
-  }
-
-  .testimonials__header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .testimonials__title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: var(--text-h2);
-    font-weight: 400;
-    color: var(--color-olive);
-  }
-
-  .testimonials__grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-    max-width: 56rem;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 768px) {
-    .testimonials__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  /* ========================================
-     SECTION 7: Closing CTA
-     ======================================== */
-  .closing__inner {
-    text-align: center;
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  .closing__title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--color-cream-base);
-    margin-bottom: 1rem;
-  }
-
-  .closing__text {
-    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
-    color: var(--color-cream-base);
-    opacity: 0.85;
-    margin-bottom: 2rem;
-    line-height: 1.7;
-  }
-
-  .closing__actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .btn-outline-white {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.875rem 2rem;
-    font-family: 'Karla', sans-serif;
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    letter-spacing: 0.02em;
     text-transform: uppercase;
-    border-radius: 0.125rem;
-    border: 2px solid var(--color-cream-base);
-    background-color: transparent;
-    color: var(--color-cream-base);
-    cursor: pointer;
-    transition: all 0.25s ease;
-    text-decoration: none;
+    letter-spacing: 0.15em;
+    color: var(--color-gold);
+    text-align: center;
+    margin-bottom: 2rem;
   }
 
-  .btn-outline-white:hover {
-    background-color: var(--color-cream-base);
-    color: var(--color-olive);
-  }
-
-  /* ========================================
-     Responsive Adjustments
-     ======================================== */
+  /* Responsive */
   @media (max-width: 640px) {
     .hero {
       min-height: 85vh;

@@ -1,0 +1,351 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+---
+
+<BaseLayout
+  title="Our Healing Sanctuary"
+  description="Ayurvedic Wellness House is hosted at Bali Silent Retreat — a peaceful wellness destination surrounded by rice fields, tropical forests, and Mount Batukaru."
+>
+  <Navbar />
+
+  <main id="main-content">
+
+    <!-- Page Header -->
+    <section class="page-header section">
+      <div class="container">
+        <p class="page-eyebrow">Our Location</p>
+        <h1 class="page-title">Our Healing Sanctuary</h1>
+        <p class="page-subtitle">Hosted at Bali Silent Retreat</p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="sanctuary-intro section">
+      <div class="container">
+        <div class="sanctuary-intro__inner">
+          <h2 class="sanctuary-intro__lead">
+            Healing is not only about the treatments you receive — it is also about the environment that surrounds you.
+          </h2>
+          <div class="sanctuary-intro__text">
+            <p>
+              Ayurvedic Wellness House is proudly hosted within <strong>Bali Silent Retreat</strong>, a peaceful wellness destination in the heart of Bali. Surrounded by rice fields, tropical forests, and the breathtaking views of Mount Batukaru, our location offers the ideal setting to rest, reconnect, and restore your well-being.
+            </p>
+            <p>
+              Whether you are visiting for a consultation, a wellness experience, or a multi-day detox program, the calm atmosphere of Bali Silent Retreat becomes an important part of your healing journey.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider />
+
+    <!-- A Place Designed for Healing -->
+    <section class="highlights section section--alt">
+      <div class="container">
+        <h2 class="highlights__title">A Place Designed for Healing</h2>
+        <p class="highlights__subtitle">Our guests enjoy a tranquil environment where nature encourages deep relaxation and reflection.</p>
+        <div class="highlights__grid">
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <h3>Spectacular Views of Mount Batukaru</h3>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+            </div>
+            <h3>Peaceful Rice Field Surroundings</h3>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+              </svg>
+            </div>
+            <h3>Fresh Mountain Air</h3>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <h3>Quiet Spaces for Meditation and Relaxation</h3>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3>Beautiful Tropical Gardens</h3>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </div>
+            <h3>A Natural Environment That Supports Rest and Renewal</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider variant="simple" />
+
+    <!-- Why This Location -->
+    <section class="why-location section">
+      <div class="container">
+        <div class="why-location__inner">
+          <h2 class="why-location__title">Why This Location?</h2>
+          <p class="why-location__text">
+            We believe that true healing happens when professional care is combined with a peaceful environment.
+          </p>
+          <p class="why-location__text">
+            The combination of authentic Ayurveda, the healing traditions of Nusantara, and the serene surroundings of Bali Silent Retreat creates a unique opportunity to step away from daily life, reconnect with yourself, and embrace a healthier way of living.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider />
+
+    <!-- Accommodation Note -->
+    <section class="accommodation-note section section--dark">
+      <div class="container">
+        <div class="note-inner">
+          <p class="note-text">
+            <strong>Note:</strong> For accommodation and meal bookings, please visit
+          </p>
+          <a href="https://www.balisilentretreat.com" target="_blank" rel="noopener noreferrer" class="note-link btn btn-secondary">
+            Bali Silent Retreat
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  .page-header {
+    background-color: var(--color-cream-base);
+    padding-top: clamp(6rem, 12vw, 10rem);
+    padding-bottom: clamp(1rem, 2vw, 2.5rem);
+    text-align: center;
+  }
+
+  .sanctuary-intro.section {
+    padding-top: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .page-eyebrow {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2rem, 1.25rem + 3vw, 3.5rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    font-family: 'Karla', sans-serif;
+    font-size: 1rem;
+    color: var(--color-sage);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* Sanctuary Intro */
+  .sanctuary-intro__inner {
+    max-width: 52rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .sanctuary-intro__lead {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.375rem, 1rem + 1.5vw, 1.875rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-olive);
+    line-height: 1.4;
+    margin-bottom: 2rem;
+  }
+
+  .sanctuary-intro__text p {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.85;
+    line-height: 1.75;
+    text-align: left;
+  }
+
+  /* Highlights */
+  .highlights__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.5rem, 1rem + 2vw, 2rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .highlights__subtitle {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.75;
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+  }
+
+  .highlights__grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .highlights__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--color-cream-base);
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .highlight-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    color: var(--color-gold);
+    margin-top: 0.125rem;
+  }
+
+  .highlight-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .highlight-item h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-olive);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Why Location */
+  .why-location__inner {
+    max-width: 40rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .why-location__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.5rem, 1rem + 2vw, 2rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1.5rem;
+  }
+
+  .why-location__text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.85;
+    line-height: 1.75;
+    text-align: left;
+  }
+
+  /* Accommodation Note */
+  .note-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .note-text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-cream-base);
+    opacity: 0.9;
+    line-height: 1.6;
+  }
+
+  .note-text strong {
+    color: var(--color-gold);
+  }
+
+  .note-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    border-radius: 0.125rem;
+    border: 2px solid var(--color-cream-base);
+    background-color: transparent;
+    color: var(--color-cream-base);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+  }
+
+  .note-link:hover {
+    background-color: var(--color-cream-base);
+    color: var(--color-olive);
+  }
+
+  .note-link svg {
+    width: 1rem;
+    height: 1rem;
+  }
+</style>

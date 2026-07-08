@@ -11,34 +11,13 @@ gsap.registerPlugin(ScrollTrigger);
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 // ============================================
-// Navbar Scroll Effects
+// Navbar Scroll Effects — handled by Navbar.astro inline script
+// (removed duplicate handler to prevent conflicts)
 // ============================================
 function initNavbarScroll() {
-  const navbar = document.getElementById('navbar');
-  if (!navbar) return;
-
-  if (prefersReducedMotion.matches) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    }, { passive: true });
-    return;
-  }
-
-  // GSAP-powered scroll effects
-  ScrollTrigger.create({
-    start: 'top -80',
-    onUpdate: (self) => {
-      if (self.direction === 1 && self.progress > 0) {
-        navbar.classList.add('scrolled');
-      } else if (self.progress === 0) {
-        navbar.classList.remove('scrolled');
-      }
-    }
-  });
+  // NO-OP: Navbar.astro handles scroll effects via its own inline script
+  // This function is kept for compatibility but does nothing
+  // to prevent double-scroll-handler conflicts on Mac/iOS
 }
 
 // ============================================

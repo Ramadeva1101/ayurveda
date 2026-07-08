@@ -38,8 +38,6 @@ const treatmentOptions = allTreatments.map(t => ({
       </div>
     </section>
 
-    <SectionDivider variant="simple" />
-
     <!-- Main Contact Section -->
     <section class="contact section">
       <div class="container">
@@ -214,9 +212,9 @@ const treatmentOptions = allTreatments.map(t => ({
                     </svg>
                   </div>
                   <div>
-                    <!-- TODO: replace with the client's actual operating hours -->
                     <p class="info-label">Hours</p>
-                    <p class="info-value">Mon–Sat, 9:00 AM–6:00 PM<br />Closed Sundays and public holidays</p>
+                    <p class="info-value">Mon–Sat, 9:00 AM–5:00 PM</p>
+                    <p class="info-note">Prior booking is required</p>
                   </div>
                 </div>
 
@@ -268,8 +266,12 @@ const treatmentOptions = allTreatments.map(t => ({
   .page-header {
     background-color: var(--color-cream-base);
     padding-top: clamp(6rem, 12vw, 10rem);
-    padding-bottom: clamp(3rem, 6vw, 6rem);
+    padding-bottom: clamp(1rem, 2vw, 2.5rem);
     text-align: center;
+  }
+
+  .contact.section {
+    padding-top: clamp(1.5rem, 3vw, 3rem);
   }
 
   .page-eyebrow {

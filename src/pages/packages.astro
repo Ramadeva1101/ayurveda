@@ -19,12 +19,6 @@ const packages = [
       'Diet & lifestyle recommendations',
       'Treatment plan',
     ],
-    excludes: [
-      'Accommodation',
-      'Meals',
-      'Herbal medicines',
-      'Treatments',
-    ],
     badge: null,
     featured: false,
   },
@@ -41,11 +35,6 @@ const packages = [
       'Personalized diet plan',
       'Lifestyle coaching',
       'Home care guide',
-    ],
-    excludes: [
-      'Accommodation',
-      'Meals',
-      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -64,11 +53,6 @@ const packages = [
       'Diet plan',
       'Lifestyle coaching',
       '7-day follow-up',
-    ],
-    excludes: [
-      'Accommodation',
-      'Meals',
-      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -89,11 +73,6 @@ const packages = [
       'Home care plan',
       'Follow up home program',
     ],
-    excludes: [
-      'Accommodation',
-      'Meals',
-      'Transportation',
-    ],
     badge: null,
     featured: false,
   },
@@ -112,11 +91,6 @@ const packages = [
       'Diet plan',
       'Lifestyle coaching',
       'Follow up home program',
-    ],
-    excludes: [
-      'Accommodation',
-      'Meals',
-      'Transportation',
     ],
     badge: 'Most Popular',
     featured: true,
@@ -137,11 +111,6 @@ const packages = [
       'Lifestyle coaching',
       'Follow up home program',
     ],
-    excludes: [
-      'Accommodation',
-      'Meals',
-      'Transportation',
-    ],
     badge: null,
     featured: false,
   },
@@ -160,11 +129,6 @@ const packages = [
       'Diet plan',
       'Lifestyle coaching',
       'Follow up home program',
-    ],
-    excludes: [
-      'Accommodation',
-      'Meals',
-      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -185,11 +149,6 @@ const packages = [
       'Lifestyle coaching',
       'Follow up home program',
     ],
-    excludes: [
-      'Accommodation',
-      'Meals',
-      'Transportation',
-    ],
     badge: null,
     featured: false,
   },
@@ -197,8 +156,8 @@ const packages = [
 ---
 
 <BaseLayout
-  title="Our Wellness Packages"
-  description="Treatment packages at Ayurvedic Wellness House — from single-session introductions to multi-session deep restore programs, all built on classical Ayurvedic principles."
+  title="Our Wellness Programs"
+  description="Treatment programs at Ayurvedic Wellness House — from one-day experiences to 21-day classical Panchakarma, all built on classical Ayurvedic and Nusantara healing principles."
 >
   <Navbar />
 
@@ -207,15 +166,13 @@ const packages = [
     <!-- Page Header -->
     <section class="page-header section">
       <div class="container">
-        <p class="page-eyebrow">Travel Agent Programme Catalogue</p>
-        <h1 class="page-title">Our Wellness Packages</h1>
+        <p class="page-eyebrow">Rejuvenation &amp; Detox Programs</p>
+        <h1 class="page-title">Our Wellness Programs</h1>
         <p class="page-description">
-          Each package is designed around a specific wellness goal. All programs include consultation, personalized treatments, and follow-up support.
+          Each program is designed around a specific wellness goal. All programs include consultation, personalized treatments, and follow-up support. Operating from 9am–5pm. Prior booking is required.
         </p>
       </div>
     </section>
-
-    <SectionDivider variant="simple" />
 
     <!-- Package Cards -->
     <section class="packages section">
@@ -259,20 +216,6 @@ const packages = [
                   ))}
                 </ul>
               </div>
-              <div class="package-excludes">
-                <p class="excludes-label">Excludes</p>
-                <ul class="excludes-list">
-                  {pkg.excludes.map((item) => (
-                    <li>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
               <a href="/contact" class:list={['package-btn', { 'btn': true, 'btn-primary': pkg.featured, 'btn-outline': !pkg.featured }]}>Book Now</a>
             </article>
           ))}
@@ -304,12 +247,15 @@ const packages = [
 </BaseLayout>
 
 <style>
-  /* Page Header */
   .page-header {
     background-color: var(--color-cream-base);
     padding-top: clamp(6rem, 12vw, 10rem);
-    padding-bottom: clamp(3rem, 6vw, 6rem);
+    padding-bottom: clamp(1rem, 2vw, 2.5rem);
     text-align: center;
+  }
+
+  .packages.section {
+    padding-top: clamp(1.5rem, 3vw, 3rem);
   }
 
   .page-eyebrow {
