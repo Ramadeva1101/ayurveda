@@ -165,9 +165,17 @@ a:hover {
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  /* iPhone safe-area horizontal padding */
+  /* iPhone safe-area horizontal padding with explicit fallback */
   padding-left: max(1.25rem, env(safe-area-inset-left) + 1rem);
   padding-right: max(1.25rem, env(safe-area-inset-right) + 1rem);
+}
+
+/* Safari < 15 fallback: use explicit padding when env() is not supported */
+@supports not (padding-left: max(1px, env(safe-area-inset-left))) {
+  .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }
 
 @media (min-width: 640px) {
