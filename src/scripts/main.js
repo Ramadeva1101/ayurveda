@@ -75,9 +75,9 @@ function initScrollAnimations() {
   });
 
   // Stagger animation for cards using ScrollTrigger.batch
-  // This correctly staggers elements that enter the viewport at the same time,
-  // preventing huge delays for elements further down the page.
-  ScrollTrigger.batch('.treatment-card, .package-card, .profile-card, .why-us__card, .special-card-wrapper', {
+  // Note: .treatment-card and .special-card-wrapper have been removed to prevent 
+  // flashing/FOUC and ensure images load smoothly and are immediately visible.
+  ScrollTrigger.batch('.package-card, .profile-card, .why-us__card', {
     start: 'top 90%',
     onEnter: batch => gsap.fromTo(batch,
       { opacity: 0, y: 40 },
