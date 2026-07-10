@@ -9,7 +9,7 @@ import { getCollection } from 'astro:content';
 
 const allTreatments = await getCollection('treatments');
 
-// Image mapping for treatments
+// Image mapping for treatments (matching actual filenames in /public/images/)
 const treatmentImages: Record<string, string> = {
   'Abhyanga': '/images/abhyanga.webp',
   'Udvartana': '/images/udvartana.webp',
@@ -18,14 +18,14 @@ const treatmentImages: Record<string, string> = {
   'Pizhichil': '/images/pizzichil.webp',
   'Shirodhara': '/images/shirodhara.webp',
   'Takradhara': '/images/takradhara.webp',
-  'Netra Tarpana': '/images/netra-tarpana.webp',
-  'Karna Purana': '/images/karna-purana.webp',
+  'Netra Tarpana': '/images/netra tarpana.webp',
+  'Karna Purana': '/images/karna porna.webp',
   'Nasya': '/images/nasya.webp',
-  'Hrdaya Basti': '/images/hrdaya-basti.webp',
-  'Cakra Basti': '/images/cakra-basti.webp',
-  'Greeva Basti': '/images/greeva-basti.webp',
-  'Kati Basti': '/images/kati-basti.webp',
-  'Janu Basti': '/images/janu-basti.webp',
+  'Hrdaya Basti': '/images/hrdaya basti.webp',
+  'Cakra Basti': '/images/cakra basti.webp',
+  'Greeva Basti': '/images/greeva basti.webp',
+  'Kati Basti': '/images/kati basti.webp',
+  'Janu Basti': '/images/janu basti.webp',
   'Reflexology': '/images/reflexio.webp',
   'Svedana': '/images/svedana.webp',
 };
