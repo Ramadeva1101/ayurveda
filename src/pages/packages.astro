@@ -7,34 +7,43 @@ import SectionDivider from '../components/SectionDivider.astro';
 
 const packages = [
   {
-    name: 'Ayurvedic Consultation',
-    duration: '60 Minutes',
-    price: 'IDR 900,000',
+    name: 'Ayurvedic One on One by Doc.K',
+    duration: '45 Minutes',
+    price: 'IDR 700,000',
     highlight: 'Perfect before starting any wellness program.',
     includes: [
-      'Comprehensive consultation',
+      'Comprehensive Ayurvedic One on One',
+      'Herbal drink',
       'Pulse diagnosis',
       'Dosha assessment',
       'Personalized health report',
       'Diet & lifestyle recommendations',
       'Treatment plan',
     ],
+    excludes: [
+      'Accommodation',
+      'Meals',
+      'Herbal medicines',
+      'Treatments',
+    ],
     badge: null,
     featured: false,
   },
   {
     name: 'One-Day Ayurvedic Experience',
-    duration: '1 Day (6–8 Hours)',
-    price: 'IDR 3,250,000',
+    duration: '1 Day (day-pass required to be booked separately @ https://www.balisilentretreat.com)',
+    price: 'IDR 2,500,000',
     highlight: 'Doctor-led authentic Ayurveda.',
     includes: [
-      'Initial consultation',
-      'Two personalized Ayurvedic treatments',
-      'Herbal medicines',
-      'Ayurvedic herbal drinks',
-      'Personalized diet plan',
-      'Lifestyle coaching',
-      'Home care guide',
+      'Comprehensive Ayurvedic One on One',
+      'Herbal drink',
+      'Personalized Ayurvedic Treatment',
+      'Javanese point pressure (Nusantara Therapy)',
+    ],
+    excludes: [
+      'Accommodation',
+      'Meals',
+      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -42,17 +51,19 @@ const packages = [
   {
     name: '3-Day Ayurvedic Nusantara Detox',
     duration: '3 Days',
-    price: 'IDR 9,900,000',
+    price: 'IDR 5,900,000',
     highlight: 'Perfect introduction to Ayurvedic detox.',
     includes: [
-      'Initial and final consultation',
-      'One day session of Ayurveda Nusantara Healing session',
-      'Daily personalized treatments (2 Ayurvedic treatments)',
-      'Herbal medicines',
-      'Detox home protocol',
-      'Diet plan',
-      'Lifestyle coaching',
-      '7-day follow-up',
+      'Initial Comprehensive Ayurvedic One on One',
+      'Herbal drink',
+      'Personalized Ayurvedic Therapy (2 Therapy)',
+      'Javanese point pressure (Nusantara Therapy)',
+      'Final Ayurvedic One on One',
+    ],
+    excludes: [
+      'Accommodation',
+      'Meals',
+      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -60,18 +71,21 @@ const packages = [
   {
     name: '5-Day Ayurvedic Nusantara Detox',
     duration: '5 Days',
-    price: 'IDR 15,900,000',
-    highlight: 'A complete wellness reset.',
+    price: 'IDR 9,800,000',
+    highlight: 'Initial detox experience.',
     includes: [
-      'Initial, detox day and final consultation',
-      'One day session of Ayurveda Nusantara Healing session',
-      'Daily treatments (4 times)',
-      'Personalized herbs',
+      'Initial Comprehensive Ayurvedic One on One',
+      'Herbal drink',
+      'Personalized Ayurvedic Therapy (4 Therapy)',
+      'Javanese point pressure (Nusantara Therapy)',
       'Detox program (one day)',
-      'Ayurvedic activities every week (Introduction ayurveda, water purification)',
-      'Lifestyle coaching',
-      'Home care plan',
-      'Follow up home program',
+      'Ayurvedic activities every week hosted at Bali Silent Retreat (Introduction ayurveda, water purification)',
+      'Final Ayurvedic One on One',
+    ],
+    excludes: [
+      'Accommodation',
+      'Meals',
+      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -79,18 +93,21 @@ const packages = [
   {
     name: '7-Day Ayurvedic Nusantara Detox',
     duration: '7 Days',
-    price: 'IDR 21,900,000',
-    highlight: 'Our most popular signature program.',
+    price: 'IDR 15,000,000',
+    highlight: 'Our most popular detox program.',
     includes: [
-      'Initial, detox day and final consultation',
-      'One day session of Ayurveda Nusantara Healing session',
-      'Daily treatments (6 times)',
-      'Herbal medicines',
-      'Detox program (one or two — if needed)',
-      'Ayurvedic activities every week (Introduction ayurveda, water purification)',
-      'Diet plan',
-      'Lifestyle coaching',
-      'Follow up home program',
+      'Initial Comprehensive Ayurvedic One on One',
+      'Herbal drink',
+      'Personalized Ayurvedic Therapy (6 Therapy)',
+      'Javanese point pressure (Nusantara Therapy)',
+      'Detox program with consultation (One time)',
+      'Ayurvedic activities every week hosted at Bali Silent Retreat (Introduction ayurveda, water purification)',
+      'Final Ayurvedic One on One',
+    ],
+    excludes: [
+      'Accommodation',
+      'Meals',
+      'Transportation',
     ],
     badge: 'Most Popular',
     featured: true,
@@ -98,18 +115,21 @@ const packages = [
   {
     name: '10-Day Ayurvedic Nusantara Deep Detox',
     duration: '10 Days',
-    price: 'IDR 29,900,000',
+    price: 'IDR 21,000,000',
     highlight: 'For deeper detoxification.',
     includes: [
-      'Initial, detox day and final consultation',
-      'One day session of Ayurveda Nusantara Healing session',
-      'Daily treatments (9 times)',
-      'Herbal medicines',
-      'Detox program (extended deep detox advice)',
-      'Ayurvedic activities every week (Introduction ayurveda, water purification)',
-      'Diet plan',
-      'Lifestyle coaching',
-      'Follow up home program',
+      'Initial Comprehensive Ayurvedic One on One',
+      'Herbal drink',
+      'Personalized Ayurvedic Therapy (9 Therapy)',
+      'Javanese point pressure (Nusantara Therapy – one time)',
+      'Detox program with consultation (Two times)',
+      'Ayurvedic activities every week hosted at Bali Silent Retreat (Introduction ayurveda, water purification)',
+      'Final Ayurvedic One on One',
+    ],
+    excludes: [
+      'Accommodation',
+      'Meals',
+      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -117,18 +137,21 @@ const packages = [
   {
     name: '14-Day Ayurvedic Nusantara Deep Detox + Rejuvenation',
     duration: '14 Days',
-    price: 'IDR 39,900,000',
-    highlight: 'Premium physician-led rejuvenation.',
+    price: 'IDR 29,000,000',
+    highlight: 'Premium physician-led detox and rejuvenation.',
     includes: [
-      'Initial, detox day and final consultation',
-      'One day session of Ayurveda Nusantara Healing session',
-      'Daily treatments (13 times)',
-      'Herbal medicines',
-      'Detox program (extended deep detox advice)',
-      'Ayurvedic activities every week (Introduction ayurveda, water purification)',
-      'Diet plan',
-      'Lifestyle coaching',
-      'Follow up home program',
+      'Initial Comprehensive Ayurvedic One on One',
+      'Herbal drink',
+      'Personalized Ayurvedic Therapy (12 Therapy)',
+      'Javanese point pressure (Nusantara Therapy – 2 times)',
+      'Detox program with consultation (Two times)',
+      'Ayurvedic activities every week hosted at Bali Silent Retreat (Introduction ayurveda, water purification)',
+      'Final Ayurvedic One on One',
+    ],
+    excludes: [
+      'Accommodation',
+      'Meals',
+      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -136,18 +159,21 @@ const packages = [
   {
     name: '21-Day Classical Ayurvedic Nusantara Deep Detox + Rejuvenation',
     duration: '21 Days',
-    price: 'IDR 59,900,000',
+    price: 'IDR 43,000,000',
     highlight: 'Our most comprehensive program.',
     includes: [
-      'Initial, detox day and final consultation',
-      'One day session of Ayurveda Nusantara Healing session',
-      'Daily treatments (20 times)',
-      'Herbal medicines',
-      'Detox program (extended classical deep detox advice)',
-      'Ayurvedic activities every week (Introduction ayurveda, water purification)',
-      'Diet plan',
-      'Lifestyle coaching',
-      'Follow up home program',
+      'Initial Comprehensive Ayurvedic One on One',
+      'Herbal drink',
+      'Personalized Ayurvedic Therapy (12 Therapy)',
+      'Javanese point pressure (Nusantara Therapy – 3 times)',
+      'Detox program with consultation (Three times)',
+      'Ayurvedic activities every week hosted at Bali Silent Retreat (Introduction ayurveda, water purification)',
+      'Final Ayurvedic One on One',
+    ],
+    excludes: [
+      'Accommodation',
+      'Meals',
+      'Transportation',
     ],
     badge: null,
     featured: false,
@@ -216,6 +242,22 @@ const packages = [
                   ))}
                 </ul>
               </div>
+              {pkg.excludes && pkg.excludes.length > 0 && (
+                <div class="package-excludes">
+                  <p class="excludes-label">Excludes</p>
+                  <ul class="excludes-list">
+                    {pkg.excludes.map((item) => (
+                      <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <a href="/contact" class:list={['package-btn', { 'btn': true, 'btn-primary': pkg.featured, 'btn-outline': !pkg.featured }]}>Book Now</a>
             </article>
           ))}
