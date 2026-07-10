@@ -36,12 +36,11 @@ const fetchPriority = isAboveFold ? 'high' : 'auto';
       <img
         src={image}
         alt={name}
-        loading={loadingStrategy}
-        decoding={isAboveFold ? 'sync' : 'async'}
+        loading="eager"
+        decoding="sync"
         width="800"
         height="600"
         fetchpriority={fetchPriority}
-        style="content-visibility: auto;"
       />
     ) : (
       <div class="treatment-card__placeholder">
