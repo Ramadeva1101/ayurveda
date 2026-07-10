@@ -29,10 +29,12 @@ const {
       <img
         src={image}
         alt={name}
-        loading="lazy"
+        loading={featured ? 'eager' : 'lazy'}
         decoding="async"
-        width="400"
-        height="300"
+        width="800"
+        height="600"
+        fetchpriority={featured ? 'high' : 'auto'}
+        style="content-visibility: auto;"
       />
     ) : (
       <div class="treatment-card__placeholder">

@@ -89,6 +89,12 @@ const jsonLd = {
 
     <!-- Sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Performance: Preload critical assets -->
+    <link rel="preload" as="image" href="/images/hero-desktop.webp" fetchpriority="high" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   </head>
   <body>
     <!-- Skip to Content -->

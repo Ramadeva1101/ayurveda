@@ -54,7 +54,7 @@ const testimonials = [
 // Video testimonials - YouTube embeds
 const videoTestimonials = [
   {
-    youtubeId: 'kDPDrHDc-zI',
+    youtubeId: 'ouCT1nhIm00',
     name: 'Guest',
     location: 'Bali, Indonesia',
   },
@@ -141,15 +141,19 @@ const videoTestimonials = [
           <div class="videos__grid">
             {videoTestimonials.map((item) => (
               <div class="video-card">
-                <div class="video-card__media">
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?rel=0&modestbranding=1`}
-                    title="Guest Testimonial"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
+                <div class="video-card__media video-thumbnail" data-video-id={item.youtubeId}>
+                  <img
+                    src={`https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg`}
+                    alt="Video testimonial thumbnail"
                     loading="lazy"
-                  ></iframe>
+                    width="480"
+                    height="270"
+                  />
+                  <button class="play-btn" aria-label="Play video">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </button>
                 </div>
                 <div class="video-card__info">
                   <p class="video-card__name">{item.name}</p>
@@ -419,8 +423,54 @@ const videoTestimonials = [
     aspect-ratio: 16 / 9;
     background-color: var(--color-cream-deep);
     overflow: hidden;
+    cursor: pointer;
   }
 
+  .video-card__media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .video-card:hover .video-card__media img {
+    transform: scale(1.05);
+  }
+
+  .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(255, 255, 255, 0.92);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-olive);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .play-btn svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 0.125rem;
+  }
+
+  .video-card:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
+    background-color: var(--color-gold);
+    color: white;
+  }
+
+  /* Loaded iframe state */
   .video-card__media iframe {
     position: absolute;
     top: 0;
@@ -428,61 +478,6 @@ const videoTestimonials = [
     width: 100%;
     height: 100%;
     border: none;
-  }
-
-  .video-card__play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    width: 3.5rem;
-    height: 3.5rem;
-    background-color: rgba(255, 255, 255, 0.92);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-olive);
-    transition: all 0.3s ease;
-    pointer-events: none;
-  }
-
-  .video-card__play svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-left: 0.125rem;
-  }
-
-  .video-card:hover .video-card__play {
-    transform: translate(-50%, -50%) scale(1.1);
-    background-color: var(--color-gold);
-    color: white;
-  }
-
-  .video-card__media.media-error video {
-    display: none;
-  }
-
-  .video-card__media.media-error .placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-cream-deep);
-    color: var(--color-sage);
-    font-family: 'Karla', sans-serif;
-    font-size: 0.75rem;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .placeholder svg {
-    width: 2rem;
-    height: 2rem;
-    opacity: 0.4;
   }
 
   .video-card__info {
@@ -571,6 +566,24 @@ const videoTestimonials = [
 </style>
 
 <script>
+  // Video thumbnail click-to-load (lazy load YouTube iframe on click)
+  document.querySelectorAll('.video-thumbnail').forEach(function(container) {
+    var btn = container.querySelector('.play-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      var videoId = container.dataset.videoId;
+      if (!videoId) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1';
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('loading', 'lazy');
+      container.innerHTML = '';
+      container.appendChild(iframe);
+    });
+  });
+
+  // Carousel auto-scroll + drag
   (function () {
     var carousel = document.getElementById('testiCarousel');
     if (!carousel) return;
@@ -583,7 +596,6 @@ const videoTestimonials = [
     var touchStartX = 0;
     var touchScrollX = 0;
 
-    // Seamless infinite loop — cards are duplicated x2 in the HTML
     function loopIfNeeded() {
       var half = carousel.scrollWidth / 2;
       if (carousel.scrollLeft >= half) {
@@ -591,7 +603,6 @@ const videoTestimonials = [
       }
     }
 
-    // Auto-scroll tick via requestAnimationFrame
     function tick() {
       if (!paused && !isDragging) {
         carousel.scrollLeft += SPEED;
@@ -602,11 +613,9 @@ const videoTestimonials = [
 
     requestAnimationFrame(tick);
 
-    // Pause when mouse is over the carousel
     carousel.addEventListener('mouseenter', function () { paused = true; });
     carousel.addEventListener('mouseleave', function () { paused = false; });
 
-    // Mouse drag
     carousel.addEventListener('mousedown', function (e) {
       isDragging = true;
       dragStartX = e.clientX;
@@ -624,7 +633,6 @@ const videoTestimonials = [
       isDragging = false;
     });
 
-    // Touch
     carousel.addEventListener('touchstart', function (e) {
       touchStartX = e.touches[0].clientX;
       touchScrollX = carousel.scrollLeft;

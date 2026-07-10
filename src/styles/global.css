@@ -367,3 +367,45 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
+/* ============================================
+   Image Optimization — Global
+   ============================================ */
+
+/* Smooth image rendering for all images */
+img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: auto;
+  /* Prevent layout shift while images load */
+  display: block;
+}
+
+/* Hero image — rendered immediately, no lazy tricks */
+.hero__bg-img {
+  will-change: transform;
+  transform: translateZ(0); /* GPU acceleration hint */
+}
+
+/* Portrait / team images — load progressively with fade-in */
+.founder-portrait__img,
+.member-portrait__img {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.founder-portrait__img[data-loading="true"],
+.member-portrait__img[data-loading="true"] {
+  opacity: 0;
+}
+
+/* Treatment card images — prevent layout shift */
+.treatment-card__image img {
+  will-change: transform; /* for hover scale animation */
+}
+
+/* Logo images */
+.navbar__logo-img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
