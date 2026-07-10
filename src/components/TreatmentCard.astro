@@ -26,7 +26,14 @@ const {
   <!-- Photo -->
   <div class="treatment-card__image">
     {image ? (
-      <img src={image} alt={name} loading="lazy" />
+      <img
+        src={image}
+        alt={name}
+        loading="lazy"
+        decoding="async"
+        width="400"
+        height="300"
+      />
     ) : (
       <div class="treatment-card__placeholder">
         <svg class="treatment-card__placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
