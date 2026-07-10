@@ -9,6 +9,27 @@ import { getCollection } from 'astro:content';
 
 const allTreatments = await getCollection('treatments');
 
+// Image mapping for treatments
+const treatmentImages: Record<string, string> = {
+  'Abhyanga': '/images/abhyanga.webp',
+  'Udvartana': '/images/udvartana.webp',
+  'Navarakizhi': '/images/navarakizhi.webp',
+  'Patra Pinda Sveda': '/images/patra-pinda-sveda.webp',
+  'Pizhichil': '/images/pizzichil.webp',
+  'Shirodhara': '/images/shirodhara.webp',
+  'Takradhara': '/images/takradhara.webp',
+  'Netra Tarpana': '/images/netra-tarpana.webp',
+  'Karna Purana': '/images/karna-purana.webp',
+  'Nasya': '/images/nasya.webp',
+  'Hrdaya Basti': '/images/hrdaya-basti.webp',
+  'Cakra Basti': '/images/cakra-basti.webp',
+  'Greeva Basti': '/images/greeva-basti.webp',
+  'Kati Basti': '/images/kati-basti.webp',
+  'Janu Basti': '/images/janu-basti.webp',
+  'Reflexology': '/images/reflexio.webp',
+  'Svedana': '/images/svedana.webp',
+};
+
 // Separate signature treatments (special) from others
 const signatureTreatments = allTreatments.filter(t => t.data.category === 'signature');
 const regularTreatments = allTreatments.filter(t => t.data.category !== 'signature');
@@ -48,6 +69,7 @@ regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
                   name={treatment.data.name}
                   sanskritName={treatment.data.sanskritName}
                   description={treatment.data.description}
+                  image={treatmentImages[treatment.data.name]}
                   category={treatment.data.category}
                   icon={treatment.data.icon}
                   featured={true}
@@ -71,6 +93,7 @@ regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
               name={treatment.data.name}
               sanskritName={treatment.data.sanskritName}
               description={treatment.data.description}
+              image={treatmentImages[treatment.data.name]}
               category={treatment.data.category}
               icon={treatment.data.icon}
               featured={false}
