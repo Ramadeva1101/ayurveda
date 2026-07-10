@@ -5,12 +5,14 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  prefetchImages?: string[];
 }
 
 const {
   title,
   description = 'Authentic Ayurvedic treatment led by Dr. Komang Sudarmi, BAMS., MS., PhD (Ayurveda). Combining traditional Indian Ayurveda with Indonesian healing wisdom.',
-  ogImage = '/images/og-default.jpg'
+  ogImage = '/images/og-default.jpg',
+  prefetchImages = []
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://ayurvedicwellnesshouse.com');
@@ -95,6 +97,14 @@ const jsonLd = {
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+
+    <!-- Page-specific prefetch/preload injection -->
+    {prefetchImages.map((src) => (
+      <link rel="prefetch" as="image" href={src} />
+    ))}
+
+    <!-- Extra head slot for per-page overrides -->
+    <slot name="head" />
   </head>
   <body>
     <!-- Skip to Content -->

@@ -8,6 +8,7 @@ interface Props {
   icon?: string;
   featured?: boolean;
   link?: string;
+  index?: number;
 }
 
 const {
@@ -18,8 +19,14 @@ const {
   category = 'massage',
   icon,
   featured = false,
-  link = '/program'
+  link = '/program',
+  index = 99
 } = Astro.props;
+
+// First 6 cards (above the fold) load eagerly; the rest are lazy
+const isAboveFold = featured || index < 6;
+const loadingStrategy = isAboveFold ? 'eager' : 'lazy';
+const fetchPriority = isAboveFold ? 'high' : 'auto';
 ---
 
 <article class:list={['treatment-card', { 'treatment-card--featured': featured }]}>
@@ -29,11 +36,11 @@ const {
       <img
         src={image}
         alt={name}
-        loading={featured ? 'eager' : 'lazy'}
-        decoding="async"
+        loading={loadingStrategy}
+        decoding={isAboveFold ? 'sync' : 'async'}
         width="800"
         height="600"
-        fetchpriority={featured ? 'high' : 'auto'}
+        fetchpriority={fetchPriority}
         style="content-visibility: auto;"
       />
     ) : (

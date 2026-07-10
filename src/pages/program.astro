@@ -39,11 +39,15 @@ const regularTreatments = allTreatments.filter(t => t.data.category !== 'signatu
 
 // Sort regular treatments alphabetically by name
 regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+// Collect all image URLs for prefetching (browser will download these in background)
+const allImageUrls = Object.values(treatmentImages);
 ---
 
 <BaseLayout
   title="Ayurveda Therapy"
   description="The full treatment menu at Ayurvedic Wellness House — massage, Dhara, Basti, specialized therapies, and personalized Ayurvedic consultations."
+  prefetchImages={allImageUrls}
 >
   <Navbar />
 
@@ -91,7 +95,7 @@ regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
     <section class="all-treatments section">
       <div class="container">
         <div class="treatments-grid">
-          {regularTreatments.map((treatment) => (
+          {regularTreatments.map((treatment, i) => (
             <TreatmentCard
               name={treatment.data.name}
               sanskritName={treatment.data.sanskritName}
@@ -101,6 +105,7 @@ regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
               icon={treatment.data.icon}
               featured={false}
               link="/contact"
+              index={i}
             />
           ))}
         </div>
