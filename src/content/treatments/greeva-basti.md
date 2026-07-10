@@ -1,7 +1,8 @@
 ---
 name: Greeva Basti
-sanskritName: ग्रीवा बस्ति
+sanskritName: (Neck Oil Storing)
 category: basti
-description: Warm herbal oil applied to the neck area to help release tension, nourish tissues, and support comfort in the cervical region.
+description: applies warm herbal oil to the neck area to help release tension, nourish tissues, and support comfort in the cervical region.
 icon: oil-drop
+featured: false
 ---

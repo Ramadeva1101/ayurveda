@@ -8,6 +8,13 @@ import TreatmentCard from '../components/TreatmentCard.astro';
 import { getCollection } from 'astro:content';
 
 const allTreatments = await getCollection('treatments');
+
+// Separate signature treatments (special) from others
+const signatureTreatments = allTreatments.filter(t => t.data.category === 'signature');
+const regularTreatments = allTreatments.filter(t => t.data.category !== 'signature');
+
+// Sort regular treatments alphabetically by name
+regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
 ---
 
 <BaseLayout
@@ -29,18 +36,45 @@ const allTreatments = await getCollection('treatments');
       </div>
     </section>
 
-    <!-- All Treatments in One Section -->
+    <!-- Signature Special Treatments (Top 2) -->
+    {signatureTreatments.length > 0 && (
+      <section class="special-treatments section">
+        <div class="container">
+          <h2 class="special-section-title">Signature Experiences</h2>
+          <div class="special-grid">
+            {signatureTreatments.map((treatment) => (
+              <div class="special-card-wrapper">
+                <TreatmentCard
+                  name={treatment.data.name}
+                  sanskritName={treatment.data.sanskritName}
+                  description={treatment.data.description}
+                  category={treatment.data.category}
+                  icon={treatment.data.icon}
+                  featured={true}
+                  link="/contact"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <SectionDivider variant="ornate" />
+
+    <!-- All Regular Treatments -->
     <section class="all-treatments section">
       <div class="container">
+        <h2 class="section-title">Program Descriptions</h2>
         <div class="treatments-grid">
-          {allTreatments.map((treatment) => (
+          {regularTreatments.map((treatment) => (
             <TreatmentCard
               name={treatment.data.name}
               sanskritName={treatment.data.sanskritName}
               description={treatment.data.description}
               category={treatment.data.category}
               icon={treatment.data.icon}
-              featured={treatment.data.featured}
+              featured={false}
               link="/contact"
             />
           ))}
@@ -109,6 +143,74 @@ const allTreatments = await getCollection('treatments');
     max-width: 44ch;
     margin: 0 auto;
     line-height: 1.7;
+  }
+
+  /* Special Signature Section */
+  .special-treatments {
+    background-color: var(--color-olive);
+  }
+
+  .special-section-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.5rem, 1.25rem + 2vw, 2rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-cream-base);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .special-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .special-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Special card wrapper with enhanced border */
+  .special-card-wrapper {
+    position: relative;
+  }
+
+  .special-card-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 2px solid var(--color-gold);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .special-card-wrapper .treatment-card {
+    border: none;
+    background-color: var(--color-cream-base);
+    height: 100%;
+  }
+
+  .special-card-wrapper .treatment-card__title {
+    color: var(--color-olive);
+  }
+
+  .special-card-wrapper .treatment-card__description {
+    color: var(--color-olive);
+  }
+
+  /* Section Title for Regular Treatments */
+  .section-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.5rem, 1.25rem + 2vw, 2rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    text-align: center;
+    margin-bottom: 2.5rem;
   }
 
   /* Treatments Grid */

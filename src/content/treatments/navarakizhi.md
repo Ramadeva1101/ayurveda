@@ -1,7 +1,8 @@
 ---
 name: Navarakizhi
-sanskritName: नावराकिझी
+sanskritName: (Herbal Rice Bundle Stamping)
 category: massage
-description: A nourishing Ayurvedic therapy using warm bundles of medicated rice cooked with herbal milk, applied through gentle massage to support rejuvenation, strengthen tissues, and enhance relaxation.
+description: is a nourishing Ayurvedic therapy using warm bundles of medicated rice cooked with herbal milk, applied through gentle massage to support rejuvenation, strengthen tissues, and enhance relaxation.
 icon: oil-drop
+featured: false
 ---
