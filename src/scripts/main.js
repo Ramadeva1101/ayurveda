@@ -74,20 +74,16 @@ function initScrollAnimations() {
     });
   });
 
-  // Stagger animation for cards
-  gsap.utils.toArray('.treatment-card, .package-card, .profile-card, .why-us__card, .special-card-wrapper').forEach((card, index) => {
-    gsap.from(card, {
-      opacity: 0,
-      y: 40,
-      duration: 0.6,
-      delay: index * 0.08,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: card,
-        start: 'top 90%',
-        toggleActions: 'play none none reverse'
-      }
-    });
+  // Stagger animation for cards using ScrollTrigger.batch
+  // This correctly staggers elements that enter the viewport at the same time,
+  // preventing huge delays for elements further down the page.
+  ScrollTrigger.batch('.treatment-card, .package-card, .profile-card, .why-us__card, .special-card-wrapper', {
+    start: 'top 90%',
+    onEnter: batch => gsap.fromTo(batch,
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', overwrite: true }
+    ),
+    onLeaveBack: batch => gsap.set(batch, { opacity: 0, y: 40, overwrite: true })
   });
 
   // Scale animation for section dividers
