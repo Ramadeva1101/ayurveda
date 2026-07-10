@@ -26,8 +26,41 @@ function initNavbarScroll() {
 function initScrollAnimations() {
   if (prefersReducedMotion.matches) return;
 
+  // Hero entrance animation
+  const heroSection = document.querySelector('.hero');
+  const heroContent = document.querySelector('.hero__content');
+  if (heroSection && heroContent) {
+    // Animate hero background
+    gsap.from(heroSection.querySelector('.hero__image'), {
+      opacity: 0,
+      scale: 1.05,
+      duration: 1.2,
+      ease: 'power2.out'
+    });
+
+    // Animate hero overlay
+    gsap.from(heroSection.querySelector('.hero__overlay'), {
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    });
+
+    // Animate hero content elements
+    gsap.from(heroContent.children, {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power2.out',
+      delay: 0.3
+    });
+  }
+
   // Fade in up animation for sections
   gsap.utils.toArray('.section').forEach((section) => {
+    // Skip hero section as it's handled above
+    if (section.classList.contains('hero')) return;
+
     gsap.from(section, {
       opacity: 0,
       y: 30,
@@ -42,12 +75,12 @@ function initScrollAnimations() {
   });
 
   // Stagger animation for cards
-  gsap.utils.toArray('.treatment-card, .package-card, .profile-card').forEach((card, index) => {
+  gsap.utils.toArray('.treatment-card, .package-card, .profile-card, .why-us__card, .special-card-wrapper').forEach((card, index) => {
     gsap.from(card, {
       opacity: 0,
       y: 40,
       duration: 0.6,
-      delay: index * 0.1,
+      delay: index * 0.08,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: card,
@@ -56,19 +89,6 @@ function initScrollAnimations() {
       }
     });
   });
-
-  // Fade in for hero content
-  const heroContent = document.querySelector('.hero-content');
-  if (heroContent) {
-    gsap.from(heroContent.children, {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power2.out',
-      delay: 0.3
-    });
-  }
 
   // Scale animation for section dividers
   gsap.utils.toArray('.section-divider').forEach((divider) => {
