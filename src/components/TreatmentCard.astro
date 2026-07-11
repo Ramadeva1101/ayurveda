@@ -1,14 +1,18 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
   name: string;
   sanskritName?: string;
   description: string;
-  image?: string;
+  image?: ImageMetadata;
   category?: 'massage' | 'dhara' | 'basti' | 'specialized' | 'signature';
   icon?: string;
   featured?: boolean;
   link?: string;
   index?: number;
+  loading?: 'eager' | 'lazy';
 }
 
 const {
@@ -20,27 +24,27 @@ const {
   icon,
   featured = false,
   link = '/program',
-  index = 99
+  index = 99,
+  loading = 'lazy'
 } = Astro.props;
 
-// First 6 cards (above the fold) load eagerly; the rest are lazy
-const isAboveFold = featured || index < 6;
-const loadingStrategy = isAboveFold ? 'eager' : 'lazy';
-const fetchPriority = isAboveFold ? 'high' : 'auto';
+const loadingStrategy = loading;
+const isAboveFold = loadingStrategy === 'eager';
 ---
 
 <article class:list={['treatment-card', { 'treatment-card--featured': featured }]}>
   <!-- Photo -->
   <div class="treatment-card__image">
     {image ? (
-      <img
+      <Image
         src={image}
         alt={name}
-        loading="eager"
-        decoding="sync"
-        width="800"
-        height="600"
-        fetchpriority={fetchPriority}
+        width={800}
+        height={600}
+        format="webp"
+        quality={85}
+        loading={loadingStrategy}
+        decoding={isAboveFold ? 'sync' : 'async'}
       />
     ) : (
       <div class="treatment-card__placeholder">

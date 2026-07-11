@@ -1,4 +1,8 @@
 ---
+import { Image, getImage } from 'astro:assets';
+import logoImg from '../assets/images/logo.png';
+import logoHomeImg from '../assets/images/logo-home.png';
+
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Our Sanctuary', href: '/sanctuary' },
@@ -11,6 +15,10 @@ const navItems = [
 
 const currentPath = Astro.url.pathname;
 const isHome = currentPath === '/';
+
+// Pre-optimize logos for client-side scroll swap to avoid raw 1.8MB image loads
+const optimizedLogo = await getImage({ src: logoImg, width: 600 });
+const optimizedLogoHome = await getImage({ src: logoHomeImg, width: 600 });
 ---
 
 <header id="navbar" class:list={['navbar', { 'navbar--home': isHome }]}>
@@ -19,12 +27,15 @@ const isHome = currentPath === '/';
       <div class="navbar-inner">
         <!-- Logo -->
         <a href="/" class="navbar-logo" aria-label="Ayurvedic Wellness House - Home">
-          <img
-            id="navbar-logo"
-            src={isHome ? "/images/logo-home.png" : "/images/logo.png"}
+          <Image
+            id="navbar-logo-img"
+            src={isHome ? logoHomeImg : logoImg}
             alt="Ayurvedic Wellness House"
             class="navbar-logo-img"
-            onerror="this.onerror=null; this.src='/images/logo.svg';"
+            width={600}
+            loading="eager"
+            data-logo-src={optimizedLogo.src}
+            data-logo-home-src={optimizedLogoHome.src}
           />
         </a>
 
@@ -89,7 +100,7 @@ const isHome = currentPath === '/';
 <script>
   function initNavbar() {
     const navbar = document.getElementById('navbar');
-    const logo = document.getElementById('navbar-logo') as HTMLImageElement | null;
+    const logoImgEl = document.getElementById('navbar-logo-img') as HTMLImageElement | null;
     const toggle = document.getElementById('mobile-menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
 
@@ -98,14 +109,21 @@ const isHome = currentPath === '/';
     const isHomePage = navbar.classList.contains('navbar--home');
     let isMenuOpen = false;
 
+    const logoSrc = logoImgEl ? (logoImgEl as any).dataset.logoSrc : undefined;
+    const logoHomeSrc = logoImgEl ? (logoImgEl as any).dataset.logoHomeSrc : undefined;
+
     function handleScroll() {
-      if (isHomePage) {
+      if (isHomePage && logoImgEl) {
         if (window.scrollY > 50) {
           navbar.classList.add('scrolled');
-          if (logo) logo.src = '/images/logo.png';
+          if (logoSrc) {
+            logoImgEl.src = logoSrc;
+          }
         } else {
           navbar.classList.remove('scrolled');
-          if (logo) logo.src = '/images/logo-home.png';
+          if (logoHomeSrc) {
+            logoImgEl.src = logoHomeSrc;
+          }
         }
       }
     }

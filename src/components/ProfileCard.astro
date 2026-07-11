@@ -1,9 +1,12 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
   name: string;
   role: string;
   bio: string;
-  image?: string;
+  image?: ImageMetadata;
   variant?: 'large' | 'small';
   instagram?: string;
 }
@@ -22,11 +25,11 @@ const {
   <!-- Image -->
   <div class="profile-card__image-wrapper">
     {image ? (
-      <img
+      <Image
         src={image}
         alt={`${name} - ${role}`}
         class="profile-card__image"
-        loading="lazy"
+        width={variant === 'large' ? 300 : 200}
       />
     ) : (
       <div class="profile-card__placeholder">

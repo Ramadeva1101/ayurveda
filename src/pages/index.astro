@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import { Image } from 'astro:assets';
+import heroImg from '../assets/images/hero-desktop.webp';
 ---
 
 <BaseLayout
@@ -17,11 +19,13 @@ import SectionDivider from '../components/SectionDivider.astro';
     <!-- SECTION 1: Hero -->
     <section class="hero">
       <div class="hero__image" aria-hidden="true">
-        <img
-          src="/images/hero-desktop.webp"
+        <Image
+          src={heroImg}
           alt=""
           class="hero__bg-img"
+          width={1920}
           loading="eager"
+          fetchpriority="high"
         />
       </div>
       <div class="hero__overlay" aria-hidden="true"></div>

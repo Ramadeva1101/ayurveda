@@ -7,30 +7,49 @@ import SectionDivider from '../components/SectionDivider.astro';
 import TreatmentCard from '../components/TreatmentCard.astro';
 import { getCollection } from 'astro:content';
 
+// Import all treatment images using Astro's asset system
+import abhyangaImg from '../assets/images/abhyanga.webp';
+import udvartanaImg from '../assets/images/udvartana.webp';
+import navarakizhiImg from '../assets/images/navarakizhi.webp';
+import patrapindaImg from '../assets/images/patrapinda.webp';
+import pizhichilImg from '../assets/images/pizhichil.webp';
+import shirodaraImg from '../assets/images/shirodara.webp';
+import netratarpanaImg from '../assets/images/netratarpana.webp';
+import karnapurnaImg from '../assets/images/karnapurna.webp';
+import nasyaImg from '../assets/images/nasya.webp';
+import hrdayaBastiImg from '../assets/images/hrdaya-basti.webp';
+import cakraBastiImg from '../assets/images/cakra-basti.webp';
+import greevaBastiImg from '../assets/images/greeva-basti.webp';
+import katiBastiImg from '../assets/images/kati-basti.webp';
+import januBastiImg from '../assets/images/janu-basti.webp';
+import reflexioImg from '../assets/images/reflexio.webp';
+import svedanaImg from '../assets/images/svedana.webp';
+import oneOnOneImg from '../assets/images/one-on-one.webp';
+import nusantaraExpImg from '../assets/images/nusantara-experience.webp';
+
 const allTreatments = await getCollection('treatments');
 
-// Image mapping for treatments (matching actual filenames in /public/images/)
-const treatmentImages: Record<string, string> = {
-  'Abhyanga': '/images/abhyanga.webp',
-  'Udvartana': '/images/udvartana.webp',
-  'Navarakizhi': '/images/navarakizhi.webp',
-  // 'Patra Pinda Sveda' — image not yet available, will show placeholder
-  'Pizhichil': '/images/pizhichil.webp',
-  // 'Shirodhara' — image not yet available, will show placeholder
-  // 'Takradhara' — image not yet available, will show placeholder
-  'Netra Tarpana': '/images/netra-tarpana.webp',
-  'Karna Purana': '/images/karna-purana.webp',
-  'Nasya': '/images/nasya.webp',
-  'Hrdaya Basti': '/images/hrdaya-basti.webp',
-  'Cakra Basti': '/images/cakra-basti.webp',
-  'Greeva Basti': '/images/greeva-basti.webp',
-  'Kati Basti': '/images/kati-basti.webp',
-  'Janu Basti': '/images/janu-basti.webp',
-  'Reflexology': '/images/reflexio.webp',
-  // 'Svedana' — image not yet available, will show placeholder
-  // Signature treatments — no specific photos yet, will show placeholder
-  // 'Ayurvedic One-on-One with Doc.K' — waiting for proper photo
-  // 'Ayurvedic Nusantara Experience' — waiting for proper photo
+// Image mapping for treatments (using Astro ImageMetadata)
+const treatmentImages: Record<string, ImageMetadata> = {
+  'Abhyanga': abhyangaImg,
+  'Udvartana': udvartanaImg,
+  'Navarakizhi': navarakizhiImg,
+  'Patra Pinda Sveda': patrapindaImg,
+  'Pizhichil': pizhichilImg,
+  'Shirodhara': shirodaraImg,
+  
+  'Netra Tarpana': netratarpanaImg,
+  'Karna Purana': karnapurnaImg,
+  'Nasya': nasyaImg,
+  'Hrdaya Basti': hrdayaBastiImg,
+  'Cakra Basti': cakraBastiImg,
+  'Greeva Basti': greevaBastiImg,
+  'Kati Basti': katiBastiImg,
+  'Janu Basti': januBastiImg,
+  'Reflexology': reflexioImg,
+  'Svedana': svedanaImg,
+  'Ayurvedic One-on-One with Doc.K': oneOnOneImg,
+  'Ayurvedic Nusantara Experience': nusantaraExpImg,
 };
 
 // Separate signature treatments (special) from others
@@ -40,8 +59,9 @@ const regularTreatments = allTreatments.filter(t => t.data.category !== 'signatu
 // Sort regular treatments alphabetically by name
 regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
 
-// Collect all image URLs for prefetching (browser will download these in background)
-const allImageUrls = Object.values(treatmentImages);
+// Collect all image URLs for prefetching
+const allImageUrls = Object.values(treatmentImages).map(img => img.src);
+---
 ---
 
 <BaseLayout

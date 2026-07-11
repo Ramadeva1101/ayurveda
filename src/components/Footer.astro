@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logoImg from '../assets/images/logo.png';
+
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Our Sanctuary', href: '/sanctuary' },
@@ -18,11 +21,11 @@ const currentYear = new Date().getFullYear();
       <!-- Brand Column -->
       <div class="footer-brand">
         <a href="/" class="footer-logo" aria-label="Ayurvedic Wellness House">
-          <img
-            src="/images/logo.png"
+          <Image
+            src={logoImg}
             alt="Ayurvedic Wellness House"
             class="footer-logo-img"
-            onerror="this.onerror=null; this.src='/images/logo.svg';"
+            width={600}
           />
         </a>
         <p class="footer-tagline">

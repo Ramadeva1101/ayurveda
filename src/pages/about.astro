@@ -4,6 +4,10 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import { Image } from 'astro:assets';
+import drKomangImg from '../assets/images/dr-komang-portrait.webp';
+import ajiImg from '../assets/images/aji-portrait.webp';
+import therapistImg from '../assets/images/therapist-portrait.webp';
 ---
 
 <BaseLayout
@@ -141,11 +145,11 @@ import SectionDivider from '../components/SectionDivider.astro';
         <div class="founder-inner">
           <div class="founder-portrait">
             <div class="founder-portrait__image">
-              <img
-                src="/images/dr-komang-portrait.webp"
+              <Image
+                src={drKomangImg}
                 alt="Dr. Komang Sudarmi, Founder & Chief Ayurvedic Physician"
                 class="founder-portrait__img"
-                loading="eager"
+                width={600}
               />
             </div>
           </div>
@@ -186,11 +190,11 @@ import SectionDivider from '../components/SectionDivider.astro';
           <!-- Aji — Javanese Healer -->
           <div class="team-member">
             <div class="member-portrait">
-              <img
-                src="/images/aji-portrait.webp"
+              <Image
+                src={ajiImg}
                 alt="Aji, Javanese Healer"
                 class="member-portrait__img"
-                loading="lazy"
+                width={400}
               />
             </div>
             <div class="member-info">
@@ -206,11 +210,11 @@ import SectionDivider from '../components/SectionDivider.astro';
           <!-- Trained Ayurvedic Therapist -->
           <div class="team-member">
             <div class="member-portrait">
-              <img
-                src="/images/therapist-portrait.webp"
+              <Image
+                src={therapistImg}
                 alt="Our Trained Ayurvedic Therapist"
                 class="member-portrait__img"
-                loading="lazy"
+                width={400}
               />
             </div>
             <div class="member-info">
