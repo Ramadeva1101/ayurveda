@@ -7,7 +7,7 @@ import SectionDivider from '../components/SectionDivider.astro';
 
 const packages = [
   {
-    name: 'Ayurvedic One on One by Doc.K',
+    name: 'Ayurvedic One-on-One with Dr. Komang Sudarmi, BAMS., MS., PhD. (Ayurveda)',
     duration: '45 Minutes',
     price: 'IDR 700,000',
     highlight: 'Perfect before starting any wellness program.',
@@ -31,7 +31,8 @@ const packages = [
   },
   {
     name: 'One-Day Ayurvedic Experience',
-    duration: '1 Day (day-pass required to be booked separately @ https://www.balisilentretreat.com)',
+    duration: '1 Day (accommodation and day pass included: make booking directly @ https://www.balisilentretreat.com/)',
+    durationLine2: '(different room different prices)',
     price: 'IDR 2,500,000',
     highlight: 'Doctor-led authentic Ayurveda.',
     includes: [
@@ -120,8 +121,8 @@ const packages = [
     includes: [
       'Initial Comprehensive Ayurvedic One on One',
       'Herbal drink',
-      'Personalized Ayurvedic Therapy (9 Therapy)',
-      'Javanese point pressure (Nusantara Therapy – one time)',
+      'Personalized Ayurvedic Therapy (8 Therapy)',
+      'Javanese point pressure (Nusantara Therapy – 2 times)',
       'Detox program with consultation (Two times)',
       'Ayurvedic activities every week hosted at Bali Silent Retreat (Introduction ayurveda, water purification)',
       'Final Ayurvedic One on One',
@@ -164,7 +165,7 @@ const packages = [
     includes: [
       'Initial Comprehensive Ayurvedic One on One',
       'Herbal drink',
-      'Personalized Ayurvedic Therapy (12 Therapy)',
+      'Personalized Ayurvedic Therapy (18 Therapy)',
       'Javanese point pressure (Nusantara Therapy – 3 times)',
       'Detox program with consultation (Three times)',
       'Ayurvedic activities every week hosted at Bali Silent Retreat (Introduction ayurveda, water purification)',
@@ -192,7 +193,7 @@ const packages = [
     <!-- Page Header -->
     <section class="page-header section">
       <div class="container">
-        <p class="page-eyebrow">Rejuvenation &amp; Detox Programs</p>
+        <p class="page-eyebrow">Rejuvenation &amp; AYURVEDIC Programs</p>
         <h1 class="page-title">Our Wellness Programs</h1>
         <p class="page-description">
           Each program is designed around a specific wellness goal. All programs include consultation, personalized treatments, and follow-up support. Operating from 9am–5pm. Prior booking is required.
@@ -218,7 +219,10 @@ const packages = [
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                <span>{pkg.duration}</span>
+                <span>
+                  {pkg.duration}
+                  {pkg.durationLine2 && <span class="duration-line2">{pkg.durationLine2}</span>}
+                </span>
               </div>
               <div class="package-price">
                 <span class="price-amount">{pkg.price}</span>
@@ -405,12 +409,13 @@ const packages = [
   /* Duration */
   .package-duration {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.5rem;
     font-family: 'Karla', sans-serif;
     font-size: 0.8125rem;
     color: var(--color-sage);
     margin-bottom: 0.75rem;
+    line-height: 1.5;
   }
 
   .package-duration svg {
@@ -418,6 +423,11 @@ const packages = [
     height: 0.875rem;
     flex-shrink: 0;
     color: var(--color-gold);
+    margin-top: 0.15rem;
+  }
+
+  .duration-line2 {
+    display: block;
   }
 
   /* Price */
