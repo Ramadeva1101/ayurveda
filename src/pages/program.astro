@@ -54,10 +54,19 @@ const treatmentImages: Record<string, ImageMetadata> = {
 
 // Separate signature treatments (special) from others
 const signatureTreatments = allTreatments.filter(t => t.data.category === 'signature');
-const regularTreatments = allTreatments.filter(t => t.data.category !== 'signature');
+const regularTreatments = allTreatments.filter(t => t.data.category !== 'signature' && t.data.category !== 'hidden');
 
 // Sort regular treatments alphabetically by name
 regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+// Sort signature: One-on-One (Consultation) first, Nusantara Experience second
+signatureTreatments.sort((a, b) => {
+  const aIsConsult = a.data.name.toLowerCase().includes('one-on-one');
+  const bIsConsult = b.data.name.toLowerCase().includes('one-on-one');
+  if (aIsConsult) return -1;
+  if (bIsConsult) return 1;
+  return 0;
+});
 
 // Collect all image URLs for prefetching
 const allImageUrls = Object.values(treatmentImages).map(img => img.src);
@@ -86,7 +95,7 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
 
     <!-- Signature Special Treatments (Top 2) -->
     {signatureTreatments.length > 0 && (
-      <section class="special-treatments section">
+      <section class="special-treatments section" id="signature-experiences">
         <div class="container">
           <h2 class="special-section-title">Signature Experiences</h2>
           <div class="special-grid">
@@ -110,6 +119,18 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
     )}
 
     <SectionDivider variant="ornate" />
+
+    <!-- Our Treatments Intro Section -->
+    <section class="our-treatments-intro section" id="our-treatments">
+      <div class="container">
+        <div class="our-treatments-intro__inner">
+          <h2 class="our-treatments-intro__title">Our Treatments</h2>
+          <p class="our-treatments-intro__text">
+            Every treatment is built on classical Ayurvedic principles and adapted to your specific needs. A consultation is required before your first session.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- All Regular Treatments -->
     <section class="all-treatments section">
@@ -166,6 +187,36 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
 
   .all-treatments.section {
     padding-top: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  /* Our Treatments Intro Section */
+  .our-treatments-intro.section {
+    background: var(--color-cream-base);
+    padding-top: clamp(2rem, 4vw, 4rem);
+    padding-bottom: clamp(2rem, 4vw, 4rem);
+  }
+
+  .our-treatments-intro__inner {
+    max-width: 48rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .our-treatments-intro__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.25rem + 2.5vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1.25rem;
+  }
+
+  .our-treatments-intro__text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
+    color: var(--color-olive);
+    opacity: 0.8;
+    line-height: 1.75;
+    max-width: 44ch;
+    margin: 0 auto;
   }
 
   .page-eyebrow {

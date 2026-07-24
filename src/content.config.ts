@@ -6,7 +6,7 @@ const treatmentsCollection = defineCollection({
   schema: z.object({
     name: z.string(),
     sanskritName: z.string().optional(),
-    category: z.enum(['massage', 'dhara', 'basti', 'specialized', 'signature']),
+    category: z.enum(['massage', 'dhara', 'basti', 'specialized', 'signature', 'hidden']),
     description: z.string(),
     duration: z.string().optional(),
     price: z.string().optional(),

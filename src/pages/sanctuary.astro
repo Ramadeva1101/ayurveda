@@ -4,6 +4,26 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import { Image } from 'astro:assets';
+
+// BSR Gallery images — imported via Astro asset system for full optimisation
+import bsrMountainsImg from '../assets/images/bsr-mountains.webp';
+import bsrDroneImg from '../assets/images/bsr-drone-landscape.jpg';
+import bsrJunglePathImg from '../assets/images/bsr-jungle-heart-path.jpg';
+import bsrMeditationOctagonImg from '../assets/images/bsr-meditation-octagon.jpg';
+import bsrMeditationStepsImg from '../assets/images/bsr-meditation-steps.jpg';
+import bsrLodgeLibraryImg from '../assets/images/bsr-lodge-library.jpg';
+import bsrCryingBenchImg from '../assets/images/bsr-crying-bench.jpg';
+import bsrLabyrinthImg from '../assets/images/bsr-labyrinth.jpg';
+import bsrDucksImg from '../assets/images/bsr-ducks-harvest.jpg';
+import bsrStarGazingImg from '../assets/images/bsr-star-gazing.jpg';
+import bsrSilentLibraryImg from '../assets/images/bsr-silent-library.jpg';
+import bsrGoodMorningImg from '../assets/images/bsr-good-morning.jpg';
+import bsrFreshFoodImg from '../assets/images/bsr-fresh-food.jpg';
+import bsrVerandaImg from '../assets/images/bsr-veranda.webp';
+import bsrTreatmentRoomImg from '../assets/images/bsr-treatment-room.webp';
+import bsrRoomsImg from '../assets/images/bsr-rooms.webp';
+import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
 ---
 
 <BaseLayout
@@ -134,6 +154,284 @@ import SectionDivider from '../components/SectionDivider.astro';
 
     <SectionDivider />
 
+    <!-- BSR Photo Gallery -->
+    <section class="bsr-gallery section">
+      <div class="container">
+        <div class="gallery-header">
+          <p class="gallery-eyebrow">Bali Silent Retreat</p>
+          <h2 class="gallery-title">A Sanctuary Beyond Words</h2>
+          <p class="gallery-subtitle">Immerse yourself in 6 hectares of nature — where rice fields, jungle, and mountain air create the perfect backdrop for healing.</p>
+        </div>
+
+        <!-- Mountains panorama — standalone cinematic banner -->
+        <div class="gallery-panorama">
+          <Image
+            src={bsrMountainsImg}
+            alt="Three sisters mountains viewed from Jatiluwih rice fields at Bali Silent Retreat"
+            width={1440}
+            height={540}
+            format="webp"
+            quality={85}
+            loading="lazy"
+          />
+          <div class="gallery-overlay">
+            <span>Jatiluwih Rice Fields &amp; Three Sisters Mountains</span>
+          </div>
+        </div>
+
+        <div class="gallery-grid">
+
+          <!-- ROW 1: Drone(2×2) + Jungle path(1×2) + Meditation octagon + Meditation steps -->
+          <div class="gallery-item gallery-item--large">
+            <Image
+              src={bsrDroneImg}
+              alt="Aerial view of Bali Silent Retreat surrounded by rice fields and jungle"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Aerial View — 6 Hectares of Nature</span>
+            </div>
+          </div>
+
+          <div class="gallery-item gallery-item--tall">
+            <Image
+              src={bsrJunglePathImg}
+              alt="Heart-shaped jungle path at Bali Silent Retreat"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Heart-Shaped Jungle Path</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrMeditationOctagonImg}
+              alt="Meditation octagon bale pavilion"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Meditation Octagon Bale</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrMeditationStepsImg}
+              alt="Meditation steps surrounded by nature"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Meditation Steps</span>
+            </div>
+          </div>
+
+          <!-- ROW 3: Lodge(wide) + Crying bench + Labyrinth -->
+          <div class="gallery-item gallery-item--wide">
+            <Image
+              src={bsrLodgeLibraryImg}
+              alt="Lodge library relaxation area"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Library &amp; Relaxation Lodge</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrCryingBenchImg}
+              alt="Guest sitting on crying bench in nature"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>The Crying Bench</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrLabyrinthImg}
+              alt="Labyrinth walking meditation program"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Labyrinth Walking Meditation</span>
+            </div>
+          </div>
+
+          <!-- ROW 4: Ducks(wide) + Star gazing + Silent library -->
+          <div class="gallery-item gallery-item--wide">
+            <Image
+              src={bsrDucksImg}
+              alt="Eco-friendly ducks after rice harvest at Bali Silent Retreat"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Eco-Friendly Life — Ducks After Rice Harvest</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrStarGazingImg}
+              alt="Star gazing on star bed at dusk"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Star Gazing at Dusk</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrSilentLibraryImg}
+              alt="Guest reading in the library"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>The Silent Library</span>
+            </div>
+          </div>
+
+          <!-- ROW 5: Rice fields + Morning + Traditional veranda(wide) -->
+          <div class="gallery-item">
+            <Image
+              src={bsrRiceFieldsImg}
+              alt="Jatiluwih rice fields with mountain backdrop"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Jatiluwih UNESCO Rice Fields</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrGoodMorningImg}
+              alt="Morning view from guest perspective at Bali Silent Retreat"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Good Morning from the Retreat</span>
+            </div>
+          </div>
+
+          <div class="gallery-item gallery-item--wide">
+            <Image
+              src={bsrVerandaImg}
+              alt="Traditional Javanese veranda with tropical garden"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Traditional Javanese Veranda</span>
+            </div>
+          </div>
+
+          <!-- ROW 6: Accommodation rooms(wide) + Treatment room + Fresh food -->
+          <div class="gallery-item gallery-item--wide">
+            <Image
+              src={bsrRoomsImg}
+              alt="Accommodation rooms with colorful Javanese doors"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Accommodation Rooms</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrTreatmentRoomImg}
+              alt="Authentic treatment room with wooden bed"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Treatment Room</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={bsrFreshFoodImg}
+              alt="Fresh wholesome food at the retreat"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Fresh Wholesome Food</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider />
+
     <!-- Accommodation Note -->
     <section class="accommodation-note section section--dark">
       <div class="container">
@@ -168,6 +466,220 @@ import SectionDivider from '../components/SectionDivider.astro';
 
   .sanctuary-intro.section {
     padding-top: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  /* ====================================
+     BSR PHOTO GALLERY
+  ==================================== */
+  .bsr-gallery {
+    background-color: var(--color-cream-deep);
+    padding-top: clamp(3rem, 6vw, 6rem);
+    padding-bottom: clamp(3rem, 6vw, 6rem);
+  }
+
+  .gallery-header {
+    text-align: center;
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .gallery-eyebrow {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .gallery-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.25rem + 2.5vw, 3rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    margin-bottom: 1rem;
+  }
+
+  .gallery-subtitle {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-sage);
+    max-width: 42rem;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Masonry-style auto grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 220px;
+    grid-auto-flow: dense;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 240px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 260px;
+      gap: 1rem;
+    }
+  }
+
+  /* Base gallery item */
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: var(--color-cream-deep);
+  }
+
+  /* Standalone panorama banner (outside grid) */
+  .gallery-panorama {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  @media (min-width: 1024px) {
+    .gallery-panorama {
+      height: 380px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .gallery-panorama img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: brightness(0.92) saturate(1.05);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+  }
+
+  .gallery-panorama:hover img {
+    transform: translate(-50%, -50%) scale(1.04);
+    filter: brightness(0.75) saturate(1.15);
+  }
+
+  .gallery-panorama .gallery-overlay {
+    opacity: 0;
+  }
+
+  .gallery-panorama:hover .gallery-overlay {
+    opacity: 1;
+  }
+
+  .gallery-panorama::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0px solid var(--color-gold);
+    transition: border-width 0.35s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .gallery-panorama:hover::after {
+    border-width: 3px;
+  }
+
+  /* Size variants */
+  .gallery-item--large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .gallery-item--tall {
+    grid-row: span 2;
+  }
+
+  .gallery-item--wide {
+    grid-column: span 2;
+  }
+
+  .gallery-item img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.6s ease;
+    filter: brightness(0.92) saturate(1.05);
+  }
+
+  .gallery-item:hover img {
+    transform: translate(-50%, -50%) scale(1.06);
+    filter: brightness(0.75) saturate(1.15);
+  }
+
+  /* Overlay caption */
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem 1rem;
+    background: linear-gradient(
+      to top,
+      rgba(30, 40, 20, 0.72) 0%,
+      rgba(30, 40, 20, 0) 50%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .gallery-item:hover .gallery-overlay {
+    opacity: 1;
+  }
+
+  .gallery-overlay span {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.92);
+    transform: translateY(6px);
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-item:hover .gallery-overlay span {
+    transform: translateY(0);
+  }
+
+  /* Thin gold border on hover */
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0px solid var(--color-gold);
+    transition: border-width 0.35s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .gallery-item:hover::after {
+    border-width: 3px;
   }
 
   .page-eyebrow {
