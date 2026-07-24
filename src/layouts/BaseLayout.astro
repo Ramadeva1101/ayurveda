@@ -11,7 +11,7 @@ interface Props {
 const {
   title,
   description = 'Authentic Ayurvedic treatment led by Dr. Komang Sudarmi, BAMS., MS., PhD (Ayurveda). Combining traditional Indian Ayurveda with Indonesian healing wisdom.',
-  ogImage = '/images/og-default.jpg',
+  ogImage = '/images/hero-desktop.webp',
   prefetchImages = []
 } = Astro.props;
 
@@ -92,8 +92,7 @@ const jsonLd = {
     <!-- Sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Performance: Preload critical assets -->
-    <link rel="preload" as="image" href="/images/hero-desktop.webp" fetchpriority="high" />
+    <!-- Performance: Preconnect to font sources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
