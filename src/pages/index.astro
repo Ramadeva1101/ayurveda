@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
-// Using plain <img> tags with .src for Cloudflare Pages compatibility
+import { Image } from 'astro:assets';
 import heroImg from '../assets/images/hero-desktop.webp';
 ---
 
@@ -19,15 +19,13 @@ import heroImg from '../assets/images/hero-desktop.webp';
     <!-- SECTION 1: Hero -->
     <section class="hero">
       <div class="hero__image" aria-hidden="true">
-        <img
-          src={heroImg.src}
+        <Image
+          src={heroImg}
           alt=""
           class="hero__bg-img"
-          width={heroImg.width}
-          height={heroImg.height}
+          width={1920}
           loading="eager"
           fetchpriority="high"
-          decoding="async"
         />
       </div>
       <div class="hero__overlay" aria-hidden="true"></div>

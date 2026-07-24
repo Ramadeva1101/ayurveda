@@ -1,5 +1,5 @@
 ---
-// Using plain <img> tags with .src for Cloudflare Pages compatibility
+import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -36,11 +36,13 @@ const isAboveFold = loadingStrategy === 'eager';
   <!-- Photo -->
   <div class="treatment-card__image">
     {image ? (
-      <img
-        src={image.src}
+      <Image
+        src={image}
         alt={name}
-        width={image.width}
-        height={image.height}
+        width={800}
+        height={600}
+        format="webp"
+        quality={85}
         loading={loadingStrategy}
         decoding={isAboveFold ? 'sync' : 'async'}
       />

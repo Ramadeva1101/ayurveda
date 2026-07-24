@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig, sharpImageService } from 'astro/config';
 
 import alpinejs from '@astrojs/alpinejs';
 import sitemap from '@astrojs/sitemap';
@@ -9,7 +9,7 @@ export default defineConfig({
   site: 'https://ayurvedicwellnesshouse.com',
   output: 'static',
   image: {
-    service: passthroughImageService(),
+    service: sharpImageService(),
   },
   prefetch: {
     prefetchAll: true,        // prefetch all internal links automatically

@@ -1,5 +1,5 @@
 ---
-// Using plain <img> tags with .src for Cloudflare Pages compatibility
+import { Image } from 'astro:assets';
 import logoImg from '../assets/images/logo.png';
 
 const navItems = [
@@ -21,14 +21,11 @@ const currentYear = new Date().getFullYear();
       <!-- Brand Column -->
       <div class="footer-brand">
         <a href="/" class="footer-logo" aria-label="Ayurvedic Wellness House">
-          <img
-            src={logoImg.src}
+          <Image
+            src={logoImg}
             alt="Ayurvedic Wellness House"
             class="footer-logo-img"
             width={600}
-            height={logoImg.height}
-            loading="lazy"
-            decoding="async"
           />
         </a>
         <p class="footer-tagline">

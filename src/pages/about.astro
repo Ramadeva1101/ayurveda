@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
-// Using plain <img> tags with .src for Cloudflare Pages compatibility
+import { Image } from 'astro:assets';
 import drKomangImg from '../assets/images/dr-komang-portrait.webp';
 import ajiImg from '../assets/images/aji-portrait.webp';
 import therapistImg from '../assets/images/therapist-portrait.webp';
@@ -145,14 +145,11 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
         <div class="founder-inner">
           <div class="founder-portrait">
             <div class="founder-portrait__image">
-              <img
-                src={drKomangImg.src}
+              <Image
+                src={drKomangImg}
                 alt="Dr. Komang Sudarmi, Founder & Chief Ayurvedic Physician"
                 class="founder-portrait__img"
                 width={600}
-                height={drKomangImg.height}
-                loading="lazy"
-                decoding="async"
               />
             </div>
           </div>
@@ -193,14 +190,11 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
           <!-- Aji — Javanese Healer -->
           <div class="team-member">
             <div class="member-portrait">
-              <img
-                src={ajiImg.src}
+              <Image
+                src={ajiImg}
                 alt="Aji, Javanese Healer"
                 class="member-portrait__img"
                 width={400}
-                height={ajiImg.height}
-                loading="lazy"
-                decoding="async"
               />
             </div>
             <div class="member-info">
@@ -216,14 +210,11 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
           <!-- Trained Ayurvedic Therapist -->
           <div class="team-member">
             <div class="member-portrait">
-              <img
-                src={therapistImg.src}
+              <Image
+                src={therapistImg}
                 alt="Our Trained Ayurvedic Therapist"
                 class="member-portrait__img"
                 width={400}
-                height={therapistImg.height}
-                loading="lazy"
-                decoding="async"
               />
             </div>
             <div class="member-info">
