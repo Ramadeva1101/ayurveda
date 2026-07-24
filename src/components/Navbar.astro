@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+// Using plain <img> tags with .src for Cloudflare Pages compatibility
 import logoImg from '../assets/images/logo.png';
 import logoHomeImg from '../assets/images/logo-home.png';
 
@@ -23,13 +23,15 @@ const isHome = currentPath === '/';
       <div class="navbar-inner">
         <!-- Logo -->
         <a href="/" class="navbar-logo" aria-label="Ayurvedic Wellness House - Home">
-          <Image
+          <img
             id="navbar-logo-img"
-            src={isHome ? logoHomeImg : logoImg}
+            src={isHome ? logoHomeImg.src : logoImg.src}
             alt="Ayurvedic Wellness House"
             class="navbar-logo-img"
             width={600}
+            height={logoImg.height}
             loading="eager"
+            decoding="async"
             data-logo-src={logoImg.src}
             data-logo-home-src={logoHomeImg.src}
           />

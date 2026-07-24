@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
-import { Image } from 'astro:assets';
+// Using plain <img> tags with .src for Cloudflare Pages compatibility
 
 // BSR Gallery images — imported via Astro asset system for full optimisation
 import bsrMountainsImg from '../assets/images/bsr-mountains.webp';
@@ -165,14 +165,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
 
         <!-- Mountains panorama — standalone cinematic banner -->
         <div class="gallery-panorama">
-          <Image
-            src={bsrMountainsImg}
+          <img
+            src={bsrMountainsImg.src}
             alt="Three sisters mountains viewed from Jatiluwih rice fields at Bali Silent Retreat"
-            width={1440}
-            height={540}
-            format="webp"
-            quality={85}
+            width={bsrMountainsImg.width}
+            height={bsrMountainsImg.height}
             loading="lazy"
+            decoding="async"
           />
           <div class="gallery-overlay">
             <span>Jatiluwih Rice Fields &amp; Three Sisters Mountains</span>
@@ -183,14 +182,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
 
           <!-- ROW 1: Drone(2×2) + Jungle path(1×2) + Meditation octagon + Meditation steps -->
           <div class="gallery-item gallery-item--large">
-            <Image
-              src={bsrDroneImg}
+            <img
+              src={bsrDroneImg.src}
               alt="Aerial view of Bali Silent Retreat surrounded by rice fields and jungle"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrDroneImg.width}
+              height={bsrDroneImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Aerial View — 6 Hectares of Nature</span>
@@ -198,14 +196,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item gallery-item--tall">
-            <Image
-              src={bsrJunglePathImg}
+            <img
+              src={bsrJunglePathImg.src}
               alt="Heart-shaped jungle path at Bali Silent Retreat"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrJunglePathImg.width}
+              height={bsrJunglePathImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Heart-Shaped Jungle Path</span>
@@ -213,14 +210,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrMeditationOctagonImg}
+            <img
+              src={bsrMeditationOctagonImg.src}
               alt="Meditation octagon bale pavilion"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrMeditationOctagonImg.width}
+              height={bsrMeditationOctagonImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Meditation Octagon Bale</span>
@@ -228,14 +224,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrMeditationStepsImg}
+            <img
+              src={bsrMeditationStepsImg.src}
               alt="Meditation steps surrounded by nature"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrMeditationStepsImg.width}
+              height={bsrMeditationStepsImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Meditation Steps</span>
@@ -244,14 +239,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
 
           <!-- ROW 3: Lodge(wide) + Crying bench + Labyrinth -->
           <div class="gallery-item gallery-item--wide">
-            <Image
-              src={bsrLodgeLibraryImg}
+            <img
+              src={bsrLodgeLibraryImg.src}
               alt="Lodge library relaxation area"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrLodgeLibraryImg.width}
+              height={bsrLodgeLibraryImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Library &amp; Relaxation Lodge</span>
@@ -259,14 +253,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrCryingBenchImg}
+            <img
+              src={bsrCryingBenchImg.src}
               alt="Guest sitting on crying bench in nature"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrCryingBenchImg.width}
+              height={bsrCryingBenchImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>The Crying Bench</span>
@@ -274,14 +267,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrLabyrinthImg}
+            <img
+              src={bsrLabyrinthImg.src}
               alt="Labyrinth walking meditation program"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrLabyrinthImg.width}
+              height={bsrLabyrinthImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Labyrinth Walking Meditation</span>
@@ -290,14 +282,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
 
           <!-- ROW 4: Ducks(wide) + Star gazing + Silent library -->
           <div class="gallery-item gallery-item--wide">
-            <Image
-              src={bsrDucksImg}
+            <img
+              src={bsrDucksImg.src}
               alt="Eco-friendly ducks after rice harvest at Bali Silent Retreat"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrDucksImg.width}
+              height={bsrDucksImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Eco-Friendly Life — Ducks After Rice Harvest</span>
@@ -305,14 +296,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrStarGazingImg}
+            <img
+              src={bsrStarGazingImg.src}
               alt="Star gazing on star bed at dusk"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrStarGazingImg.width}
+              height={bsrStarGazingImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Star Gazing at Dusk</span>
@@ -320,14 +310,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrSilentLibraryImg}
+            <img
+              src={bsrSilentLibraryImg.src}
               alt="Guest reading in the library"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrSilentLibraryImg.width}
+              height={bsrSilentLibraryImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>The Silent Library</span>
@@ -336,14 +325,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
 
           <!-- ROW 5: Rice fields + Morning + Traditional veranda(wide) -->
           <div class="gallery-item">
-            <Image
-              src={bsrRiceFieldsImg}
+            <img
+              src={bsrRiceFieldsImg.src}
               alt="Jatiluwih rice fields with mountain backdrop"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrRiceFieldsImg.width}
+              height={bsrRiceFieldsImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Jatiluwih UNESCO Rice Fields</span>
@@ -351,14 +339,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrGoodMorningImg}
+            <img
+              src={bsrGoodMorningImg.src}
               alt="Morning view from guest perspective at Bali Silent Retreat"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrGoodMorningImg.width}
+              height={bsrGoodMorningImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Good Morning from the Retreat</span>
@@ -366,14 +353,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item gallery-item--wide">
-            <Image
-              src={bsrVerandaImg}
+            <img
+              src={bsrVerandaImg.src}
               alt="Traditional Javanese veranda with tropical garden"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrVerandaImg.width}
+              height={bsrVerandaImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Traditional Javanese Veranda</span>
@@ -382,14 +368,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
 
           <!-- ROW 6: Accommodation rooms(wide) + Treatment room + Fresh food -->
           <div class="gallery-item gallery-item--wide">
-            <Image
-              src={bsrRoomsImg}
+            <img
+              src={bsrRoomsImg.src}
               alt="Accommodation rooms with colorful Javanese doors"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrRoomsImg.width}
+              height={bsrRoomsImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Accommodation Rooms</span>
@@ -397,14 +382,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrTreatmentRoomImg}
+            <img
+              src={bsrTreatmentRoomImg.src}
               alt="Authentic treatment room with wooden bed"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrTreatmentRoomImg.width}
+              height={bsrTreatmentRoomImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Treatment Room</span>
@@ -412,14 +396,13 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
           </div>
 
           <div class="gallery-item">
-            <Image
-              src={bsrFreshFoodImg}
+            <img
+              src={bsrFreshFoodImg.src}
               alt="Fresh wholesome food at the retreat"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
+              width={bsrFreshFoodImg.width}
+              height={bsrFreshFoodImg.height}
               loading="lazy"
+              decoding="async"
             />
             <div class="gallery-overlay">
               <span>Fresh Wholesome Food</span>
