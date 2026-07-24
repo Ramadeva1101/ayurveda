@@ -1,5 +1,5 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import logoImg from '../assets/images/logo.png';
 import logoHomeImg from '../assets/images/logo-home.png';
 
@@ -15,10 +15,6 @@ const navItems = [
 
 const currentPath = Astro.url.pathname;
 const isHome = currentPath === '/';
-
-// Pre-optimize logos for client-side scroll swap to avoid raw 1.8MB image loads
-const optimizedLogo = await getImage({ src: logoImg, width: 600 });
-const optimizedLogoHome = await getImage({ src: logoHomeImg, width: 600 });
 ---
 
 <header id="navbar" class:list={['navbar', { 'navbar--home': isHome }]}>
@@ -34,8 +30,8 @@ const optimizedLogoHome = await getImage({ src: logoHomeImg, width: 600 });
             class="navbar-logo-img"
             width={600}
             loading="eager"
-            data-logo-src={optimizedLogo.src}
-            data-logo-home-src={optimizedLogoHome.src}
+            data-logo-src={logoImg.src}
+            data-logo-home-src={logoHomeImg.src}
           />
         </a>
 
