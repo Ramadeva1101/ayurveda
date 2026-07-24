@@ -14,6 +14,8 @@
   "dependencies": {
     "@astrojs/alpinejs": "^1.0.0",
     "@astrojs/sitemap": "^3.7.3",
+    "@emnapi/core": "^1.11.2",
+    "@emnapi/runtime": "^1.11.2",
     "@fontsource/cormorant-garamond": "^5.2.11",
     "@fontsource/fraunces": "^5.2.9",
     "@fontsource/karla": "^5.2.8",
