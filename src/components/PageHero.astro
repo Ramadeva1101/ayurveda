@@ -1,0 +1,303 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  subtitleHtml?: string;
+  image: string;
+  imageAlt?: string;
+  height?: string;
+  bottomColor?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  subtitleHtml,
+  image,
+  imageAlt = '',
+  height = '68vh',
+  bottomColor = '#FAF6F0',
+} = Astro.props;
+
+const encodedImage = encodeURI(image);
+---
+
+<section
+  class="page-hero"
+  style={`--hero-height: ${height}; --hero-bg: url('${encodedImage}'); --hero-bottom-color: ${bottomColor};`}
+  aria-label={title}
+>
+  <!-- Background photo -->
+  <div class="ph-bg" aria-hidden="true"></div>
+
+  <!-- Dark overlay -->
+  <div class="ph-overlay" aria-hidden="true"></div>
+
+  <!-- Text content — centred -->
+  <div class="ph-wrap">
+    <div class="ph-glass">
+      {eyebrow && <p class="ph-eyebrow">{eyebrow}</p>}
+      <h1 class="ph-title" set:html={title} />
+      {subtitleHtml ? (
+        <p class="ph-subtitle" set:html={subtitleHtml} />
+      ) : subtitle ? (
+        <p class="ph-subtitle">{subtitle}</p>
+      ) : null}
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="ph-scroll-indicator" aria-hidden="true">
+    <span class="ph-scroll-label">Scroll</span>
+    <svg class="ph-scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+
+  <!-- Bottom fade -->
+  <div class="ph-fade" aria-hidden="true"></div>
+</section>
+
+<style>
+  /* ============================================================
+     ROOT SECTION
+  ============================================================ */
+  .page-hero {
+    position: relative;
+    width: 100%;
+    height: var(--hero-height, 68vh);
+    min-height: 360px;
+    max-height: 820px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -1px;
+    background-color: var(--hero-bottom-color, #FAF6F0);
+  }
+
+  /* ============================================================
+     BACKGROUND PHOTO — static, no zoom/parallax
+  ============================================================ */
+  .ph-bg {
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: center 35%;
+    /* fade foto halus dan tipis hanya di ujung paling bawah */
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  }
+
+  /* ============================================================
+     OVERLAY — vignette tepi + radial gelap di tengah (area teks)
+  ============================================================ */
+  .ph-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      /* radial gelap di tengah untuk area teks */
+      radial-gradient(
+        ellipse 80% 60% at 50% 45%,
+        rgba(4, 8, 3, 0.55) 0%,
+        rgba(4, 8, 3, 0.20) 65%,
+        transparent 100%
+      ),
+      /* fade gelap atas */
+      linear-gradient(
+        to bottom,
+        rgba(4, 8, 3, 0.50) 0%,
+        rgba(4, 8, 3, 0.15) 60%,
+        transparent 95%
+      );
+    z-index: 1;
+  }
+
+  /* ============================================================
+     TEXT WRAPPER — centred
+  ============================================================ */
+  .ph-wrap {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 2rem;
+  }
+
+  /* ============================================================
+     TEXT CONTAINER
+  ============================================================ */
+  .ph-glass {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 680px;
+    width: 100%;
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============================================================
+     TYPOGRAPHY
+  ============================================================ */
+  .ph-eyebrow {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgba(255, 220, 130, 1);
+    margin: 0 0 0.875rem;
+    /* warm glow alih-alih shadow hitam */
+    filter: drop-shadow(0 0 6px rgba(212, 175, 100, 0.6))
+            drop-shadow(0 0 14px rgba(212, 175, 100, 0.3));
+  }
+
+  .ph-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.875rem, 1.25rem + 3vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: rgba(255, 252, 235, 1);
+    margin: 0 0 1rem;
+    letter-spacing: -0.01em;
+    /* soft multi-layer glow — tidak hitam keras */
+    filter:
+      drop-shadow(0 1px 3px rgba(3, 10, 2, 0.6))
+      drop-shadow(0 3px 16px rgba(3, 10, 2, 0.45));
+  }
+
+  .ph-subtitle {
+    font-family: 'Karla', sans-serif;
+    font-size: clamp(0.9375rem, 0.875rem + 0.3vw, 1.0625rem);
+    font-weight: 400;
+    color: rgba(240, 232, 210, 1);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 48ch;
+    /* soft dark halo, tidak harsh */
+    filter: drop-shadow(0 1px 4px rgba(3, 10, 2, 0.55))
+            drop-shadow(0 2px 12px rgba(3, 10, 2, 0.35));
+  }
+
+  .ph-subtitle :global(a) {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 220, 130, 0.8);
+    text-underline-offset: 0.2em;
+  }
+
+  .ph-subtitle :global(a:hover) {
+    color: rgba(255, 220, 130, 1);
+  }
+
+  /* ============================================================
+     SCROLL INDICATOR — simple, no bounce
+  ============================================================ */
+  .ph-scroll-indicator {
+    position: absolute;
+    bottom: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.7;
+    transition: opacity 0.4s ease;
+  }
+
+  .ph-scroll-indicator.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ph-scroll-label {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(212, 175, 100, 0.7);
+  }
+
+  .ph-scroll-chevron {
+    width: 20px;
+    height: 20px;
+    stroke: rgba(212, 175, 100, 0.7);
+  }
+
+  /* ============================================================
+     BOTTOM FADE
+  ============================================================ */
+  .ph-fade {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--hero-bottom-color) 100%
+    );
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 639px) {
+    .page-hero {
+      min-height: 300px;
+      max-height: 500px;
+    }
+    .ph-glass {
+      max-width: 92%;
+    }
+    .ph-scroll-indicator {
+      bottom: 40px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .page-hero {
+      max-height: 860px;
+    }
+    .ph-glass {
+      max-width: 760px;
+    }
+  }
+</style>
+
+<script>
+  function initPageHero() {
+    const scrollIndicator = document.querySelector('.ph-scroll-indicator') as HTMLElement | null;
+    if (!scrollIndicator) return;
+
+    // Hide scroll indicator on first scroll
+    const onFirstScroll = () => {
+      scrollIndicator.classList.add('is-hidden');
+      window.removeEventListener('scroll', onFirstScroll);
+    };
+    window.addEventListener('scroll', onFirstScroll, { passive: true });
+
+    // Auto-hide after 4 seconds
+    setTimeout(() => scrollIndicator.classList.add('is-hidden'), 4000);
+  }
+
+  initPageHero();
+  document.addEventListener('astro:page-load', initPageHero);
+</script>

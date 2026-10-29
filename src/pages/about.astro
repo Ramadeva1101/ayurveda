@@ -4,10 +4,25 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import PageHero from '../components/PageHero.astro';
 import { Image } from 'astro:assets';
 import drKomangImg from '../assets/images/dr-komang-portrait.webp';
 import ajiImg from '../assets/images/aji-portrait.webp';
 import therapistImg from '../assets/images/therapist-portrait.webp';
+import logoImg from '../assets/images/logo.png';
+import niceTourLogoImg from '../assets/images/nicetourbali-logo.webp';
+import niceTourTeamImg from '../assets/images/nicetourbali-team.webp';
+
+const niceTourUrl = 'https://nicetourbali.com/';
+
+const partnerServices = [
+  { label: 'Airport Transfers', icon: 'plane' },
+  { label: 'Private Transportation', icon: 'car' },
+  { label: 'Accommodation Arrangements', icon: 'bed' },
+  { label: 'Hotel & Wellness Centre Transfers', icon: 'route' },
+  { label: 'Pre & Post-Retreat Arrangements', icon: 'calendar' },
+  { label: 'Private Bali Tours', icon: 'camera' },
+];
 ---
 
 <BaseLayout
@@ -18,30 +33,30 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
 
   <main id="main-content">
 
-    <!-- Page Header -->
-    <section class="page-header section">
-      <div class="container">
-        <p class="page-eyebrow">About Us</p>
-        <h1 class="page-title">The People &amp; Philosophy<br/>Behind Our Healing</h1>
-        <p class="page-subtitle">Rooted in ancient wisdom, guided by compassionate care.</p>
-      </div>
-    </section>
+    <!-- Page Hero -->
+    <PageHero
+      eyebrow="About Us"
+      title="The People &amp;&nbsp;Philosophy<br/>Behind Our Healing"
+      subtitle="Rooted in ancient wisdom, guided by compassionate care."
+      image="/images/about-bg.webp"
+      imageAlt="Ayurvedic practitioner welcoming you next to a treatment table"
+      height="68vh"
+      bottomColor="#FAF6F0"
+    />
 
     <!-- Our Uniqueness Section -->
     <section class="uniqueness section">
       <div class="container">
         <p class="section-eyebrow">Our Uniqueness</p>
         <h2 class="uniqueness__title">Where Two Ancient Healing Traditions Meet</h2>
-        <p class="uniqueness__lead">
-          At Ayurvedic Wellness House, we bring together the timeless wisdom of Classical Ayurveda and the rich heritage of Nusantara Traditional Healing to create a personalized wellness experience unlike any other.
-        </p>
+        <p class="uniqueness__lead">At Ayurvedic Wellness House, we bring together the timeless wisdom of Classical Ayurveda and the rich heritage of Javanese Energy Healing Therapy to create a complete personalized wellness experience.</p>
 
         <div class="uniqueness-grid">
 
           <!-- Ayurveda -->
           <div class="uniqueness-card">
             <div class="uniqueness-card__icon">
-              <!-- Leaf/herb icon — represents Ayurveda (Science of Life, herbal medicine) -->
+              <!-- Leaf/herb icon — represents Ayurveda (Science of Life, healing herbs) -->
               <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"></path>
                 <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
@@ -50,7 +65,7 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
             <h3 class="uniqueness-card__title">What is Ayurveda?</h3>
             <div class="uniqueness-card__divider"></div>
             <p class="uniqueness-card__text">
-              Ayurveda, meaning <em>"The Science of Life,"</em> is a traditional medical system from India with over 5,000 years of history. It focuses on restoring balance through personalized consultation, herbal medicine, therapeutic treatments, nutrition, and healthy lifestyle practices.
+              Ayurveda, meaning <em>"The Science of Life,"</em> is a traditional medical system from India with over 5,000 years of history. It focuses on restoring balance through personalized consultation, healing herbs, therapeutic treatments, nutrition, and healthy lifestyle practices.
             </p>
             <p class="uniqueness-card__text">
               Rather than treating symptoms alone, Ayurveda aims to support the body's natural ability to heal and maintain long-term well-being.
@@ -67,10 +82,10 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
                 <path d="M2 18c.6.5 1.2 1 2.5 1C7 19 7 17 9.5 17c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path>
               </svg>
             </div>
-            <h3 class="uniqueness-card__title">What is Nusantara Traditional Healing?</h3>
+            <h3 class="uniqueness-card__title">What is Javanese Energy Healing therapy?</h3>
             <div class="uniqueness-card__divider"></div>
             <p class="uniqueness-card__text">
-              Nusantara Traditional Healing is Indonesia's traditional healing heritage, developed over generations using local herbs, therapeutic bodywork, and natural healing practices.
+              Traditional Point Pressure techniques of Javanese healing heritage, developed over generations practised locally.
             </p>
             <p class="uniqueness-card__text">
               It emphasizes harmony between the body, mind, nature, and spirit — reflecting the diverse wisdom found throughout the Indonesian archipelago.
@@ -88,40 +103,8 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
             <h3 class="uniqueness-card__title">Why Combine Both?</h3>
             <div class="uniqueness-card__divider"></div>
             <p class="uniqueness-card__text">
-              Although they come from different cultures, both traditions share the same philosophy. By combining them, we create a unique healing experience that is both authentic and deeply personalized — honoring the body, mind, nature, and spirit as one.
-            </p>
-            <ul class="uniqueness-list">
-              <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Treat the whole person, not just the symptoms
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Restore balance naturally
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Use herbs and therapeutic touch
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Support the body's own healing process
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Encourage a healthy lifestyle for lasting wellness
-              </li>
-            </ul>
+              Although they come from different cultures, both traditions share the same philosophy. By combining them, we create a unique healing experience that is deeply personalized</p>
+            <ul class="uniqueness-list"><li>Treat the whole person, physically</li><li>Use therapeutic point pressure impact in release the tension instantly</li><li>Support the body's own healing process</li><li>Encourage a healthy lifestyle for lasting wellness</li></ul>
           </div>
 
         </div>
@@ -160,15 +143,12 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
             <div class="founder-divider" aria-hidden="true"></div>
 
             <p class="founder-text">
-              Dr. Komang Sudarmi is an internationally trained Ayurvedic physician with over 11 years of formal education in Ayurveda and more than five years of clinical experience. She earned her Bachelor's, Master's, and PhD in Ayurveda in India — the birthplace of this ancient healing science.
-            </p>
+              Dr. Komang Sudarmi is an internationally trained Ayurvedic physician with over 11 years of formal education in Ayurveda University in India, more than five years being residents at ayurvedic hospital in India and experienced more that 6 years as an Ayurvedic Consultant at Wellnesses in Bali. She earned her Bachelor's, Master's, and PhD in Ayurveda in India — the birthplace of this ancient healing science.</p>
             <p class="founder-text">
-              As the founder of Ayurvedic Wellness House, Dr. Komang integrates authentic Ayurvedic medicine with the traditional healing wisdom of Nusantara to provide personalized wellness programs that restore balance to the body, mind, and spirit. Her approach combines evidence-based Ayurvedic principles with compassionate, individualized care, creating transformative healing experiences for every guest.
-            </p>
+              As the founder of Ayurvedic Wellness House, Dr. Komang integrates authentic Ayurvedic wisdom with the Javanese energy healing therapy to provide personalized wellness programs that harmonized the physical, mind, and spirit. Her approach combines evidence-based Ayurvedic principles with compassionate, individualized care, creating transformative healing experiences for every guest.</p>
             <p class="founder-text">
-              Driven by a vision to introduce authentic Ayurveda to Indonesia and the world, Dr. Komang is dedicated to helping people achieve lasting health through natural, holistic healing.
-            </p>
-            <a href="/contact" class="founder-cta">
+              Driven by a vision to share an authentic Ayurvedic combine with Javanese’s healing wisdom to Indonesia and the world, Dr. Komang is dedicated to helping people achieve lasting health through natural, holistic healing.</p>
+            <a href="https://wa.me/6285926461359?text=Hello%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Dr.%20Komang." target="_blank" rel="noopener noreferrer" class="founder-cta">
               Book a consultation with Dr. Komang
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -202,8 +182,7 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
               <p class="member-name">Aji</p>
               <div class="member-divider" aria-hidden="true"></div>
               <p class="member-text">
-                Aji is a devoted traditional healer and experienced reflexology therapist, born in Solo and deeply rooted in Indonesia's healing heritage. Guided by the sacred discipline of traditional healer lineage, Aji embodies self-discipline, presence, and compassion in every treatment. His approach is designed to restore harmony, release tension, and support the body's natural healing process — offering guests a deeply grounding and rejuvenating wellness experience.
-              </p>
+                Aji is a devoted Javanese traditional healer and experienced point pressure therapist, born in Solo and deeply rooted in Traditional Javanese's healing heritage. Guided by the sacred discipline of traditional healer lineage, Aji embodies self-discipline, presence, and compassion in every treatment. His approach is designed to restore harmony, release tension, and support the body's natural healing process — offering guests a deeply grounding and rejuvenating wellness experience.</p>
             </div>
           </div>
 
@@ -227,6 +206,134 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <SectionDivider variant="simple" />
+
+    <!-- Local Partner — Nice Tour Bali -->
+    <section class="partner section" aria-labelledby="partner-title">
+      <div class="container">
+        <div class="partner-eyebrow">
+          <svg class="partner-eyebrow__lotus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 20c-2.5-2-4-4.6-4-8s1.5-6 4-8c2.5 2 4 4.6 4 8s-1.5 6-4 8z" />
+            <path d="M12 20c-3.5 0-7-2.5-8-7 2.5-.5 5 .2 6.5 2" />
+            <path d="M12 20c3.5 0 7-2.5 8-7-2.5-.5-5 .2-6.5 2" />
+          </svg>
+          <p class="partner-eyebrow__text">Our Local Partner</p>
+        </div>
+        <h2 class="partner__title" id="partner-title">Your Journey in Bali, Taken Care Of</h2>
+        <p class="partner__lead">
+          We work with a trusted local partner to support our guests with travel and ground arrangements, so you can focus on your wellness journey.
+        </p>
+
+        <div class="partner-inner">
+          <div class="partner-content">
+            <div class="partner-brands">
+              <div class="partner-brands__item">
+                <Image src={logoImg} alt="Ayurvedic Wellness House" class="partner-brands__awh" width={360} />
+                <span class="partner-brands__caption">Ayurveda &amp; Wellness</span>
+              </div>
+              <span class="partner-brands__x" aria-hidden="true">&times;</span>
+              <a href={niceTourUrl} target="_blank" rel="noopener" class="partner-brands__item">
+                <Image src={niceTourLogoImg} alt="Nice Tour Bali" class="partner-brands__nice-img" />
+                <span class="partner-brands__caption">Local Ground Arrangement Partner</span>
+              </a>
+            </div>
+
+            <p class="partner-text">
+              We work with <a href={niceTourUrl} target="_blank" rel="noopener">Nice Tour Bali</a> as our local ground arrangement partner in Bali. Their experienced local team assists our guests with transportation, accommodation and other travel services before, during and after your wellness program.
+            </p>
+
+            <h3 class="partner-services__title">Ground Arrangement Services</h3>
+            <ul class="partner-services">
+              {partnerServices.map((service) => (
+                <li class="partner-service">
+                  <span class="partner-service__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      {service.icon === 'plane' && (
+                        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                      )}
+                      {service.icon === 'car' && (
+                        <>
+                          <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10.6 16.3 7.3c-.4-.5-1-.8-1.6-.8H7.6c-.7 0-1.3.4-1.7.9L4 10.3 2.8 11c-.5.3-.8.9-.8 1.5V16c0 .6.4 1 1 1h2" />
+                          <circle cx="7" cy="17" r="2" />
+                          <path d="M9 17h6" />
+                          <circle cx="17" cy="17" r="2" />
+                        </>
+                      )}
+                      {service.icon === 'bed' && (
+                        <>
+                          <path d="M2 4v16" />
+                          <path d="M2 8h18a2 2 0 0 1 2 2v10" />
+                          <path d="M2 17h20" />
+                          <path d="M6 8v9" />
+                        </>
+                      )}
+                      {service.icon === 'route' && (
+                        <>
+                          <circle cx="6" cy="19" r="3" />
+                          <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+                          <circle cx="18" cy="5" r="3" />
+                        </>
+                      )}
+                      {service.icon === 'calendar' && (
+                        <>
+                          <rect x="3" y="4" width="18" height="18" rx="2" />
+                          <path d="M16 2v4" />
+                          <path d="M8 2v4" />
+                          <path d="M3 10h18" />
+                          <path d="m9 16 2 2 4-4" />
+                        </>
+                      )}
+                      {service.icon === 'camera' && (
+                        <>
+                          <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                          <circle cx="12" cy="13" r="3" />
+                        </>
+                      )}
+                    </svg>
+                  </span>
+                  <span class="partner-service__label">{service.label}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a href={niceTourUrl} target="_blank" rel="noopener" class="btn btn-primary partner-cta">
+              Visit Nice Tour Bali
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <figure class="partner-photo">
+            <Image
+              src={niceTourTeamImg}
+              alt="The Nice Tour Bali team in black nicetourbali.com T-shirts, standing on a garden lawn in Bali"
+              class="partner-photo__img"
+              width={720}
+            />
+          </figure>
+        </div>
+
+        <div class="partner-band">
+          <div class="partner-band__brands">
+            <div class="partner-brands__item">
+              <Image src={logoImg} alt="Ayurvedic Wellness House" class="partner-band__awh" width={300} />
+              <span class="partner-brands__caption">Ayurveda &amp; Wellness</span>
+            </div>
+            <span class="partner-band__plus" aria-hidden="true">+</span>
+            <a href={niceTourUrl} target="_blank" rel="noopener" class="partner-brands__item">
+              <Image src={niceTourLogoImg} alt="Nice Tour Bali" class="partner-band__nice" />
+              <span class="partner-brands__caption">Ground Arrangements</span>
+            </a>
+          </div>
+          <p class="partner-band__text">
+            Wellness care and local travel support for a smoother stay in Bali.
+          </p>
         </div>
       </div>
     </section>
@@ -600,5 +707,298 @@ import therapistImg from '../assets/images/therapist-portrait.webp';
     flex-shrink: 0;
     color: var(--color-gold);
     margin-top: 0.2rem;
+  }
+
+  /* Local Partner Section */
+  .partner-eyebrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .partner-eyebrow__lotus {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-gold);
+  }
+
+  .partner-eyebrow__text {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-olive);
+    margin: 0;
+  }
+
+  .partner-eyebrow__text::before,
+  .partner-eyebrow__text::after {
+    content: '';
+    width: clamp(1.5rem, 5vw, 3rem);
+    height: 1px;
+    background-color: var(--color-gold);
+  }
+
+  .partner__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.25rem + 2vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    text-align: center;
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .partner__lead {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.8;
+    text-align: center;
+    max-width: 42rem;
+    margin: 0 auto 3.5rem;
+    line-height: 1.7;
+  }
+
+  .partner-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .partner-inner {
+      grid-template-columns: 7fr 5fr;
+      gap: 4rem;
+    }
+  }
+
+  .partner-brands {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 4vw, 2.5rem);
+    margin-bottom: 2rem;
+  }
+
+  .partner-brands__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+
+  .partner-brands__awh {
+    width: clamp(9rem, 30vw, 13rem);
+    height: auto;
+    display: block;
+  }
+
+  .partner-brands__x {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--color-gold);
+    line-height: 1;
+  }
+
+  .partner-brands__nice-img {
+    width: clamp(4.5rem, 14vw, 6rem);
+    height: auto;
+    display: block;
+  }
+
+  .partner-brands__caption {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.75rem;
+    color: var(--color-olive);
+    opacity: 0.75;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .partner-text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.85;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+
+  .partner-text a {
+    color: var(--color-olive);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-underline-offset: 3px;
+  }
+
+  .partner-text a:hover {
+    color: var(--color-gold-dark);
+  }
+
+  .partner-services__title {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-olive);
+    margin-bottom: 1.25rem;
+  }
+
+  .partner-services {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.25rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .partner-services {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .partner-services {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+
+    .partner-service {
+      padding: 0 0.375rem;
+    }
+
+    .partner-service + .partner-service {
+      border-left: 1px solid rgba(184, 147, 90, 0.3);
+    }
+  }
+
+  .partner-service {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+    text-align: center;
+  }
+
+  .partner-service__icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background-color: var(--color-cream-deep);
+    color: var(--color-olive);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .partner-service__icon svg {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+
+  .partner-service__label {
+    font-size: 0.8125rem;
+    color: var(--color-olive);
+    line-height: 1.35;
+  }
+
+  .partner-cta {
+    border-radius: 999px;
+  }
+
+  .partner-cta svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+  }
+
+  .partner-cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  .partner-photo {
+    margin: 0;
+  }
+
+  .partner-photo__img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border-radius: 0.75rem;
+  }
+
+  .partner-band {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding: 2rem clamp(1.25rem, 4vw, 3rem);
+    background-color: var(--color-cream-deep);
+    border-radius: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .partner-band {
+      flex-direction: row;
+      justify-content: center;
+      gap: 3rem;
+    }
+  }
+
+  .partner-band__brands {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 4vw, 2.5rem);
+  }
+
+  .partner-band__awh {
+    width: clamp(8rem, 24vw, 11rem);
+    height: auto;
+    display: block;
+  }
+
+  .partner-band__nice {
+    width: clamp(4rem, 12vw, 5rem);
+    height: auto;
+    display: block;
+  }
+
+  .partner-band__plus {
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: var(--color-olive);
+    line-height: 1;
+  }
+
+  .partner-band__text {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.1875rem);
+    color: var(--color-olive);
+    text-align: center;
+    max-width: 22rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (min-width: 768px) {
+    .partner-band__text {
+      padding-left: 3rem;
+      border-left: 1px solid rgba(184, 147, 90, 0.35);
+    }
   }
 </style>

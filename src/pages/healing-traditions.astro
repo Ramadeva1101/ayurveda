@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import PageHero from '../components/PageHero.astro';
 ---
 
 <BaseLayout
@@ -14,13 +15,16 @@ import SectionDivider from '../components/SectionDivider.astro';
 
   <main id="main-content">
 
-    <!-- Hero -->
-    <section class="page-header section">
-      <div class="container">
-        <h1 class="page-title">Where Two Ancient Healing Traditions Meet</h1>
-        <p class="page-subtitle">Ayurveda &amp; Nusantara</p>
-      </div>
-    </section>
+    <!-- Page Hero -->
+    <PageHero
+      eyebrow="Ayurveda &amp; Nusantara"
+      title="Where Two Ancient Healing Traditions&nbsp;Meet"
+      subtitle="The timeless wisdom of Classical Ayurveda, united with the rich heritage of Nusantara Traditional Healing."
+      image="/images/Jungle Heart Shape Path_8_11zon.jpg"
+      imageAlt="Heart-shaped jungle path at Bali Silent Retreat"
+      height="68vh"
+      bottomColor="#FAF6F0"
+    />
 
     <!-- Intro -->
     <section class="intro section">
@@ -47,7 +51,7 @@ import SectionDivider from '../components/SectionDivider.astro';
           <h2 class="tradition__title">What is Ayurveda?</h2>
           <div class="tradition__content">
             <p>
-              Ayurveda, meaning <em>"The Science of Life,"</em> is a traditional medical system from India with over 5,000 years of history. It focuses on restoring balance in the body through personalized consultation, herbal medicine, therapeutic treatments, nutrition, and healthy lifestyle practices.
+              Ayurveda, meaning <em>"The Science of Life,"</em> is a traditional medical system from India with over 5,000 years of history. It focuses on restoring balance in the body through personalized consultation, healing herbs, therapeutic treatments, nutrition, and healthy lifestyle practices.
             </p>
             <p>
               Rather than treating symptoms alone, Ayurveda aims to support the body's natural ability to heal and maintain long-term well-being.

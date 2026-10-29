@@ -84,7 +84,9 @@ Also update the `@astrojs/sitemap` or sitemap config if applicable.
 ## Form Endpoint
 
 ### Email / Form Handler
-**File:** `src/pages/contact.astro`
+**Files:** `src/pages/contact.astro`, `src/components/Footer.astro`
+
+Official contact email: `booking@ayurvedicwellnesshouse.com` (Updated!)
 
 Sign up for a free form-to-email service:
 - **Web3Forms** (https://web3forms.com) — free up to 250 submissions/month

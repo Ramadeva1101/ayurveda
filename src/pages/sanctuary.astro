@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import PageHero from '../components/PageHero.astro';
 import { Image } from 'astro:assets';
 
 // BSR Gallery images — imported via Astro asset system for full optimisation
@@ -20,42 +21,46 @@ import bsrStarGazingImg from '../assets/images/bsr-star-gazing.jpg';
 import bsrSilentLibraryImg from '../assets/images/bsr-silent-library.jpg';
 import bsrGoodMorningImg from '../assets/images/bsr-good-morning.jpg';
 import bsrFreshFoodImg from '../assets/images/bsr-fresh-food.jpg';
-import bsrVerandaImg from '../assets/images/bsr-veranda.webp';
-import bsrTreatmentRoomImg from '../assets/images/bsr-treatment-room.webp';
 import bsrRoomsImg from '../assets/images/bsr-rooms.webp';
 import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
+import room1Img from '../assets/images/room1.webp';
+import room2Img from '../assets/images/room2.webp';
 ---
 
 <BaseLayout
   title="Our Healing Sanctuary"
-  description="Ayurvedic Wellness House is hosted at Bali Silent Retreat — a peaceful wellness destination surrounded by rice fields, tropical forests, and Mount Batukaru."
+  description="Ayurvedic Wellness House is located next to Bali Silent Retreat in Tabanan, Bali, with nearby rooms, an organic all-day buffet, and nature and meditation activities."
 >
   <Navbar />
 
   <main id="main-content">
 
-    <!-- Page Header -->
-    <section class="page-header section">
-      <div class="container">
-        <p class="page-eyebrow">Our Location</p>
-        <h1 class="page-title">Our Healing Sanctuary</h1>
-        <p class="page-subtitle">Hosted at Bali Silent Retreat</p>
-      </div>
-    </section>
+    <!-- Page Hero -->
+    <PageHero
+      title="Our Healing&nbsp;Sanctuary"
+      subtitleHtml={'Surrounded by rice fields, tropical forests, all-day buffet fresh foods daily and the breathtaking views of Mount Batukaru - Located near by <a href="https://www.balisilentretreat.com/" target="_blank" rel="noopener noreferrer">Bali Silent Retreat</a>.'}
+      image="/images/rice field surrounding_11zon.webp"
+      imageAlt="Rice field surroundings at Bali Silent Retreat"
+      height="68vh"
+      bottomColor="#FAF6F0"
+    />
 
     <!-- Main Content -->
     <section class="sanctuary-intro section">
       <div class="container">
         <div class="sanctuary-intro__inner">
           <h2 class="sanctuary-intro__lead">
-            Healing is not only about the treatments you receive — it is also about the environment that surrounds you.
+            Ayurvedic healing is not only about the therapy you receive — it is also about the environment that surrounds you.
           </h2>
           <div class="sanctuary-intro__text">
             <p>
-              Ayurvedic Wellness House is proudly hosted near by <strong>Bali Silent Retreat</strong>, a peaceful wellness destination in the heart of Bali. Surrounded by rice fields, tropical forests, and the breathtaking views of Mount Batukaru, our location offers the ideal setting to rest, reconnect, and restore your well-being.
+              Ayurvedic Wellness House is located next to <strong><a href="https://www.balisilentretreat.com/" target="_blank" rel="noopener noreferrer">Bali Silent Retreat, Tabanan</a></strong>, which provides an easy and restful Food &amp; Accommodations Package:
             </p>
+            <p><strong>Rooms:</strong> <a href="https://www.balisilentretreat.com/accommodation/" target="_blank" rel="noopener noreferrer">5 types of rooms with 5 prices</a></p>
+            <p><strong>Food:</strong> delicious, organic, freshly picked <a href="https://www.balisilentretreat.com/food/" target="_blank" rel="noopener noreferrer">All-Day-Buffet</a></p>
+            <p><strong>Activities:</strong> <a href="https://www.balisilentretreat.com/programs/" target="_blank" rel="noopener noreferrer">20+ activities</a>: nature, movement, meditation, and self-reflective activities, such as a labyrinth, jogging track, sound bath, curated jungle walk</p>
             <p>
-              Whether you are visiting for a consultation, a daily wellness experience, or a multi-day program, the calm atmosphere of Bali Silent Retreat becomes an important part of your healing journey.
+              Whether you are visiting for a consultation, a daily wellness experience, or a multi-day program, the calm atmosphere of <a href="https://www.balisilentretreat.com/" target="_blank" rel="noopener noreferrer">Bali Silent Retreat</a> becomes an important part of your healing journey.
             </p>
           </div>
         </div>
@@ -67,70 +72,101 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
     <!-- A Place Designed for Healing -->
     <section class="highlights section section--alt">
       <div class="container">
-        <h2 class="highlights__title">A Place Designed for Healing</h2>
+        <h2 class="highlights__title">A Place Designed for Healing.</h2>
         <p class="highlights__subtitle">Our guests enjoy a tranquil environment where nature encourages deep relaxation and reflection.</p>
         <div class="highlights__grid">
-          <div class="highlight-item">
-            <div class="highlight-icon">
-              <!-- Mountain icon — Spectacular Views of Mount Batukaru -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M8 3l4 8 5-5 5 15H2L8 3z"></path>
-              </svg>
+
+          <!-- Card 1: Spectacular Views of Mount Batukaru -->
+          <div class="highlight-item" style="--card-bg: url('/images/spectacular view of batukaru_11zon.webp')">
+            <div class="highlight-card__overlay"></div>
+            <div class="highlight-card__content">
+              <div class="highlight-icon">
+                <!-- Mountain icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 3l4 8 5-5 5 15H2L8 3z"></path>
+                </svg>
+              </div>
+              <h3>Spectacular Views of Mount Batukaru</h3>
             </div>
-            <h3>Spectacular Views of Mount Batukaru</h3>
           </div>
-          <div class="highlight-item">
-            <div class="highlight-icon">
-              <!-- Sprout/plant icon — Peaceful Rice Field Surroundings -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 20h10"></path>
-                <path d="M10 20c5.5-2.5.8-6.4 3-10"></path>
-                <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"></path>
-                <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"></path>
-              </svg>
+
+          <!-- Card 2: Peaceful Rice Field Surroundings -->
+          <div class="highlight-item" style="--card-bg: url('/images/rice field surrounding_11zon.webp')">
+            <div class="highlight-card__overlay"></div>
+            <div class="highlight-card__content">
+              <div class="highlight-icon">
+                <!-- Sprout/plant icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 20h10"></path>
+                  <path d="M10 20c5.5-2.5.8-6.4 3-10"></path>
+                  <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"></path>
+                  <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"></path>
+                </svg>
+              </div>
+              <h3>Peaceful Rice Field Surroundings</h3>
             </div>
-            <h3>Peaceful Rice Field Surroundings</h3>
           </div>
-          <div class="highlight-item">
-            <div class="highlight-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
-              </svg>
+
+          <!-- Card 3: Fresh Mountain Air -->
+          <div class="highlight-item" style="--card-bg: url('/images/fresh mountain air_11zon.webp')">
+            <div class="highlight-card__overlay"></div>
+            <div class="highlight-card__content">
+              <div class="highlight-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                </svg>
+              </div>
+              <h3>Fresh Mountain Air</h3>
             </div>
-            <h3>Fresh Mountain Air</h3>
           </div>
-          <div class="highlight-item">
-            <div class="highlight-icon">
-              <!-- Lotus/meditation icon — Quiet Spaces for Meditation and Relaxation -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22c0 0-8-5.4-8-11.8C4 6.3 7.6 3 12 3s8 3.3 8 7.2C20 16.6 12 22 12 22z"></path>
-                <path d="M12 22c0 0-4-4.2-4-8.2 0-2.5 1.8-4.5 4-4.5s4 2 4 4.5c0 4-4 8.2-4 8.2z"></path>
-              </svg>
+
+          <!-- Card 4: Quiet Spaces for Meditation -->
+          <div class="highlight-item" style="--card-bg: url('/images/quiet space for meditation_11zon.webp')">
+            <div class="highlight-card__overlay"></div>
+            <div class="highlight-card__content">
+              <div class="highlight-icon">
+                <!-- Lotus/meditation icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22c0 0-8-5.4-8-11.8C4 6.3 7.6 3 12 3s8 3.3 8 7.2C20 16.6 12 22 12 22z"></path>
+                  <path d="M12 22c0 0-4-4.2-4-8.2 0-2.5 1.8-4.5 4-4.5s4 2 4 4.5c0 4-4 8.2-4 8.2z"></path>
+                </svg>
+              </div>
+              <h3>Quiet Spaces for Meditation and Relaxation</h3>
             </div>
-            <h3>Quiet Spaces for Meditation and Relaxation</h3>
           </div>
-          <div class="highlight-item">
-            <div class="highlight-icon">
-              <!-- Palm/tropical icon — Beautiful Tropical Gardens -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"></path>
-                <path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3"></path>
-                <path d="M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 2.12-2.12c-1.95-1.96-5.27-1.8-7.42.35z"></path>
-                <path d="M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-10-2-10z"></path>
-              </svg>
+
+          <!-- Card 5: All-Day Buffet — Fresh Food Daily -->
+          <div class="highlight-item" style="--card-bg: url('/images/all-day buffet fresh food daily.jpg')">
+            <div class="highlight-card__overlay"></div>
+            <div class="highlight-card__content">
+              <div class="highlight-icon">
+                <!-- Fresh Food / Dining icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 11c0 4.97 4.03 9 9 9s9-4.03 9-9H3z"></path>
+                  <path d="M12 4v4"></path>
+                  <path d="M8 5.5c.5 1 1.5 1.5 1.5 2.5"></path>
+                  <path d="M16 5.5c-.5 1-1.5 1.5-1.5 2.5"></path>
+                </svg>
+              </div>
+              <h3>All-Day Buffet — Fresh Food Daily</h3>
             </div>
-            <h3>Beautiful Tropical Gardens</h3>
           </div>
-          <div class="highlight-item">
-            <div class="highlight-icon">
-              <!-- Leaf/renewal icon — A Natural Environment That Supports Rest and Renewal -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"></path>
-                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
-              </svg>
+
+          <!-- Card 6: A Natural Environment That Supports Rest and Renewal -->
+          <div class="highlight-item" style="--card-bg: url('/images/natural environment that support rest_11zon.webp')">
+            <div class="highlight-card__overlay"></div>
+            <div class="highlight-card__content">
+              <div class="highlight-icon">
+                <!-- Leaf/renewal icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"></path>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                </svg>
+              </div>
+              <h3>A Natural Environment That Supports Rest and Renewal</h3>
             </div>
-            <h3>A Natural Environment That Supports Rest and Renewal</h3>
           </div>
+
         </div>
       </div>
     </section>
@@ -146,7 +182,7 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
             We believe that true healing happens when professional care is combined with a peaceful environment.
           </p>
           <p class="why-location__text">
-            The combination of authentic Ayurveda, the healing traditions of Nusantara, and the serene surroundings of Bali Silent Retreat — known as a hidden gem: an eco-sustainable nature sanctuary, with a 6 hectares of nature, surrounded by UNESCO-Jatiluwih rice fields, jungle, and mountains — creates a unique opportunity to step away from daily life, reconnect with yourself, and embrace a healthier way of living.
+            The combination of authentic Ayurveda, the healing traditions of Nusantara, and the serene surroundings of <a href="https://www.balisilentretreat.com/" target="_blank" rel="noopener noreferrer">Bali Silent Retreat</a> — known as a hidden gem: an eco-sustainable nature sanctuary, with 6 hectares of nature, surrounded by UNESCO-Jatiluwih rice fields, jungle, and mountains — creates a unique opportunity to step away from daily life, reconnect with yourself, and embrace a healthier way of living.
           </p>
         </div>
       </div>
@@ -158,7 +194,7 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
     <section class="bsr-gallery section">
       <div class="container">
         <div class="gallery-header">
-          <p class="gallery-eyebrow">Bali Silent Retreat</p>
+          <p class="gallery-eyebrow"><a href="https://www.balisilentretreat.com/" target="_blank" rel="noopener noreferrer">Bali Silent Retreat</a></p>
           <h2 class="gallery-title">A Sanctuary Beyond Words</h2>
           <p class="gallery-subtitle">Immerse yourself in 6 hectares of nature — where rice fields, jungle, and mountain air create the perfect backdrop for healing.</p>
         </div>
@@ -334,82 +370,7 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
             </div>
           </div>
 
-          <!-- ROW 5: Rice fields + Morning + Traditional veranda(wide) -->
-          <div class="gallery-item">
-            <Image
-              src={bsrRiceFieldsImg}
-              alt="Jatiluwih rice fields with mountain backdrop"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
-              loading="lazy"
-            />
-            <div class="gallery-overlay">
-              <span>Jatiluwih UNESCO Rice Fields</span>
-            </div>
-          </div>
-
-          <div class="gallery-item">
-            <Image
-              src={bsrGoodMorningImg}
-              alt="Morning view from guest perspective at Bali Silent Retreat"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
-              loading="lazy"
-            />
-            <div class="gallery-overlay">
-              <span>Good Morning from the Retreat</span>
-            </div>
-          </div>
-
-          <div class="gallery-item gallery-item--wide">
-            <Image
-              src={bsrVerandaImg}
-              alt="Traditional Javanese veranda with tropical garden"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
-              loading="lazy"
-            />
-            <div class="gallery-overlay">
-              <span>Traditional Javanese Veranda</span>
-            </div>
-          </div>
-
-          <!-- ROW 6: Accommodation rooms(wide) + Treatment room + Fresh food -->
-          <div class="gallery-item gallery-item--wide">
-            <Image
-              src={bsrRoomsImg}
-              alt="Accommodation rooms with colorful Javanese doors"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
-              loading="lazy"
-            />
-            <div class="gallery-overlay">
-              <span>Accommodation Rooms</span>
-            </div>
-          </div>
-
-          <div class="gallery-item">
-            <Image
-              src={bsrTreatmentRoomImg}
-              alt="Authentic treatment room with wooden bed"
-              width={800}
-              height={600}
-              format="webp"
-              quality={85}
-              loading="lazy"
-            />
-            <div class="gallery-overlay">
-              <span>Treatment Room</span>
-            </div>
-          </div>
+          <!-- ROW 6: Fresh food & Spa Rooms -->
 
           <div class="gallery-item">
             <Image
@@ -423,6 +384,36 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
             />
             <div class="gallery-overlay">
               <span>Fresh Wholesome Food</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={room1Img}
+              alt="Tranquil spa treatment room with brick wall and massage bed"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Tranquil Spa Room</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <Image
+              src={room2Img}
+              alt="Ayurvedic Steam Box (Swedana) and private washroom facilities for treatment guests"
+              width={800}
+              height={600}
+              format="webp"
+              quality={85}
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <span>Steam Box</span>
             </div>
           </div>
 
@@ -490,6 +481,14 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
     letter-spacing: 0.18em;
     color: var(--color-gold);
     margin-bottom: 0.75rem;
+  }
+
+  .gallery-eyebrow a,
+  .sanctuary-intro__text a,
+  .why-location__text a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
 
   .gallery-title {
@@ -756,8 +755,8 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
   .highlights__grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 1.5rem;
-    max-width: 48rem;
+    gap: 0;
+    max-width: 64rem;
     margin: 0 auto;
   }
 
@@ -767,21 +766,74 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
     }
   }
 
+  @media (min-width: 1024px) {
+    .highlights__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Image-background card */
   .highlight-item {
+    position: relative;
+    min-height: 220px;
+    background-image: var(--card-bg);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  @media (min-width: 640px) {
+    .highlight-item {
+      min-height: 260px;
+    }
+  }
+
+  /* Dark gradient overlay */
+  .highlight-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 18, 8, 0.78) 0%,
+      rgba(10, 18, 8, 0.35) 55%,
+      rgba(10, 18, 8, 0.12) 100%
+    );
+    transition: background 0.4s ease;
+  }
+
+  .highlight-item:hover .highlight-card__overlay {
+    background: linear-gradient(
+      to top,
+      rgba(10, 18, 8, 0.88) 0%,
+      rgba(10, 18, 8, 0.5) 60%,
+      rgba(10, 18, 8, 0.2) 100%
+    );
+  }
+
+  /* Content positioned at bottom of card */
+  .highlight-card__content {
+    position: absolute;
+    inset: 0;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     align-items: flex-start;
-    gap: 1rem;
-    padding: 1.25rem;
-    background-color: var(--color-cream-base);
-    border-left: 3px solid var(--color-gold);
+    padding: 1.5rem;
+    gap: 0.625rem;
   }
 
   .highlight-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
     flex-shrink: 0;
-    color: var(--color-gold);
-    margin-top: 0.125rem;
+    color: rgba(212, 175, 100, 0.9);
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5));
+    transition: transform 0.3s ease;
+  }
+
+  .highlight-item:hover .highlight-icon {
+    transform: scale(1.1);
   }
 
   .highlight-icon svg {
@@ -791,11 +843,12 @@ import bsrRiceFieldsImg from '../assets/images/bsr-rice-fields.webp';
 
   .highlight-item h3 {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: 1rem;
+    font-size: clamp(0.9375rem, 0.875rem + 0.25vw, 1.0625rem);
     font-weight: 500;
-    color: var(--color-olive);
+    color: rgba(255, 252, 240, 0.95);
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.35;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
   }
 
   /* Why Location */

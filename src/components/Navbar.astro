@@ -6,10 +6,10 @@ import logoHomeImg from '../assets/images/logo-home.png';
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Our Sanctuary', href: '/sanctuary' },
-  { label: 'Ayurveda Therapy', href: '/program' },
-  { label: 'Wellness Programs', href: '/packages' },
+  { label: 'Ayurvedic Therapy', href: '/program' },
+  { label: 'Program Package', href: '/packages' },
   { label: 'About', href: '/about' },
-  { label: 'Testimonials', href: '/testimonials' },
+  { label: 'Clients Journey', href: '/testimonials' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -168,9 +168,34 @@ const isHome = currentPath === '/';
   }
 
   .navbar--home:not(.scrolled) {
-    background-color: transparent;
+    background: transparent;
+    box-shadow: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  .navbar--home:not(.scrolled)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(100% + 64px);
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(16, 24, 13, 0.78) 0%,
+      rgba(16, 24, 13, 0.68) 32%,
+      rgba(16, 24, 13, 0.44) 52%,
+      rgba(16, 24, 13, 0.18) 72%,
+      rgba(16, 24, 13, 0.04) 88%,
+      rgba(16, 24, 13, 0) 100%
+    );
+  }
+
+  .navbar--home:not(.scrolled) .navbar-logo-img {
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.55));
   }
 
   .navbar.scrolled,
@@ -256,6 +281,12 @@ const isHome = currentPath === '/';
     text-decoration: none;
   }
 
+  .navbar--home:not(.scrolled) .navbar-link {
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.45);
+  }
+
   .navbar-link::after {
     content: '';
     position: absolute;
@@ -333,6 +364,10 @@ const isHome = currentPath === '/';
     border-radius: 2px;
     transition: all 0.3s ease;
     transform-origin: center;
+  }
+
+  .navbar--home:not(.scrolled) .hamburger-line {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
   }
 
   .navbar.scrolled .hamburger-line,

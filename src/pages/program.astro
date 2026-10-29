@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
 import TreatmentCard from '../components/TreatmentCard.astro';
+import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 // Import all treatment images using Astro's asset system
@@ -50,7 +51,7 @@ const treatmentImages: Record<string, ImageMetadata> = {
   'Reflexology': reflexioImg,
   'Svedana': svedanaImg,
   'Ayurvedic One-on-One with Dr. Komang Sudarmi, BAMS., MS., PhD. (Ayurveda)': oneOnOneImg,
-  'Ayurvedic Nusantara Experience': nusantaraExpImg,
+  'Ayurvedic Wisdom combined with Javanese energy healing therapy': nusantaraExpImg,
   'Takradhara': takradharaImg,
 };
 
@@ -76,24 +77,24 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
 ---
 
 <BaseLayout
-  title="Ayurveda Therapy"
-  description="The full treatment menu at Ayurvedic Wellness House — massage, Dhara, Basti, specialized therapies, and personalized Ayurvedic consultations."
+  title="Ayurvedic Massage & Therapy in Bali"
+  description="Discover authentic Ayurvedic massage and therapy in Bali, including Abhyanga, Shirodhara, Basti, and personalized consultations at Ayurvedic Wellness House."
   prefetchImages={allImageUrls}
 >
   <Navbar />
 
   <main id="main-content">
 
-    <!-- Page Header -->
-    <section class="page-header section">
-      <div class="container">
-        <p class="page-eyebrow">Our Treatments</p>
-        <h1 class="page-title">Ayurveda Therapy</h1>
-        <p class="page-description">
-          Every treatment is built on classical Ayurvedic principles and adapted to your specific needs. A consultation is required before your first session.
-        </p>
-      </div>
-    </section>
+    <!-- Page Hero -->
+    <PageHero
+      eyebrow="Our THerapy"
+      title="Ayurvedic Massage &amp; Therapy in Bali"
+      subtitle="Every therapy is built on classical Ayurvedic principles and adapted to your specific needs. A consultation is required before your first session."
+      image="/images/abhyanga.webp"
+      imageAlt="Quiet meditation space at Bali Silent Retreat"
+      height="68vh"
+      bottomColor="#FAF6F0"
+    />
 
     <!-- Signature Special Treatments (Top 2) -->
     {signatureTreatments.length > 0 && (
@@ -128,7 +129,7 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
         <div class="our-treatments-intro__inner">
           <h2 class="our-treatments-intro__title">Our Treatments</h2>
           <p class="our-treatments-intro__text">
-            Every treatment is built on classical Ayurvedic principles and adapted to your specific needs. A consultation is required before your first session.
+            Every therapy is built on classical Ayurvedic principles and adapted to your specific needs. A consultation is required before your first session.
           </p>
         </div>
       </div>

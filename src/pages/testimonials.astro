@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import PageHero from '../components/PageHero.astro';
 
 // Photo + Quote testimonials — replace src with real guest images
 const testimonials = [
@@ -54,6 +55,11 @@ const testimonials = [
 // Video testimonials - YouTube embeds
 const videoTestimonials = [
   {
+    youtubeId: '9Yc_3wSAe7I',
+    name: 'Guest',
+    location: 'Bali, Indonesia',
+  },
+  {
     youtubeId: '6K2ax92R1zQ',
     name: 'Guest',
     location: 'Bali, Indonesia',
@@ -72,23 +78,23 @@ const videoTestimonials = [
 ---
 
 <BaseLayout
-  title="Testimonials"
+  title="Clients Journey"
   description="Guest experiences at Ayurvedic Wellness House — real stories from those who have begun their healing journey with us."
 >
   <Navbar />
 
   <main id="main-content">
 
-    <!-- Page Header -->
-    <section class="page-header section">
-      <div class="container">
-        <p class="page-eyebrow">Guest Experiences</p>
-        <h1 class="page-title">What Our Guests Say</h1>
-        <p class="page-description">
-          Real stories from those who have begun their healing journey with us.
-        </p>
-      </div>
-    </section>
+    <!-- Page Hero -->
+    <PageHero
+      eyebrow="Guest Experiences"
+      title="Clients Journey"
+      subtitle="Real stories from those who have begun their healing journey with us."
+      image="/images/fresh mountain air_11zon.webp"
+      imageAlt="Guest relaxing and reading in the library at Bali Silent Retreat"
+      height="60vh"
+      bottomColor="#FAF6F0"
+    />
 
     <!-- Photo + Quote Carousel -->
     <section class="testi section">
@@ -114,7 +120,11 @@ const videoTestimonials = [
                   </svg>
                 </div>
                 <blockquote class="testi-card__quote">
-                  <p>{item.quote}</p>
+                  {item.quote.includes('Bali Silent Retreat') ? (
+                    <p>The environment at <a href="https://www.balisilentretreat.com/" target="_blank" rel="noopener noreferrer">Bali Silent Retreat</a> felt like part of the treatment itself. Surrounded by nature, I was able to truly relax and let go.</p>
+                  ) : (
+                    <p>{item.quote}</p>
+                  )}
                 </blockquote>
                 <div class="testi-card__meta">
                   <div class="testi-card__line"></div>
@@ -349,6 +359,13 @@ const videoTestimonials = [
     margin: 0;
   }
 
+  .testi-card__quote a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
   .testi-card__meta {
     margin-top: auto;
   }
@@ -406,14 +423,14 @@ const videoTestimonials = [
 
   .videos__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 64rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 72rem;
     margin: 0 auto;
     align-items: start;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     .videos__grid {
       grid-template-columns: repeat(2, 1fr);
     }

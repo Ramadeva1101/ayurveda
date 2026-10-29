@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import SectionDivider from '../components/SectionDivider.astro';
+import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 const allTreatments = await getCollection('treatments');
@@ -27,16 +28,16 @@ const treatmentOptions = allTreatments.map(t => ({
 
   <main id="main-content">
 
-    <!-- Page Header -->
-    <section class="page-header section">
-      <div class="container">
-        <p class="page-eyebrow">Contact</p>
-        <h1 class="page-title">Get in Touch</h1>
-        <p class="page-description">
-          The fastest way to reach us is by WhatsApp. You can also fill in the form and we'll get back to you within one business day.
-        </p>
-      </div>
-    </section>
+    <!-- Page Hero -->
+    <PageHero
+      eyebrow="Contact"
+      title="Get in&nbsp;Touch"
+      subtitle="The fastest way to reach us is by WhatsApp. We typically respond within the hour during business hours."
+      image="/images/bali-silent-retreat-3-sisters-mountains.webp"
+      imageAlt="Peaceful rice fields surrounding Bali Silent Retreat"
+      height="60vh"
+      bottomColor="#FAF6F0"
+    />
 
     <!-- Main Contact Section -->
     <section class="contact section">
@@ -80,26 +81,57 @@ const treatmentOptions = allTreatments.map(t => ({
                 id="contact-form"
                 x-data="{
                   errors: {},
+                  loading: false,
                   submitted: false,
-                  submit() {
+                  async submit() {
                     this.errors = {};
                     const name = document.getElementById('name').value.trim();
                     const email = document.getElementById('email').value.trim();
+                    const inquiry = document.getElementById('inquiry').value;
                     const message = document.getElementById('message').value.trim();
 
                     if (!name) this.errors.name = 'Please enter your name.';
-                    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) this.errors.email = 'Please enter a valid email address.';
+                    if (!email) this.errors.email = 'Please enter your email or WhatsApp.';
                     if (!message) this.errors.message = 'Please enter your message.';
 
-                    if (Object.keys(this.errors).length === 0) {
-                      this.submitted = true;
-                      document.getElementById('form-success').style.display = 'block';
-                      document.getElementById('contact-form').style.display = 'none';
+                    if (Object.keys(this.errors).length > 0) return;
+
+                    this.loading = true;
+
+                    try {
+                      const res = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({
+                          access_key: '1a120020-9bd2-4644-b5e1-a3ef8fa2cc44',
+                          name,
+                          email,
+                          inquiry: inquiry || 'Not specified',
+                          message,
+                          subject: 'New Inquiry – Ayurvedic Wellness House',
+                          from_name: 'Ayurvedic Wellness House Website',
+                        }),
+                      });
+                      const json = await res.json();
+                      if (json.success) {
+                        this.submitted = true;
+                        document.getElementById('form-success').style.display = 'block';
+                        document.getElementById('contact-form').style.display = 'none';
+                      } else {
+                        alert('Something went wrong. Please try WhatsApp instead.');
+                      }
+                    } catch(e) {
+                      alert('Connection error. Please try WhatsApp instead.');
+                    } finally {
+                      this.loading = false;
                     }
                   }
                 }"
                 @submit.prevent="submit()"
               >
+                <!-- Hidden honeypot anti-spam -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
                 <div class="form-group" :class="{ 'form-group--error': errors.name }">
                   <label for="name" class="form-label">Name <span class="required">*</span></label>
                   <input
@@ -135,15 +167,11 @@ const treatmentOptions = allTreatments.map(t => ({
                       ))}
                     </optgroup>
                     <optgroup label="Packages">
-                      <option value="ayurvedic-consultation">Ayurvedic Consultation</option>
-                      <option value="one-day-ayurvedic-experience">One-Day Ayurvedic Experience</option>
-                      <option value="3-day-ayurvedic-nusantara-detox">3-Day Ayurvedic Nusantara Detox</option>
-                      <option value="5-day-ayurvedic-nusantara-detox">5-Day Ayurvedic Nusantara Detox</option>
-                      <option value="7-day-ayurvedic-nusantara-detox">7-Day Ayurvedic Nusantara Detox</option>
-                      <option value="10-day-ayurvedic-nusantara-deep-detox">10-Day Ayurvedic Nusantara Deep Detox</option>
-                      <option value="14-day-ayurvedic-nusantara-deep-detox-rejuvenation">14-Day Ayurvedic Nusantara Deep Detox + Rejuvenation</option>
-                      <option value="21-day-classical-ayurvedic-nusantara-deep-detox-rejuvenation">21-Day Classical Ayurvedic Nusantara Deep Detox + Rejuvenation</option>
-                      <option value="custom-package">Custom Package</option>
+                      <option value="ayurvedic-javanese-healing">Ayurvedic Javanese Healing Experience</option>
+                      <option value="3-day-ayurvedic-nusantara">3-Day Ayurvedic & Nusantara Experience</option>
+                      <option value="7-day-ayurvedic-nusantara">7-Day Ayurvedic Pancha Karma & Nusantara</option>
+                      <option value="14-day-ayurvedic-nusantara">14-Day Ayurvedic Deep Pancha Karma & Nusantara</option>
+                      <option value="21-day-ayurvedic-nusantara">21-Day Complete Ayurvedic Deep Pancha Karma & Nusantara</option>
                     </optgroup>
                     <option value="other">Other / General Inquiry</option>
                   </select>
@@ -161,14 +189,18 @@ const treatmentOptions = allTreatments.map(t => ({
                   <p class="form-error" x-show="errors.message" x-text="errors.message" x-cloak></p>
                 </div>
 
-                <button type="submit" class="btn btn-outline form-submit">
-                  Send Message
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                  </svg>
+                <button type="submit" class="btn btn-outline form-submit" :disabled="loading">
+                  <span x-show="!loading" class="form-submit__content">
+                    Send Message
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                  </span>
+                  <span x-show="loading" x-cloak>Sending...</span>
                 </button>
               </form>
+
 
               <!-- Success state -->
               <div id="form-success" class="form-success" style="display: none;" x-data>
@@ -200,7 +232,7 @@ const treatmentOptions = allTreatments.map(t => ({
                   </div>
                   <div>
                     <p class="info-label">Location</p>
-                    <p class="info-value">Accommodation at BSR, Eco wellness sanctuary,<br />Tabanan, Bali, Indonesia.</p>
+                    <p class="info-value">Ayurvedic Wellness House<br />Tabanan, Bali, Indonesia</p>
                   </div>
                 </div>
 
@@ -221,36 +253,48 @@ const treatmentOptions = allTreatments.map(t => ({
                 <div class="info-item">
                   <div class="info-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="info-label">Email</p>
+                    <a href="mailto:booking@ayurvedicwellnesshouse.com" class="info-link">booking@ayurvedicwellnesshouse.com</a>
+                  </div>
+                </div>
+
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                       <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                       <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                       <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                   </div>
                   <div>
-                    <!-- TODO: replace with the client's actual Instagram handle -->
                     <p class="info-label">Instagram</p>
-                    <a href="https://instagram.com/ayurvedicwellnesshouse" target="_blank" rel="noopener noreferrer" class="info-link">@ayurvedicwellnesshouse</a>
+                    <a href="https://instagram.com/Ayurvedicwellnesshouse" target="_blank" rel="noopener noreferrer" class="info-link">@Ayurvedicwellnesshouse</a>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Google Maps Embed — Bali Silent Retreat -->
+            <!-- Google Maps Embed — Ayurvedic Wellness House -->
             <div class="map-embed">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.2036494793616!2d115.1326527!3d-8.4248589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd225ce6550b529%3A0x9762329b747fa3b!2sBali%20Silent%20Retreat!5e0!3m2!1sen!2sid!4v1720450000000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.2036494793616!2d115.1325593!3d-8.4248088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd22510c24aa635%3A0x68a34fb0ab02b217!2sAyurvedic%20Wellness%20House!5e0!3m2!1sen!2sid!4v1720450000000"
                 width="100%"
                 height="340"
                 style="border:0;"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                title="Ayurvedic Wellness House — Bali Silent Retreat location on Google Maps"
+                title="Ayurvedic Wellness House location on Google Maps"
               ></iframe>
             </div>
             <!-- Open in Maps link -->
             <a
-              href="https://maps.app.goo.gl/JDncqz7JfRuuXLhS7"
+              href="https://maps.app.goo.gl/gRzEuCPrURoJJ8rG8"
               target="_blank"
               rel="noopener noreferrer"
               class="map-directions-link"
@@ -474,6 +518,18 @@ const treatmentOptions = allTreatments.map(t => ({
 
   .form-submit {
     align-self: flex-start;
+  }
+
+  .form-submit__content {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-submit svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
   }
 
   /* Form Success */

@@ -1,35 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="lotus-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#B8935A;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#9A7845;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-
-  <!-- Lotus petals -->
-  <g fill="none" stroke="url(#lotus-gradient)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="64" height="64" rx="16" fill="#2E3A24"/>
+  <!-- Elegant Gold Lotus Icon -->
+  <g fill="none" stroke="#B8935A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <!-- Center petal -->
-    <path d="M32 8 Q38 20 32 32 Q26 20 32 8" fill="rgba(184,147,90,0.1)" />
-
-    <!-- Petals around center -->
-    <path d="M32 12 Q42 20 38 32 Q30 26 32 12" />
-    <path d="M32 12 Q22 20 26 32 Q34 26 32 12" />
-
-    <path d="M20 16 Q28 22 34 32 Q24 28 20 16" />
-    <path d="M44 16 Q36 22 30 32 Q40 28 44 16" />
-
-    <path d="M14 24 Q24 26 32 32 Q22 30 14 24" />
-    <path d="M50 24 Q40 26 32 32 Q42 30 50 24" />
-
-    <!-- Base leaves -->
-    <path d="M18 42 Q26 36 32 32 Q24 38 18 42" />
-    <path d="M46 42 Q38 36 32 32 Q40 38 46 42" />
-
-    <!-- Water ripples -->
-    <path d="M16 48 Q32 44 48 48" stroke-width="1" opacity="0.5" />
-    <path d="M20 54 Q32 50 44 54" stroke-width="0.75" opacity="0.3" />
+    <path d="M32 10 Q39 24 32 38 Q25 24 32 10" fill="#B8935A" fill-opacity="0.25"/>
+    <!-- Side petals -->
+    <path d="M32 16 Q45 25 40 38 Q31 33 32 16" fill="#B8935A" fill-opacity="0.15"/>
+    <path d="M32 16 Q19 25 24 38 Q33 33 32 16" fill="#B8935A" fill-opacity="0.15"/>
+    <path d="M20 22 Q31 29 37 39 Q25 35 20 22" />
+    <path d="M44 22 Q33 29 27 39 Q39 35 44 22" />
+    <!-- Base curve -->
+    <path d="M16 44 Q32 38 48 44" stroke-width="2.5"/>
   </g>
-
-  <!-- Center dot -->
-  <circle cx="32" cy="28" r="3" fill="url(#lotus-gradient)" opacity="0.8" />
+  <circle cx="32" cy="33" r="2.5" fill="#B8935A"/>
 </svg>
