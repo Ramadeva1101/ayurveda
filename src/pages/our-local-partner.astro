@@ -5,8 +5,6 @@ import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import PageHero from '../components/PageHero.astro';
 import { Image } from 'astro:assets';
-import logoImg from '../assets/images/logo.png';
-import niceTourLogoImg from '../assets/images/nicetourbali-logo.webp';
 import doctorVisitPackageImg from '../assets/images/nicetourbali-doctor-visit.webp';
 import spiritualHealingPackageImg from '../assets/images/nicetourbali-spiritual-healing.webp';
 import ayurvedaRetreatPackageImg from '../assets/images/nicetourbali-ayurveda-retreat-3d2n.webp';
@@ -86,27 +84,16 @@ const partnerServices = [
     <!-- Intro -->
     <section class="intro section" aria-labelledby="intro-title">
       <div class="container">
-        <div class="intro-inner">
-          <div class="intro-copy">
-            <p class="section-eyebrow intro-eyebrow">Local Ground Arrangement Partner</p>
-            <h2 class="partner__title intro-title" id="intro-title">Ayurveda Wellness Packages with Nice Tour Bali</h2>
-            <div class="intro-divider" aria-hidden="true"></div>
-            <p class="intro-text">
-              For guests who would like their Ayurvedic Wellness House program together with accommodation, private transportation and local ground arrangements, selected wellness programs are available as complete packages through our local ground arrangement partner, <a href={niceTourUrl} target="_blank" rel="noopener">Nice Tour Bali</a>.
-            </p>
-            <p class="intro-text">
-              Nice Tour Bali assists with the travel arrangements around your wellness program so you can book your treatment or retreat together with the practical arrangements needed during your stay in Bali.
-            </p>
-          </div>
-
-          <div class="intro-card">
-            <Image src={logoImg} alt="Ayurvedic Wellness House" class="intro-card__awh" width={420} />
-            <span class="intro-card__x" aria-hidden="true">&times;</span>
-            <a href={niceTourUrl} target="_blank" rel="noopener" class="intro-card__nice">
-              <Image src={niceTourLogoImg} alt="Nice Tour Bali" class="intro-card__nice-img" />
-            </a>
-            <p class="intro-card__caption">Local Ground Arrangement Partner</p>
-          </div>
+        <div class="intro-copy">
+          <p class="section-eyebrow intro-eyebrow">Local Ground Arrangement Partner</p>
+          <h2 class="partner__title intro-title" id="intro-title">Ayurveda Wellness Packages with Nice Tour Bali</h2>
+          <div class="intro-divider" aria-hidden="true"></div>
+          <p class="intro-text">
+            For guests who would like their Ayurvedic Wellness House program together with accommodation, private transportation and local ground arrangements, selected wellness programs are available as complete packages through our local ground arrangement partner, <a href={niceTourUrl} target="_blank" rel="noopener">Nice Tour Bali</a>.
+          </p>
+          <p class="intro-text">
+            Nice Tour Bali assists with the travel arrangements around your wellness program so you can book your treatment or retreat together with the practical arrangements needed during your stay in Bali.
+          </p>
         </div>
       </div>
     </section>
@@ -251,18 +238,10 @@ const partnerServices = [
     padding-top: clamp(2.5rem, 5vw, 4rem);
   }
 
-  .intro-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  @media (min-width: 1024px) {
-    .intro-inner {
-      grid-template-columns: 7fr 5fr;
-      gap: 5rem;
-    }
+  .intro-copy {
+    max-width: 46rem;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .intro-eyebrow {
@@ -276,7 +255,7 @@ const partnerServices = [
   }
 
   .intro-title {
-    text-align: left;
+    text-align: center;
     margin-bottom: 1.5rem;
   }
 
@@ -284,7 +263,7 @@ const partnerServices = [
     width: 3rem;
     height: 1px;
     background-color: var(--color-gold);
-    margin-bottom: 1.5rem;
+    margin: 0 auto 1.5rem;
   }
 
   .intro-text {
@@ -305,52 +284,6 @@ const partnerServices = [
 
   .intro-text a:hover {
     color: var(--color-gold-dark);
-  }
-
-  .intro-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-    padding: clamp(2rem, 4vw, 3rem) 2rem;
-    background-color: var(--color-cream-deep);
-    border: 1px solid rgba(184, 147, 90, 0.25);
-    border-radius: 1rem;
-    text-align: center;
-  }
-
-  .intro-card__awh {
-    width: min(16rem, 100%);
-    height: auto;
-    display: block;
-  }
-
-  .intro-card__x {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.75rem;
-    font-weight: 300;
-    color: var(--color-gold);
-    line-height: 1;
-  }
-
-  .intro-card__nice {
-    display: block;
-  }
-
-  .intro-card__nice-img {
-    width: 6.5rem;
-    height: auto;
-    display: block;
-  }
-
-  .intro-card__caption {
-    font-family: 'Karla', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-sage-dark);
-    margin: 0;
   }
 
   /* Available Wellness Packages — 2x2 cards */
