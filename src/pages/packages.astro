@@ -214,6 +214,9 @@ const packages = [
           <div class="cta-actions">
             <a href="/contact" class="btn btn-secondary">Contact Us</a>
           </div>
+          <p class="cta-partner">
+            Need accommodation and transport too? See the <a href="/our-local-partner">wellness packages with our local partner, Nice Tour Bali</a>.
+          </p>
         </div>
       </div>
     </section>
@@ -559,6 +562,24 @@ const packages = [
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
+  }
+
+  .cta-partner {
+    font-size: 0.9375rem;
+    color: var(--color-cream-base);
+    opacity: 0.85;
+    line-height: 1.6;
+    margin: 2rem 0 0;
+  }
+
+  .cta-partner a {
+    color: var(--color-gold-light);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cta-partner a:hover {
+    color: var(--color-cream-base);
   }
 
   .btn-outline-white {

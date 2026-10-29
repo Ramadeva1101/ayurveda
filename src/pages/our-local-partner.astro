@@ -1,0 +1,606 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import PageHero from '../components/PageHero.astro';
+import { Image } from 'astro:assets';
+import logoImg from '../assets/images/logo.png';
+import niceTourLogoImg from '../assets/images/nicetourbali-logo.webp';
+import doctorVisitPackageImg from '../assets/images/nicetourbali-doctor-visit.webp';
+import spiritualHealingPackageImg from '../assets/images/nicetourbali-spiritual-healing.webp';
+import ayurvedaRetreatPackageImg from '../assets/images/nicetourbali-ayurveda-retreat-3d2n.webp';
+import panchakarmaPackageImg from '../assets/images/nicetourbali-panchakarma-7d.webp';
+
+// Category page that lists every Nice Tour Bali wellness package
+const niceTourUrl = 'https://nicetourbali.com/category/bali-wellness-retreats/';
+
+// Package copy and titles are supplied by Nice Tour Bali (titles are the link anchor text)
+const partnerPackages = [
+  {
+    title: 'Ayurveda Doctor Visit Bali – 2 Hour Consultation & Screening',
+    url: 'https://nicetourbali.com/ayurveda-doctor-visit-bali-2-hour-consultation-screening/',
+    image: doctorVisitPackageImg,
+    text: [
+      'A private 2-hour Ayurvedic consultation and screening for guests who would like a personal consultation without joining a longer retreat.',
+      'The consultation is conducted by Dr. Komang Sudarmi, BAMS, MS, PhD, and includes an individual assessment based on Ayurvedic principles.',
+    ],
+  },
+  {
+    title: 'Bali Spiritual Healing Experience – Water Purification, Ayurveda & Energy Healing',
+    url: 'https://nicetourbali.com/bali-spiritual-healing-experience-water-purification-ayurveda-energy-healing/',
+    image: spiritualHealingPackageImg,
+    text: [
+      'A private full-day wellness experience combining an Ayurvedic consultation, water purification and Javanese Energy Healing.',
+      'The program includes a consultation at Ayurvedic Wellness House, water purification, vegetarian lunch and Javanese Energy Healing.',
+    ],
+  },
+  {
+    title: 'Ayurveda Retreat Bali – 3 Days 2 Nights',
+    url: 'https://nicetourbali.com/ayurveda-retreat-bali-3-days-2-nights/',
+    image: ayurvedaRetreatPackageImg,
+    text: [
+      'A short wellness retreat combining a personalised Ayurvedic and Javanese Energy Healing program with a 2-night stay at Bali Silent Retreat.',
+      'The complete package includes accommodation, vegetarian meals, scheduled retreat activities and private return transportation.',
+    ],
+  },
+  {
+    title: 'Panchakarma Retreat Bali – 7 Days 6 Nights',
+    // Short URL from Nice Tour 301-redirects here, so link the final page directly
+    url: 'https://nicetourbali.com/panchakarma-retreat-bali-7-days-6-nights-ayurveda-program-by-dr-komang-sudarmi/',
+    image: panchakarmaPackageImg,
+    text: [
+      'A longer Ayurveda wellness program led by Dr. Komang Sudarmi, combining personalised Ayurvedic therapies, Panchakarma and Javanese Energy Healing.',
+      'The package also includes a 6-night stay at Bali Silent Retreat, vegetarian meals, retreat activities and private return transportation.',
+    ],
+  },
+];
+
+const partnerServices = [
+  { label: 'Airport transfers', icon: 'plane' },
+  { label: 'Private transportation', icon: 'car' },
+  { label: 'Accommodation arrangements', icon: 'bed' },
+  { label: 'Hotel and wellness centre transfers', icon: 'route' },
+  { label: 'Pre- and post-retreat arrangements', icon: 'calendar' },
+  { label: 'Private Bali tours', icon: 'camera' },
+];
+---
+
+<BaseLayout
+  title="Our Local Partner"
+  description="Wellness packages with Nice Tour Bali, the local ground arrangement partner of Ayurvedic Wellness House: Ayurvedic programs with accommodation, private transportation and local arrangements in Bali."
+>
+  <Navbar />
+
+  <main id="main-content">
+
+    <PageHero
+      eyebrow="Ayurvedic Wellness House × Nice Tour Bali"
+      title="Our Local Partner"
+      image="/images/bali-silent-retreat-3-sisters-mountains.webp"
+      imageAlt="Rice fields and mountains near Ayurvedic Wellness House in Tabanan, Bali"
+      height="60vh"
+      bottomColor="#FAF6F0"
+    />
+
+    <!-- Intro -->
+    <section class="intro section" aria-labelledby="intro-title">
+      <div class="container">
+        <div class="intro-inner">
+          <div class="intro-copy">
+            <p class="section-eyebrow intro-eyebrow">Local Ground Arrangement Partner</p>
+            <h2 class="partner__title intro-title" id="intro-title">Wellness Packages with Nice Tour Bali</h2>
+            <div class="intro-divider" aria-hidden="true"></div>
+            <p class="intro-text">
+              For guests who would like their Ayurvedic Wellness House program together with accommodation, private transportation and local ground arrangements, selected wellness programs are available as complete packages through our local ground arrangement partner, <a href={niceTourUrl} target="_blank" rel="noopener">Nice Tour Bali</a>.
+            </p>
+            <p class="intro-text">
+              Nice Tour Bali assists with the travel arrangements around your wellness program so you can book your treatment or retreat together with the practical arrangements needed during your stay in Bali.
+            </p>
+          </div>
+
+          <div class="intro-card">
+            <Image src={logoImg} alt="Ayurvedic Wellness House" class="intro-card__awh" width={420} />
+            <span class="intro-card__x" aria-hidden="true">&times;</span>
+            <a href={niceTourUrl} target="_blank" rel="noopener" class="intro-card__nice">
+              <Image src={niceTourLogoImg} alt="Nice Tour Bali" class="intro-card__nice-img" />
+            </a>
+            <p class="intro-card__caption">Local Ground Arrangement Partner</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available Wellness Packages -->
+    <section class="wellness-packages section section--alt" aria-labelledby="wellness-packages-title">
+      <div class="container">
+        <h2 class="partner__title package-grid__heading" id="wellness-packages-title">Available Wellness Packages</h2>
+
+        <ol class="package-grid">
+          {partnerPackages.map((pkg, index) => (
+            <li class="package-card">
+              <!-- Image is not a link, so the package title is the first link Google sees -->
+              <div class="package-card__media">
+                <Image src={pkg.image} alt={pkg.title} class="package-card__img" width={800} />
+                <span class="package-card__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <div class="package-card__body">
+                <h3 class="package-card__title">
+                  <a href={pkg.url} target="_blank" rel="noopener">{pkg.title}</a>
+                </h3>
+                <div class="package-card__divider" aria-hidden="true"></div>
+                {pkg.text.map((paragraph) => (
+                  <p class="package-card__text">{paragraph}</p>
+                ))}
+                <a href={pkg.url} target="_blank" rel="noopener" class="package-card__cta">
+                  View Package
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Ground Arrangements -->
+    <section class="ground section section--dark" aria-labelledby="ground-title">
+      <div class="container">
+        <h2 class="partner__title" id="ground-title">Ground Arrangements by Nice Tour Bali</h2>
+        <p class="partner__lead">
+          Nice Tour Bali provides local travel support for guests joining selected Ayurvedic Wellness House programs.
+        </p>
+
+        <h3 class="partner-services__title">Services may include:</h3>
+        <ul class="partner-services">
+          {partnerServices.map((service) => (
+            <li class="partner-service">
+              <span class="partner-service__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  {service.icon === 'plane' && (
+                    <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                  )}
+                  {service.icon === 'car' && (
+                    <>
+                      <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 10.6 16.3 7.3c-.4-.5-1-.8-1.6-.8H7.6c-.7 0-1.3.4-1.7.9L4 10.3 2.8 11c-.5.3-.8.9-.8 1.5V16c0 .6.4 1 1 1h2" />
+                      <circle cx="7" cy="17" r="2" />
+                      <path d="M9 17h6" />
+                      <circle cx="17" cy="17" r="2" />
+                    </>
+                  )}
+                  {service.icon === 'bed' && (
+                    <>
+                      <path d="M2 4v16" />
+                      <path d="M2 8h18a2 2 0 0 1 2 2v10" />
+                      <path d="M2 17h20" />
+                      <path d="M6 8v9" />
+                    </>
+                  )}
+                  {service.icon === 'route' && (
+                    <>
+                      <circle cx="6" cy="19" r="3" />
+                      <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+                      <circle cx="18" cy="5" r="3" />
+                    </>
+                  )}
+                  {service.icon === 'calendar' && (
+                    <>
+                      <rect x="3" y="4" width="18" height="18" rx="2" />
+                      <path d="M16 2v4" />
+                      <path d="M8 2v4" />
+                      <path d="M3 10h18" />
+                      <path d="m9 16 2 2 4-4" />
+                    </>
+                  )}
+                  {service.icon === 'camera' && (
+                    <>
+                      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                      <circle cx="12" cy="13" r="3" />
+                    </>
+                  )}
+                </svg>
+              </span>
+              <span class="partner-service__label">{service.label}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="ground__cta">
+          <a href={niceTourUrl} target="_blank" rel="noopener" class="btn ground-cta">
+            View All Bali Wellness Retreats with Nice Tour Bali
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  /* Shared headings */
+  .partner__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.25rem + 2vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-olive);
+    text-align: center;
+    line-height: 1.2;
+    margin: 0 0 1.25rem;
+  }
+
+  .partner__lead {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    line-height: 1.7;
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto 3rem;
+  }
+
+  /* Intro — copy beside a partner card */
+  .intro {
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .intro-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .intro-inner {
+      grid-template-columns: 7fr 5fr;
+      gap: 5rem;
+    }
+  }
+
+  .intro-eyebrow {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-gold);
+    margin: 0 0 0.75rem;
+  }
+
+  .intro-title {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+
+  .intro-divider {
+    width: 3rem;
+    height: 1px;
+    background-color: var(--color-gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .intro-text {
+    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
+    color: var(--color-olive);
+    opacity: 0.85;
+    line-height: 1.8;
+    margin: 0 0 1rem;
+  }
+
+  .intro-text a {
+    color: var(--color-olive);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-underline-offset: 3px;
+  }
+
+  .intro-text a:hover {
+    color: var(--color-gold-dark);
+  }
+
+  .intro-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    padding: clamp(2rem, 4vw, 3rem) 2rem;
+    background-color: var(--color-cream-deep);
+    border: 1px solid rgba(184, 147, 90, 0.25);
+    border-radius: 1rem;
+    text-align: center;
+  }
+
+  .intro-card__awh {
+    width: min(16rem, 100%);
+    height: auto;
+    display: block;
+  }
+
+  .intro-card__x {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 300;
+    color: var(--color-gold);
+    line-height: 1;
+  }
+
+  .intro-card__nice {
+    display: block;
+  }
+
+  .intro-card__nice-img {
+    width: 6.5rem;
+    height: auto;
+    display: block;
+  }
+
+  .intro-card__caption {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-sage-dark);
+    margin: 0;
+  }
+
+  /* Available Wellness Packages — 2x2 cards */
+  .package-grid__heading {
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .package-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  @media (min-width: 768px) {
+    .package-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .package-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-cream-base);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -32px rgba(46, 58, 36, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .package-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 48px -30px rgba(46, 58, 36, 0.55);
+  }
+
+  .package-card__media {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+
+  .package-card__img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .package-card:hover .package-card__img {
+    transform: scale(1.04);
+  }
+
+  .package-card__index {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: rgba(250, 246, 240, 0.92);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 0.9375rem;
+    font-style: italic;
+    color: var(--color-olive);
+  }
+
+  .package-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .package-card__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.625rem);
+    font-weight: 400;
+    line-height: 1.3;
+    margin: 0 0 1rem;
+  }
+
+  .package-card__title a {
+    color: var(--color-olive);
+    text-decoration: none;
+  }
+
+  .package-card__title a:hover {
+    color: var(--color-gold-dark);
+  }
+
+  .package-card__divider {
+    width: 2.5rem;
+    height: 1px;
+    background-color: var(--color-gold);
+    margin-bottom: 1rem;
+  }
+
+  .package-card__text {
+    font-size: clamp(0.9375rem, 0.875rem + 0.25vw, 1rem);
+    color: var(--color-olive);
+    opacity: 0.85;
+    line-height: 1.75;
+    margin: 0 0 0.75rem;
+  }
+
+  .package-card__text:last-of-type {
+    margin-bottom: 1.5rem;
+  }
+
+  .package-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--color-olive);
+    border-radius: 999px;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-olive);
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .package-card__cta:hover {
+    background-color: var(--color-olive);
+    color: var(--color-cream-base);
+  }
+
+  .package-card__cta svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+  }
+
+  .package-card__cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Ground Arrangements — dark olive closing band */
+  .ground .partner__title {
+    color: var(--color-cream-base);
+  }
+
+  .ground .partner__lead {
+    color: var(--color-cream-base);
+    opacity: 0.85;
+  }
+
+  .partner-services__title {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-gold-light);
+    text-align: center;
+    margin: 0 0 1.75rem;
+  }
+
+  .partner-services {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 3rem;
+    max-width: 60rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .partner-services {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .partner-services {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .partner-service {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .partner-service__icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 168, 118, 0.5);
+    color: var(--color-gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .partner-service__icon svg {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+
+  .partner-service__label {
+    font-size: 0.875rem;
+    color: var(--color-cream-base);
+    opacity: 0.9;
+    line-height: 1.4;
+  }
+
+  .ground__cta {
+    text-align: center;
+  }
+
+  .ground-cta {
+    background-color: var(--color-cream-base);
+    color: var(--color-olive);
+    border-color: var(--color-cream-base);
+    border-radius: 999px;
+  }
+
+  .ground-cta:hover {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-olive-dark);
+  }
+
+  .ground-cta svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .ground-cta:hover svg {
+    transform: translateX(4px);
+  }
+</style>
+

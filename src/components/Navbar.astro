@@ -6,6 +6,7 @@ import logoHomeImg from '../assets/images/logo-home.png';
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Our Sanctuary', href: '/sanctuary' },
+  { label: 'Our Local Partner', href: '/our-local-partner' },
   { label: 'Ayurvedic Therapy', href: '/program' },
   { label: 'Program Package', href: '/packages' },
   { label: 'About', href: '/about' },
@@ -266,6 +267,14 @@ const isHome = currentPath === '/';
     list-style: none;
     margin: 0;
     padding: 0;
+    white-space: nowrap;
+  }
+
+  /* 8 menu items: tighten spacing on small desktops so they fit on one line */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .navbar-menu {
+      gap: 0.75rem;
+    }
   }
 
   .navbar-link {
@@ -279,6 +288,13 @@ const isHome = currentPath === '/';
     padding: 0.375rem 0;
     transition: color 0.2s ease;
     text-decoration: none;
+  }
+
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .navbar-link {
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+    }
   }
 
   .navbar--home:not(.scrolled) .navbar-link {
