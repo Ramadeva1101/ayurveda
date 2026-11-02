@@ -67,9 +67,10 @@ const encodedImage = encodeURI(image);
   .page-hero {
     position: relative;
     width: 100%;
-    height: var(--hero-height, 68vh);
-    min-height: 360px;
-    max-height: 820px;
+    /* Full-screen photo on every page */
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -87,9 +88,6 @@ const encodedImage = encodeURI(image);
     background-image: var(--hero-bg);
     background-size: cover;
     background-position: center 35%;
-    /* fade foto halus dan tipis hanya di ujung paling bawah */
-    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
   }
 
   /* ============================================================
@@ -152,7 +150,7 @@ const encodedImage = encodeURI(image);
   ============================================================ */
   .ph-eyebrow {
     font-family: 'Karla', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.25em;
@@ -165,8 +163,9 @@ const encodedImage = encodeURI(image);
 
   .ph-title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.875rem, 1.25rem + 3vw, 3.25rem);
-    font-weight: 400;
+    font-size: clamp(2.6rem, 1.5rem + 4.6vw, 5.25rem);
+    /* Same weight as the home page hero */
+    font-weight: 500;
     line-height: 1.15;
     color: rgba(255, 252, 235, 1);
     margin: 0 0 1rem;
@@ -179,8 +178,8 @@ const encodedImage = encodeURI(image);
 
   .ph-subtitle {
     font-family: 'Karla', sans-serif;
-    font-size: clamp(0.9375rem, 0.875rem + 0.3vw, 1.0625rem);
-    font-weight: 400;
+    font-size: clamp(1.0625rem, 0.95rem + 0.5vw, 1.375rem);
+    font-weight: 600;
     color: rgba(240, 232, 210, 1);
     line-height: 1.7;
     margin: 0;
@@ -261,8 +260,8 @@ const encodedImage = encodeURI(image);
   ============================================================ */
   @media (max-width: 639px) {
     .page-hero {
-      min-height: 300px;
-      max-height: 500px;
+      height: 88svh;
+      min-height: 460px;
     }
     .ph-glass {
       max-width: 92%;
@@ -273,11 +272,8 @@ const encodedImage = encodeURI(image);
   }
 
   @media (min-width: 1280px) {
-    .page-hero {
-      max-height: 860px;
-    }
     .ph-glass {
-      max-width: 760px;
+      max-width: 900px;
     }
   }
 </style>

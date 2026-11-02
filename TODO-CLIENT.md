@@ -107,7 +107,7 @@ Each package card has this TODO comment:
 
 For each of the 3 packages, confirm and replace:
 1. **Signature Ritual** — included treatments, session length
-2. **Nusantara-Ayurveda Fusion** — included treatments, session length
+2. **Javanese-Ayurveda Fusion** — included treatments, session length
 3. **Deep Restore Program** — included treatments, number of sessions, program length
 
 All three currently show `Contact us for pricing` as the price placeholder.

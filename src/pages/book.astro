@@ -1,0 +1,622 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+
+// Services, prices, photos, opening days and free times all come from the
+// clinic's admin through /api. Nothing about availability is hard-coded here.
+const whatsappUrl = 'https://wa.me/6285926461359?text=' + encodeURIComponent("Hello, I'd like to book a visit");
+---
+
+<BaseLayout
+  title="Book Your Visit"
+  description="Request a treatment, consultation or program at Ayurvedic Wellness House in Bali. Pick a date and time, and we confirm with you on WhatsApp."
+>
+  <Navbar />
+
+  <main id="main-content" class="bk">
+    <div class="container bk-wrap" x-data="booking" x-cloak>
+
+      <header class="bk-head">
+        <p class="bk-eyebrow">Book your visit</p>
+        <h1 class="bk-title">Reserve your time with us</h1>
+        <ol class="bk-steps">
+          <li><span>1</span>Send your request</li>
+          <li><span>2</span>We confirm on WhatsApp</li>
+          <li><span>3</span>Come on your booked date</li>
+        </ol>
+      </header>
+
+      <p x-show="state === 'loading'" class="bk-loading">Loading available times…</p>
+
+      <div x-show="state === 'closed' || state === 'error'" class="bk-panel bk-message">
+        <h2 x-text="state === 'closed' ? 'Online booking is not open yet' : 'We could not load the booking form'"></h2>
+        <p x-text="state === 'closed' ? 'Please message us on WhatsApp and we will find a time with you.' : 'Please reload the page, or message us on WhatsApp.'"></p>
+        <a class="bk-btn" href={whatsappUrl} target="_blank" rel="noopener">Message us on WhatsApp</a>
+      </div>
+
+      <!-- Sent -->
+      <div x-show="state === 'done'" class="bk-panel bk-done">
+        <div class="bk-done-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2>Request sent</h2>
+        <p class="bk-ref">Reference <strong x-text="code"></strong></p>
+        <dl class="bk-done-list">
+          <div><dt>Service</dt><dd x-text="service ? service.name : ''"></dd></div>
+          <div><dt>When</dt><dd x-text="whenText"></dd></div>
+          <div><dt>Price</dt><dd x-text="service ? priceText(service) : ''"></dd></div>
+        </dl>
+        <p>
+          This is a request, not yet a confirmed booking. We will contact you on WhatsApp at{' '}
+          <strong x-text="form.whatsapp"></strong>{' '}to confirm.
+          <span x-show="form.email"> A copy is on its way to <strong x-text="form.email"></strong>.</span>
+        </p>
+        <a class="bk-link" href="/">Back to home</a>
+      </div>
+
+      <!-- Form -->
+      <form x-show="state === 'ready'" class="bk-grid" @submit.prevent="submit" novalidate>
+        <div class="bk-panel bk-form">
+
+          <!-- 1 -->
+          <section class="bk-sec">
+            <h2 class="bk-h"><span>1</span>What would you like?</h2>
+            <div class="bk-types" role="radiogroup" aria-label="Type of visit">
+              <template x-for="g in groups" :key="g.type">
+                <button type="button" class="bk-type" :class="{ on: activeType === g.type }" role="radio"
+                  :aria-checked="activeType === g.type" @click="pickType(g.type)">
+                  <strong x-text="g.label"></strong>
+                  <small x-text="g.hint"></small>
+                </button>
+              </template>
+            </div>
+            <div class="bk-services">
+              <template x-for="s in typeItems" :key="s.slug">
+                <label class="bk-svc" :class="{ on: form.service === s.slug }">
+                  <input type="radio" name="service" class="sr" :value="s.slug" x-model="form.service" @change="pickService">
+                  <span class="bk-svc-img" :style="s.image ? `background-image:url('${encodeURI(s.image)}')` : ''"></span>
+                  <span class="bk-svc-text">
+                    <span class="bk-svc-name" x-text="s.name"></span>
+                    <span class="bk-svc-meta" x-text="lengthText(s) + ' · ' + priceText(s)"></span>
+                    <span class="bk-offer" x-show="s.offer_percent">
+                      <b x-text="s.offer_percent + '% off'"></b> <s x-text="idrText(s.price_regular)"></s>
+                    </span>
+                  </span>
+                  <span class="bk-tick" aria-hidden="true"></span>
+                </label>
+              </template>
+            </div>
+            <p class="bk-note" x-show="activeType === 'program'">
+              Programs cover treatments and sessions. Accommodation is not included and is booked separately.
+            </p>
+          </section>
+
+          <!-- 2 -->
+          <section class="bk-sec">
+            <h2 class="bk-h"><span>2</span><span x-text="isProgram ? 'Start date' : 'Date and time'"></span></h2>
+            <div class="bk-when">
+              <div class="bk-cal">
+                <div class="bk-cal-head">
+                  <button type="button" class="bk-cal-nav" @click="shiftMonth(-1)" :disabled="!canPrev" aria-label="Previous month">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </button>
+                  <strong x-text="monthLabel"></strong>
+                  <button type="button" class="bk-cal-nav" @click="shiftMonth(1)" :disabled="!canNext" aria-label="Next month">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  </button>
+                </div>
+                <div class="bk-cal-grid" :class="{ busy: loadingMonth }">
+                  <template x-for="d in ['M','T','W','T','F','S','S']"><span class="bk-dow" x-text="d"></span></template>
+                  <template x-for="cell in cells" :key="cell.key">
+                    <button type="button" class="bk-day" :class="{ on: cell.date === form.date, free: cell.open }"
+                      :disabled="!cell.open" @click="pickDate(cell.date)" :aria-label="cell.date || ''">
+                      <span x-text="cell.label"></span>
+                    </button>
+                  </template>
+                </div>
+                <p class="bk-note" x-show="!loadingMonth && !anyOpen">No free dates this month. Try the next month.</p>
+              </div>
+
+              <div class="bk-times">
+                <p class="bk-times-date" x-text="form.date ? dateLong(form.date) : 'Pick a date'"></p>
+                <template x-if="!isProgram">
+                  <div>
+                    <div class="bk-slots" x-show="form.date">
+                      <template x-for="slot in slots" :key="slot.time">
+                        <button type="button" class="bk-slot" :class="{ on: form.time === slot.time }"
+                          :disabled="!slot.free" @click="form.time = slot.time">
+                          <span x-text="slot.time"></span><small x-show="!slot.free">Full</small>
+                        </button>
+                      </template>
+                    </div>
+                    <p class="bk-note" x-show="!form.date">Dates with a dot have free times.</p>
+                  </div>
+                </template>
+                <p class="bk-note" x-show="isProgram && form.date" x-text="isProgram ? 'Your program runs ' + service.duration_days + ' days from this date.' : ''"></p>
+                <p class="bk-note">Bali time (WITA, UTC+8). We hold your time once we confirm.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3 -->
+          <section class="bk-sec">
+            <h2 class="bk-h"><span>3</span>Your details</h2>
+            <div class="bk-fields">
+              <label class="bk-field">
+                <span>Name <em>*</em></span>
+                <input x-model.trim="form.name" autocomplete="name" :class="{ bad: tried && !form.name }">
+              </label>
+              <label class="bk-field">
+                <span>WhatsApp <em>*</em></span>
+                <input x-model.trim="form.whatsapp" inputmode="tel" autocomplete="tel" placeholder="+62 812 3456 7890"
+                  :class="{ bad: tried && !waOk }">
+              </label>
+              <label class="bk-field">
+                <span>Email <small>optional, for a copy</small></span>
+                <input type="email" x-model.trim="form.email" autocomplete="email">
+              </label>
+              <div class="bk-field">
+                <span>Guests</span>
+                <div class="bk-seg" role="radiogroup" aria-label="Guests">
+                  <button type="button" :class="{ on: form.guests_count === 1 }" @click="form.guests_count = 1">Just me</button>
+                  <button type="button" :class="{ on: form.guests_count === 2 }" @click="form.guests_count = 2">Two of us</button>
+                </div>
+              </div>
+              <label class="bk-field wide">
+                <span>Where are you staying? <small>optional</small></span>
+                <input x-model.trim="form.staying_at" placeholder="e.g. Ubud, Canggu, Bali Silent Retreat">
+              </label>
+              <label class="bk-field wide">
+                <span>Anything we should know? <small>optional</small></span>
+                <textarea x-model="form.message" rows="2"></textarea>
+              </label>
+            </div>
+            <!-- Honeypot, hidden from people -->
+            <label class="hp" aria-hidden="true">Website<input tabindex="-1" autocomplete="off" x-model="form.website"></label>
+          </section>
+
+          <!-- 4 -->
+          <section class="bk-sec">
+            <h2 class="bk-h"><span>4</span>Quick health check</h2>
+            <p class="bk-note top">Only our practitioners see these answers.</p>
+            <p class="bk-q">Are you pregnant, or could you be? <em>*</em></p>
+            <div class="bk-seg wrap" role="radiogroup" :class="{ bad: tried && !form.health.pregnant }">
+              <template x-for="(label, key) in health.pregnant" :key="key">
+                <button type="button" :class="{ on: form.health.pregnant === key }" @click="form.health.pregnant = key" x-text="label"></button>
+              </template>
+            </div>
+            <p class="bk-q">Do any of these apply to you?</p>
+            <div class="bk-chips">
+              <template x-for="(label, key) in health.conditions" :key="key">
+                <label class="bk-chip" :class="{ on: form.health.conditions.includes(key) }">
+                  <input type="checkbox" class="sr" :value="key" x-model="form.health.conditions">
+                  <span class="bk-box" aria-hidden="true"></span><span x-text="label"></span>
+                </label>
+              </template>
+            </div>
+            <label class="bk-field wide" style="margin-top:1rem">
+              <span>Other health notes <small>optional</small></span>
+              <textarea x-model="form.health.other" rows="2"></textarea>
+            </label>
+          </section>
+
+          <div class="bk-foot">
+            <div>
+              <strong x-text="service ? priceText(service) : ''"></strong>
+              <span x-text="service ? lengthText(service) : ''"></span>
+            </div>
+            <button class="bk-btn" :disabled="sending">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              <span x-text="sending ? 'Sending…' : 'Request appointment'"></span>
+            </button>
+          </div>
+          <div x-ref="turnstile" class="bk-ts"></div>
+          <p class="bk-error" x-show="error" x-text="error" role="alert"></p>
+        </div>
+
+        <!-- Summary -->
+        <aside class="bk-aside">
+          <div class="bk-panel bk-sum">
+            <div class="bk-sum-img" :style="service && service.image ? `background-image:url('${encodeURI(service.image)}')` : ''"></div>
+            <div class="bk-sum-body">
+              <p class="bk-eyebrow" x-text="service ? typeLabel(service.type) : ''"></p>
+              <h3 x-text="service ? service.name : 'Choose a service'"></h3>
+              <ul class="bk-sum-list">
+                <li :class="{ todo: !form.date }">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  <span x-text="form.date ? dateLong(form.date) : 'Pick a date'"></span>
+                </li>
+                <li x-show="!isProgram" :class="{ todo: !form.time }">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  <span x-text="form.time ? form.time + ' WITA' : 'Pick a time'"></span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M16 5.2a3 3 0 010 5.6M17.5 14.5c1.6.6 2.7 2.2 3 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  <span x-text="form.guests_count === 2 ? 'Two guests' : 'One guest'"></span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 3.5l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                  <span x-text="service ? lengthText(service) : ''"></span>
+                </li>
+              </ul>
+              <div class="bk-sum-price">
+                <span>Price</span>
+                <span class="bk-sum-amount">
+                  <s x-show="service && service.offer_percent" x-text="service ? idrText(service.price_regular) : ''"></s>
+                  <strong x-text="service ? priceText(service) : ''"></strong>
+                </span>
+              </div>
+              <p class="bk-offer-note" x-show="service && service.offer_percent"
+                 x-text="service ? service.offer_percent + '% package offer applied to requests sent this month.' : ''"></p>
+              <p class="bk-note">++ means tax and service are added. Payment is arranged with the clinic after we confirm.</p>
+            </div>
+          </div>
+          <a class="bk-help" href={whatsappUrl} target="_blank" rel="noopener">
+            Questions first? <strong>Chat with us on WhatsApp</strong>
+          </a>
+        </aside>
+      </form>
+    </div>
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('alpine:init', () => {
+    const pad = (n) => String(n).padStart(2, '0');
+    const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    const idr = (n) => 'IDR ' + n.toLocaleString('id-ID') + '++';
+    const TYPES = {
+      experience: { label: 'Signature experience', hint: 'Consultation and energy healing' },
+      treatment: { label: 'Single treatment', hint: 'One Ayurvedic therapy' },
+      program: { label: 'Residential program', hint: 'Several days of care' },
+    };
+
+    window.Alpine.data('booking', () => ({
+      state: 'loading',
+      services: [],
+      health: { pregnant: {}, conditions: {} },
+      maxDays: 180,
+      siteKey: null,
+      tsWidget: null,
+      activeType: '',
+      month: null,
+      days: {},
+      loadingMonth: false,
+      sending: false,
+      tried: false,
+      error: '',
+      code: '',
+      form: {
+        service: '', date: '', time: '', name: '', whatsapp: '', email: '',
+        guests_count: 1, language: 'en', staying_at: '', message: '', website: '',
+        health: { pregnant: '', conditions: [], other: '' },
+      },
+
+      async init() {
+        try {
+          const res = await fetch('/api/options.php');
+          const data = await res.json();
+          if (!data.enabled || !data.services.length) { this.state = 'closed'; return; }
+          this.services = data.services;
+          this.health = data.health;
+          this.maxDays = data.max_days_ahead;
+          this.siteKey = data.turnstile_site_key;
+          const now = new Date();
+          this.month = new Date(now.getFullYear(), now.getMonth(), 1);
+          const pre = this.services.find((s) => s.slug === new URLSearchParams(location.search).get('service'));
+          const first = pre || this.services[0];
+          this.activeType = first.type;
+          this.form.service = first.slug;
+          this.state = 'ready';
+          this.loadMonth();
+          if (this.siteKey) this.loadTurnstile();
+        } catch (e) {
+          this.state = 'error';
+        }
+      },
+
+      get groups() {
+        return Object.keys(TYPES)
+          .map((type) => ({ type, ...TYPES[type], items: this.services.filter((s) => s.type === type) }))
+          .filter((g) => g.items.length);
+      },
+      get typeItems() { return this.services.filter((s) => s.type === this.activeType); },
+      get service() { return this.services.find((s) => s.slug === this.form.service) || null; },
+      get isProgram() { return !!this.service && this.service.type === 'program'; },
+      get waOk() { return this.form.whatsapp.replace(/\D/g, '').length >= 8; },
+      typeLabel(t) { return TYPES[t] ? TYPES[t].label : ''; },
+      lengthText(s) {
+        if (s.type === 'program') return `${s.duration_days} days`;
+        const m = s.duration_minutes;
+        return m >= 60 ? `${Math.floor(m / 60)} h${m % 60 ? ' ' + (m % 60) + ' min' : ''}` : `${m} min`;
+      },
+      priceText(s) { return s.price_idr === null ? 'Price to be confirmed' : idr(s.price_idr); },
+      idrText(n) { return n === null || n === undefined ? '' : idr(n); },
+      dateLong(date) {
+        return new Date(date + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      },
+
+      get monthKey() { return this.month ? `${this.month.getFullYear()}-${pad(this.month.getMonth() + 1)}` : ''; },
+      get monthLabel() { return this.month ? this.month.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }) : ''; },
+      get canPrev() {
+        if (!this.month) return false;
+        const now = new Date();
+        return this.month > new Date(now.getFullYear(), now.getMonth(), 1);
+      },
+      get canNext() {
+        if (!this.month) return false;
+        const last = new Date(); last.setDate(last.getDate() + this.maxDays);
+        return new Date(this.month.getFullYear(), this.month.getMonth() + 1, 1) <= last;
+      },
+      get cells() {
+        if (!this.month) return [];
+        const y = this.month.getFullYear(), m = this.month.getMonth();
+        const lead = (new Date(y, m, 1).getDay() + 6) % 7;
+        const total = new Date(y, m + 1, 0).getDate();
+        const out = [];
+        for (let i = 0; i < lead; i++) out.push({ key: 'b' + i, label: '', date: null, open: false });
+        for (let d = 1; d <= total; d++) {
+          const date = ymd(new Date(y, m, d));
+          out.push({ key: date, label: d, date, open: !!(this.days[date] && this.days[date].open) });
+        }
+        return out;
+      },
+      get anyOpen() { return Object.values(this.days).some((d) => d.open); },
+      get slots() { return (this.days[this.form.date] && this.days[this.form.date].slots) || []; },
+      get whenText() {
+        if (!this.form.date) return '';
+        const d = this.dateLong(this.form.date);
+        return this.isProgram ? 'Starting ' + d : `${d}, ${this.form.time} WITA`;
+      },
+
+      pickType(type) {
+        if (this.activeType === type) return;
+        this.activeType = type;
+        this.form.service = this.typeItems[0].slug;
+        this.pickService();
+      },
+      pickService() { this.form.date = ''; this.form.time = ''; this.loadMonth(); },
+      shiftMonth(n) {
+        this.month = new Date(this.month.getFullYear(), this.month.getMonth() + n, 1);
+        this.loadMonth();
+      },
+      pickDate(date) { this.form.date = date; this.form.time = ''; },
+
+      async loadMonth() {
+        if (!this.form.service) return;
+        this.loadingMonth = true;
+        const key = this.form.service + this.monthKey;
+        try {
+          const res = await fetch(`/api/availability.php?service=${encodeURIComponent(this.form.service)}&month=${this.monthKey}`);
+          const data = await res.json();
+          if (key === this.form.service + this.monthKey) this.days = data.days || {};
+        } catch (e) {
+          this.days = {};
+        } finally {
+          this.loadingMonth = false;
+        }
+      },
+
+      loadTurnstile() {
+        window.__awhTurnstile = () => {
+          this.tsWidget = window.turnstile.render(this.$refs.turnstile, { sitekey: this.siteKey });
+        };
+        const s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__awhTurnstile';
+        s.async = true;
+        document.head.appendChild(s);
+      },
+
+      validate() {
+        const f = this.form;
+        if (!this.service) return 'Please choose a service.';
+        if (!f.date) return 'Please pick a date.';
+        if (!this.isProgram && !f.time) return 'Please pick a time.';
+        if (!f.name) return 'Please enter your name.';
+        if (!this.waOk) return 'Please enter your WhatsApp number with country code.';
+        if (!f.health.pregnant) return 'Please answer the pregnancy question.';
+        return '';
+      },
+
+      async submit() {
+        this.tried = true;
+        this.error = this.validate();
+        if (this.error) return;
+        this.sending = true;
+        try {
+          const body = { ...this.form };
+          if (this.siteKey && window.turnstile) body.turnstile_token = window.turnstile.getResponse(this.tsWidget) || '';
+          const res = await fetch('/api/booking.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.ok) {
+            this.error = data.error || 'Something went wrong. Please try again.';
+            if (window.turnstile && this.tsWidget !== null) window.turnstile.reset(this.tsWidget);
+            if (res.status === 422) this.loadMonth();
+            return;
+          }
+          this.code = data.code;
+          this.state = 'done';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (e) {
+          this.error = 'Could not reach the server. Check your connection and try again.';
+        } finally {
+          this.sending = false;
+        }
+      },
+    }));
+  });
+</script>
+
+<style>
+  [x-cloak] { display: none !important; }
+  .sr { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+  .hp { position: absolute; left: -9999px; }
+
+  .bk {
+    --line: #e8dfcf;
+    --soft: #f4eee3;
+    --ink: var(--color-olive-dark);
+    --muted: #7a7f6e;
+    background:
+      radial-gradient(1200px 400px at 10% -5%, #efe6d4 0%, transparent 60%),
+      var(--color-cream-base);
+    padding: 8.5rem 0 5rem;
+    color: var(--ink);
+  }
+  .bk-wrap { max-width: 1180px; }
+
+  .bk-head { margin-bottom: 2.25rem; }
+  .bk-eyebrow { margin: 0; text-transform: uppercase; letter-spacing: .18em; font-size: .75rem; font-weight: 600; color: var(--color-gold-dark); }
+  .bk-title { margin: .4rem 0 1.25rem; font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.4rem); line-height: 1.05; }
+  .bk-steps { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; list-style: none; padding: 0; margin: 0; font-size: .95rem; color: var(--muted); }
+  .bk-steps li { display: flex; align-items: center; gap: .55rem; }
+  .bk-steps span { display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--color-olive); color: #fff; font-size: .8rem; font-weight: 600; }
+  .bk-loading { color: var(--muted); }
+
+  .bk-panel { background: #fff; border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 1px 2px rgba(46, 58, 36, .04), 0 12px 32px -18px rgba(46, 58, 36, .25); }
+  .bk-message, .bk-done { max-width: 620px; padding: 2.25rem; }
+  .bk-message h2, .bk-done h2 { font-size: 1.7rem; margin: 0 0 .5rem; }
+
+  .bk-done { text-align: left; }
+  .bk-done-icon { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: #e7efe0; color: var(--color-olive); margin-bottom: 1rem; }
+  .bk-ref { font-size: 1.05rem; margin: 0 0 1.25rem; }
+  .bk-ref strong { font-size: 1.25rem; letter-spacing: .04em; color: var(--color-gold-dark); }
+  .bk-done-list { margin: 0 0 1.25rem; padding: 1rem 1.2rem; background: var(--soft); border-radius: 14px; }
+  .bk-done-list div { display: flex; gap: 1rem; padding: .3rem 0; }
+  .bk-done-list dt { width: 5.5rem; flex: none; color: var(--muted); }
+  .bk-done-list dd { margin: 0; font-weight: 600; }
+  .bk-link { color: var(--color-gold-dark); font-weight: 600; }
+
+  .bk-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 1.75rem; align-items: start; }
+  .bk-form { padding: .5rem 2.25rem 2rem; }
+  .bk-sec { padding: 1.9rem 0; border-bottom: 1px solid var(--line); }
+  .bk-h { display: flex; align-items: center; gap: .75rem; font-size: 1.45rem; margin: 0 0 1.2rem; }
+  .bk-h > span:first-child { display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; border: 1.5px solid var(--color-gold); color: var(--color-gold-dark); font-family: 'Karla', sans-serif; font-size: .85rem; font-weight: 600; flex: none; }
+  .bk-note { font-size: .875rem; color: var(--muted); margin: .75rem 0 0; line-height: 1.5; }
+  .bk-note.top { margin: -.6rem 0 .4rem; }
+
+  .bk-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .7rem; margin-bottom: 1rem; }
+  .bk-type { text-align: left; padding: .9rem 1rem; border: 1.5px solid var(--line); border-radius: 14px; background: #fff; cursor: pointer; font: inherit; color: inherit; transition: border-color .15s, background .15s; }
+  .bk-type strong { display: block; font-size: 1rem; }
+  .bk-type small { color: var(--muted); font-size: .82rem; }
+  .bk-type:hover { border-color: var(--color-gold-light); }
+  .bk-type.on { border-color: var(--color-olive); background: var(--color-olive); color: #fff; }
+  .bk-type.on small { color: rgba(255, 255, 255, .75); }
+
+  .bk-services { display: grid; gap: .6rem; }
+  .bk-svc { display: flex; align-items: center; gap: 1rem; padding: .6rem; padding-right: 1rem; border: 1.5px solid var(--line); border-radius: 16px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+  .bk-svc:hover { border-color: var(--color-gold-light); }
+  .bk-svc.on { border-color: var(--color-gold); box-shadow: 0 0 0 3px rgba(184, 147, 90, .15); background: #fffcf6; }
+  .bk-svc-img { width: 72px; height: 60px; border-radius: 11px; background: var(--soft) center/cover no-repeat; flex: none; }
+  .bk-svc-text { flex: 1; display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+  .bk-svc-name { font-weight: 600; line-height: 1.3; }
+  .bk-svc-meta { font-size: .875rem; color: var(--muted); }
+  .bk-offer { font-size: .82rem; color: var(--color-gold-dark); }
+  .bk-offer b { display: inline-block; padding: .05rem .5rem; border-radius: 999px; background: var(--color-gold); color: #fff; font-size: .72rem; letter-spacing: .03em; margin-right: .3rem; }
+  .bk-offer s, .bk-sum-amount s { color: var(--muted); font-size: .85rem; }
+  .bk-sum-amount { display: flex; flex-direction: column; align-items: flex-end; }
+  .bk-offer-note { margin: .6rem 0 0; padding: .55rem .8rem; border-radius: 10px; background: #f3e6cf; color: var(--color-olive-dark); font-size: .84rem; }
+  .bk-tick { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line); flex: none; }
+  .bk-svc.on .bk-tick { border: 6px solid var(--color-gold); }
+
+  .bk-when { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 2rem; }
+  .bk-cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: .6rem; }
+  .bk-cal-nav { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid var(--line); background: #fff; cursor: pointer; color: var(--ink); }
+  .bk-cal-nav:disabled { opacity: .3; cursor: default; }
+  .bk-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: .2rem; transition: opacity .2s; }
+  .bk-cal-grid.busy { opacity: .45; }
+  .bk-dow { text-align: center; font-size: .72rem; font-weight: 600; color: var(--muted); padding: .3rem 0; }
+  .bk-day { position: relative; aspect-ratio: 1; border: 0; border-radius: 50%; background: none; font: inherit; font-size: .92rem; color: #c3bcae; cursor: default; }
+  .bk-day.free { color: var(--ink); font-weight: 600; cursor: pointer; }
+  .bk-day.free::after { content: ''; position: absolute; left: 50%; bottom: 14%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #7c9a5f; }
+  .bk-day.free:hover { background: var(--soft); }
+  .bk-day.on { background: var(--color-gold) !important; color: #fff; }
+  .bk-day.on::after { background: #fff; }
+
+  .bk-times-date { font-weight: 600; margin: .5rem 0 .9rem; }
+  .bk-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: .5rem; }
+  .bk-slot { display: flex; flex-direction: column; align-items: center; padding: .7rem .5rem; border: 1.5px solid var(--line); border-radius: 12px; background: #fff; font: inherit; font-weight: 600; color: var(--ink); cursor: pointer; }
+  .bk-slot small { font-size: .7rem; font-weight: 500; }
+  .bk-slot:hover:not(:disabled) { border-color: var(--color-gold-light); }
+  .bk-slot:disabled { color: #c3bcae; background: var(--soft); border-color: transparent; cursor: default; text-decoration: line-through; }
+  .bk-slot.on { background: var(--color-olive); border-color: var(--color-olive); color: #fff; }
+
+  .bk-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.1rem; }
+  .bk-field { display: flex; flex-direction: column; gap: .4rem; font-size: .875rem; font-weight: 600; }
+  .bk-field.wide { grid-column: 1 / -1; }
+  .bk-field small { font-weight: 400; color: var(--muted); margin-left: .25rem; }
+  .bk-field em, .bk-q em { color: var(--color-gold-dark); font-style: normal; }
+  .bk-field input, .bk-field textarea {
+    font: inherit; font-size: 1rem; font-weight: 400; color: var(--ink);
+    padding: .75rem .9rem; border: 1.5px solid var(--line); border-radius: 12px; background: #fdfbf7; width: 100%;
+    transition: border-color .15s, background .15s;
+  }
+  .bk-field input:focus, .bk-field textarea:focus { outline: none; border-color: var(--color-olive); background: #fff; }
+  .bk-field input.bad, .bk-seg.bad { border-color: #c0573f; }
+
+  .bk-seg { display: flex; padding: .25rem; gap: .25rem; border: 1.5px solid var(--line); border-radius: 999px; background: #fdfbf7; }
+  .bk-seg button { flex: 1; padding: .55rem .9rem; border: 0; border-radius: 999px; background: none; font: inherit; font-weight: 500; color: var(--ink); cursor: pointer; white-space: nowrap; }
+  .bk-seg button.on { background: var(--color-olive); color: #fff; }
+  .bk-seg.wrap { flex-wrap: wrap; border-radius: 18px; }
+
+  .bk-q { font-weight: 600; margin: 1.1rem 0 .55rem; }
+  .bk-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .bk-chip { display: inline-flex; align-items: center; gap: .55rem; padding: .55rem .95rem; border: 1.5px solid var(--line); border-radius: 999px; cursor: pointer; font-size: .92rem; transition: border-color .15s, background .15s; }
+  .bk-box { width: 16px; height: 16px; border: 1.5px solid #b9b19f; border-radius: 4px; display: grid; place-items: center; }
+  .bk-chip.on { border-color: var(--color-olive); background: #eef2e8; }
+  .bk-chip.on .bk-box { background: var(--color-olive); border-color: var(--color-olive); }
+  .bk-chip.on .bk-box::after { content: ''; width: 8px; height: 4px; border: 2px solid #fff; border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px); }
+
+  .bk-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.6rem; flex-wrap: wrap; }
+  .bk-foot strong { display: block; font-size: 1.15rem; }
+  .bk-foot span { color: var(--muted); font-size: .9rem; }
+  .bk-btn { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; padding: 1rem 1.9rem; border: 0; border-radius: 999px; background: var(--color-olive); color: #fff; font: inherit; font-weight: 600; font-size: 1rem; cursor: pointer; text-decoration: none; box-shadow: 0 10px 24px -12px rgba(46, 58, 36, .7); transition: background .15s, transform .15s; }
+  .bk-btn:hover { background: var(--color-olive-dark); transform: translateY(-1px); }
+  .bk-btn:disabled { opacity: .6; transform: none; cursor: wait; }
+  .bk-error { margin: .9rem 0 0; padding: .75rem 1rem; border-radius: 12px; background: #fbe9e4; color: #9b3b26; font-size: .92rem; }
+  .bk-ts:not(:empty) { margin-top: 1rem; }
+
+  .bk-aside { position: sticky; top: 7rem; display: flex; flex-direction: column; gap: .9rem; }
+  .bk-sum { overflow: hidden; }
+  .bk-sum-img { height: 190px; background: var(--soft) center/cover no-repeat; }
+  .bk-sum-body { padding: 1.4rem 1.5rem 1.5rem; }
+  .bk-sum h3 { font-size: 1.3rem; line-height: 1.25; margin: .35rem 0 1rem; }
+  .bk-sum-list { list-style: none; padding: 0; margin: 0 0 1.1rem; display: grid; gap: .6rem; font-size: .95rem; }
+  .bk-sum-list li { display: flex; align-items: center; gap: .65rem; }
+  .bk-sum-list svg { color: var(--color-gold-dark); flex: none; }
+  .bk-sum-list li.todo { color: #b0a894; }
+  .bk-sum-list li.todo svg { color: #c9c0ac; }
+  .bk-sum-price { display: flex; justify-content: space-between; align-items: baseline; padding-top: 1rem; border-top: 1px dashed var(--line); }
+  .bk-sum-price span { color: var(--muted); }
+  .bk-sum-price strong { font-size: 1.2rem; }
+  .bk-help { display: block; padding: 1rem 1.25rem; border-radius: 16px; background: #eef2e8; color: var(--ink); text-decoration: none; font-size: .92rem; }
+  .bk-help strong { display: block; color: var(--color-olive); }
+
+  @media (max-width: 980px) {
+    .bk-grid { grid-template-columns: 1fr; }
+    .bk-aside { position: static; order: -1; }
+    .bk-sum { display: flex; }
+    .bk-sum-img { width: 140px; height: auto; flex: none; }
+    .bk-sum-list, .bk-sum-body > .bk-note, .bk-help { display: none; }
+  }
+  @media (max-width: 680px) {
+    .bk { padding-top: 7rem; }
+    .bk-form { padding: 0 1.25rem 1.5rem; }
+    .bk-when { grid-template-columns: 1fr; gap: 1.2rem; }
+    .bk-fields { grid-template-columns: 1fr; }
+    .bk-sum-img { width: 96px; }
+    .bk-sum-body { padding: 1rem; }
+    .bk-sum h3 { font-size: 1.05rem; margin-bottom: .5rem; }
+    .bk-foot { flex-direction: column; align-items: stretch; }
+    .bk-btn { width: 100%; }
+  }
+</style>

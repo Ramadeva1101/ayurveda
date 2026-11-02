@@ -22,11 +22,15 @@ const linkBsr = (text: string) => text
   .replaceAll('Bali Silent Retreat', externalLink('Bali Silent Retreat'))
   .replaceAll('__BSR_URL__', externalLink('Bali Silent Retreat website'));
 
+// Matches the service slugs in Admin > Services, so /book opens with it selected
+const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 const packages = [
   {
     name: 'Ayurvedic Javanese Healing Experience',
     duration: '1 hr – 1.5 hr',
     price: 'IDR 1,500,000++',
+    amount: 1500000,
     approxRates: idrToApprox(1500000),
     highlight: 'Experience authentic Energy Healing of Javanese Point Pressure explained live by an Ayurvedic expert.',
     note: 'Meals is offered on a donation basis (minimum of 50K). We warmly invite you to make your contribution at the Bali Silent Retreat Reception as an expression of gratitude.',
@@ -35,27 +39,29 @@ const packages = [
     featured: false,
   },
   {
-    name: '3-Day Ayurvedic & Nusantara Experience',
+    name: '3-Day Ayurvedic & Javanese Energy Healing Experience',
     duration: 'accommodation and day pass NOT included ; make booking directly @ https://www.balisilentretreat.com/',
     durationLine2: '(different rooms different prices)',
     price: 'IDR 5,900,000++',
+    amount: 5900000,
     approxRates: idrToApprox(5900000),
     highlight: 'Perfect introduction to Ayurvedic healing.',
     includes: [
       'Nutritional drink',
       'Initial Comprehensive Ayurvedic One on One',
       '2-times Personalized Ayurvedic Therapy',
-      'Javanese (Nusantara) point pressure therapy',
+      'Javanese point pressure therapy',
       'Final Ayurvedic One on One',
     ],
     badge: null,
     featured: false,
   },
   {
-    name: '7-Day Ayurvedic Pancha Karma & Nusantara Experience',
+    name: '7-Day Ayurvedic Pancha Karma & Javanese Energy Healing Experience',
     duration: 'accommodation and day pass NOT included ; make booking directly @ https://www.balisilentretreat.com/',
     durationLine2: '(different rooms different prices)',
     price: 'IDR 15,000,000++',
+    amount: 15000000,
     approxRates: idrToApprox(15000000),
     highlight: 'Our most popular program.',
     includes: [
@@ -63,17 +69,18 @@ const packages = [
       'Initial Comprehensive Ayurvedic One on One',
       '5-times Personalized Ayurvedic Therapy',
       'One recommended Panchakarma therapy',
-      '2 times-Javanese (Nusantara) point pressure therapy',
+      '2 times-Javanese point pressure therapy',
       'Final Ayurvedic One on One',
     ],
     badge: 'Most Popular',
     featured: true,
   },
   {
-    name: '14-Day Ayurvedic Deep Pancha Karma & Nusantara Experience',
+    name: '14-Day Ayurvedic Deep Pancha Karma & Javanese Energy Healing Experience',
     duration: 'accommodation and day pass NOT included ; make booking directly @ https://www.balisilentretreat.com/',
     durationLine2: '(different rooms different prices)',
     price: 'IDR 29,000,000++',
+    amount: 29000000,
     approxRates: idrToApprox(29000000),
     highlight: 'Premium physician-led Pancha Karma and rejuvenation.',
     includes: [
@@ -81,17 +88,18 @@ const packages = [
       'Initial Comprehensive Ayurvedic One on One',
       '10-times Personalized Ayurvedic Therapy',
       'Two recommended Panchakarma therapy',
-      '4 times-Javanese (Nusantara) point pressure therapy',
+      '4 times-Javanese point pressure therapy',
       'Final Ayurvedic One on One',
     ],
     badge: null,
     featured: false,
   },
   {
-    name: '21-Day Complete Ayurvedic Deep Pancha Karma & Nusantara Experience',
+    name: '21-Day Complete Ayurvedic Deep Pancha Karma & Javanese Energy Healing Experience',
     duration: 'accommodation and day pass NOT included ; make booking directly @ https://www.balisilentretreat.com/',
     durationLine2: '(different rooms different prices)',
     price: 'IDR 43,000,000++',
+    amount: 43000000,
     approxRates: idrToApprox(43000000),
     highlight: 'Our most comprehensive program.',
     includes: [
@@ -99,7 +107,7 @@ const packages = [
       'Initial Comprehensive Ayurvedic One on One',
       '15-times Personalized Ayurvedic Therapy',
       'Two or three recommended Panchakarma therapy (depend on physical condition)',
-      '6 times-Javanese (Nusantara) point pressure therapy',
+      '6 times-Javanese point pressure therapy',
       'Final Ayurvedic One on One',
     ],
     badge: null,
@@ -110,7 +118,7 @@ const packages = [
 
 <BaseLayout
   title="Our Wellness Programs"
-  description="Treatment programs at Ayurvedic Wellness House — from personalized healing sessions to 3, 7, 14, and 21-day classical Panchakarma programs, all built on classical Ayurvedic and Nusantara healing principles."
+  description="Treatment programs at Ayurvedic Wellness House — from personalized healing sessions to 3, 7, 14, and 21-day classical Panchakarma programs, all built on classical Ayurvedic and Javanese healing principles."
 >
   <Navbar />
 
@@ -151,8 +159,16 @@ const packages = [
                 </span>
               </div>
               <div class="package-price">
-                <span class="price-amount">{pkg.price}</span>
-                <span class="price-approx">{pkg.approxRates}</span>
+                <span class="price-regular">
+                  <span class="price-amount">{pkg.price}</span>
+                  <span class="price-approx">{pkg.approxRates}</span>
+                </span>
+                <span class="price-offer" data-amount={pkg.amount}>
+                  <span class="offer-tag"></span>
+                  <s class="price-was">{pkg.price}</s>
+                  <span class="price-amount"></span>
+                  <span class="price-approx"></span>
+                </span>
                 <span class="price-note">++ tax &amp; service charge</span>
               </div>
               <div class="package-highlight">
@@ -195,7 +211,7 @@ const packages = [
                   </ul>
                 </div>
               )}
-              <a href="/contact" class:list={['package-btn', { 'btn': true, 'btn-primary': pkg.featured, 'btn-outline': !pkg.featured }]}>Book Now</a>
+              <a href={`/book?service=${slugify(pkg.name)}`} class:list={['package-btn', { 'btn': true, 'btn-primary': pkg.featured, 'btn-outline': !pkg.featured }]}>Book Now</a>
             </article>
           ))}
 
@@ -224,6 +240,30 @@ const packages = [
   </main>
 
   <Footer />
+
+  <script is:inline>
+    // Package offer comes from Admin > Settings through /api/offer.php, so the
+    // clinic can start or stop it without rebuilding the site. If the API is
+    // unreachable, normal prices stay on the page.
+    (function () {
+      // Same rounding as idrToApprox() in the page frontmatter.
+      function approx(idr) {
+        var up = function (v) { return Math.ceil(v / 5) * 5; };
+        return '≈ USD ' + up(idr / 16400).toLocaleString() + ' / AUD ' + up(idr / 10600).toLocaleString() + ' / EUR ' + up(idr / 17800).toLocaleString();
+      }
+      fetch('/api/offer.php').then(function (r) { return r.json(); }).then(function (o) {
+        if (!o || !o.percent) return;
+        var month = new Date(o.until + 'T00:00:00').toLocaleDateString('en-GB', { month: 'long' });
+        document.querySelectorAll('.price-offer[data-amount]').forEach(function (el) {
+          var price = Math.round(Number(el.dataset.amount) * (100 - o.percent) / 100);
+          el.querySelector('.offer-tag').textContent = o.percent + '% off until ' + new Date(o.until + 'T00:00:00').getDate() + ' ' + month;
+          el.querySelector('.price-amount').textContent = 'IDR ' + price.toLocaleString('en-US') + '++';
+          el.querySelector('.price-approx').textContent = approx(price);
+        });
+        document.documentElement.classList.add('offer-on');
+      }).catch(function () {});
+    })();
+  </script>
   <FloatingWhatsApp />
 </BaseLayout>
 
@@ -374,6 +414,45 @@ const packages = [
   }
 
   /* Price */
+  /* November offer: hidden unless the script below finds today inside the offer dates */
+  .price-regular,
+  .price-offer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .price-offer {
+    display: none;
+  }
+
+  :global(html.offer-on) .price-offer {
+    display: flex;
+  }
+
+  :global(html.offer-on) .price-regular {
+    display: none;
+  }
+
+  .offer-tag {
+    align-self: flex-start;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: var(--color-gold);
+    color: #fff;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .price-was {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-sage);
+  }
+
   .package-price {
     margin-bottom: 1rem;
     display: flex;

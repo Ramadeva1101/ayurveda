@@ -1,0 +1,11 @@
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+
+# Underscore files are includes, never pages.
+<FilesMatch "^_">
+  Require all denied
+</FilesMatch>

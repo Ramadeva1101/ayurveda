@@ -3,7 +3,83 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
-import SectionDivider from '../components/SectionDivider.astro';
+import { Image } from 'astro:assets';
+
+// Real clinic photos for the Why Choose Us tiles
+import consultationImg from '../assets/images/awh-gallery/awh-03.webp';
+import javaneseImg from '../assets/images/awh-gallery/awh-11.webp';
+import dharaImg from '../assets/images/awh-gallery/awh-10.webp';
+
+// Location photos (Bali Silent Retreat and the clinic rooms)
+import bsrMountainsImg from '../assets/images/bsr-mountains.webp';
+import room1Img from '../assets/images/room1.webp';
+import room2Img from '../assets/images/room2.webp';
+import bsrDroneImg from '../assets/images/bsr-drone-landscape.jpg';
+import bsrJunglePathImg from '../assets/images/bsr-jungle-heart-path.jpg';
+import bsrMeditationOctagonImg from '../assets/images/bsr-meditation-octagon.jpg';
+import bsrLodgeLibraryImg from '../assets/images/bsr-lodge-library.jpg';
+import bsrLabyrinthImg from '../assets/images/bsr-labyrinth.jpg';
+import bsrDucksImg from '../assets/images/bsr-ducks-harvest.jpg';
+import bsrStarGazingImg from '../assets/images/bsr-star-gazing.jpg';
+import bsrFreshFoodImg from '../assets/images/bsr-fresh-food.jpg';
+
+// Home and the former Our Sanctuary page are one page: Location & Stay.
+// Section layout follows the client's demo (design 3); colours and fonts are
+// the site's own. All wording comes from the existing pages.
+
+// Same rounding as idrToApprox() on the packages page.
+function idrToApprox(idrAmount: number) {
+  const usd = Math.ceil(idrAmount / 16400 / 5) * 5;
+  const aud = Math.ceil(idrAmount / 10600 / 5) * 5;
+  const eur = Math.ceil(idrAmount / 17800 / 5) * 5;
+  return `≈ USD ${usd.toLocaleString()} / AUD ${aud.toLocaleString()} / EUR ${eur.toLocaleString()}`;
+}
+
+const programs = [
+  {
+    name: '3-Day Ayurvedic & Javanese Energy Healing Experience',
+    highlight: 'Perfect introduction to Ayurvedic healing.',
+    amount: 5900000,
+    image: '/images/rice field surrounding_11zon.webp',
+    imageAlt: 'Rice field surroundings at Bali Silent Retreat',
+    badge: null,
+  },
+  {
+    name: '7-Day Ayurvedic Pancha Karma & Javanese Energy Healing Experience',
+    highlight: 'Our most popular program.',
+    amount: 15000000,
+    image: '/images/meditation octagon bale_7_11zon.jpg',
+    imageAlt: 'Meditation octagon bale at Bali Silent Retreat',
+    badge: 'Most Popular',
+  },
+  {
+    name: '14-Day Ayurvedic Deep Pancha Karma & Javanese Energy Healing Experience',
+    highlight: 'Premium physician-led Pancha Karma and rejuvenation.',
+    amount: 29000000,
+    image: '/images/spectacular view of batukaru_11zon.webp',
+    imageAlt: 'View of Mount Batukaru from Bali Silent Retreat',
+    badge: null,
+  },
+];
+
+// Location gallery (Bali Silent Retreat), wording from the former sanctuary page
+const gallery = [
+  { src: bsrDroneImg, alt: 'Aerial view of Bali Silent Retreat surrounded by rice fields and jungle', caption: 'Aerial View — 6 Hectares of Nature' },
+  { src: bsrJunglePathImg, alt: 'Heart-shaped jungle path at Bali Silent Retreat', caption: 'Heart-Shaped Jungle Path' },
+  { src: bsrMeditationOctagonImg, alt: 'Meditation octagon bale pavilion', caption: 'Meditation Octagon Bale' },
+  { src: bsrLabyrinthImg, alt: 'Labyrinth walking meditation program', caption: 'Labyrinth Walking Meditation' },
+  { src: bsrLodgeLibraryImg, alt: 'Lodge library relaxation area', caption: 'Library & Relaxation Lodge' },
+  { src: bsrDucksImg, alt: 'Eco-friendly ducks after rice harvest at Bali Silent Retreat', caption: 'Eco-Friendly Life — Ducks After Rice Harvest' },
+  { src: bsrStarGazingImg, alt: 'Star gazing on star bed at dusk', caption: 'Star Gazing at Dusk' },
+  { src: bsrFreshFoodImg, alt: 'Fresh wholesome food at the retreat', caption: 'Fresh Wholesome Food' },
+];
+
+const bsrUrl = 'https://www.balisilentretreat.com/';
+const waConsultUrl = 'https://wa.me/6285926461359?text=Hello%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Dr.%20Komang.';
+const mapsUrl = 'https://maps.app.goo.gl/gRzEuCPrURoJJ8rG8';
+
+// Matches the service slugs in Admin > Services, so /book opens with it selected
+const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 ---
 
 <BaseLayout
@@ -12,106 +88,265 @@ import SectionDivider from '../components/SectionDivider.astro';
 >
   <Navbar />
 
-  <main id="main-content">
+  <main id="main-content" class="home">
 
-    <!-- SECTION 1: Hero -->
+    <!-- Hero: full-bleed photo -->
     <section class="hero">
       <div class="hero__image" aria-hidden="true"></div>
-      <div class="hero__overlay" aria-hidden="true"></div>
-
+      <div class="hero__shade" aria-hidden="true"></div>
       <div class="hero__content">
-        <div class="container">
-          <h1 class="hero__title">Authentic Ayurveda in Bali, In combination with Javanese energy healing therapy</h1>
-          <div class="hero__actions">
-            <a href="/contact" class="btn btn-primary">Book Consultation</a>
-            <a href="/program" class="btn btn-secondary">Explore Programs</a>
-          </div>
+        <h1 class="hero__title">Authentic Ayurveda in Bali, In combination with Javanese energy healing therapy</h1>
+        <div class="actions">
+          <a href="https://wa.me/6285926461359?text=Hello%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Dr.%20Komang." target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book Consultation</a>
+          <a href="/program" class="btn btn-secondary">Explore Programs</a>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: Philosophy -->
-    <section class="philosophy section">
-      <div class="container">
-        <div class="philosophy__inner">
-          <h2 class="section-eyebrow">Our Philosophy</h2>
-          <h3 class="philosophy__title">Ancient Ayurvedic Wisdom. Javanese energy healing therapy. One Personalized Healing Journey.</h3>
-          <p class="philosophy__text">
-            At Ayurvedic Wellness House, we believe that true healing comes from understanding each person as a whole — body, mind, and spirit. We bring together the time-tested wisdom of Classical Ayurveda and the rich Javanese energy healing theraoy to create a complete personalized wellness experiences.</p>
+    <!-- 01 Two places (copy supplied by the client in the demo) -->
+    <section class="chapter">
+      <div class="container narrow center">
+        <p class="chapter__num">01</p>
+        <p class="eyebrow eyebrow--lined">Two separate places, close together</p>
+        <h2 class="display display--xl">Ayurvedic healing is not only about the treatments you receive. It is also about the environment around you.</h2>
+        <p class="lead">
+          Ayurvedic Wellness House and Bali Silent Retreat are separate establishments located close to one another. We provide Ayurvedic consultations, treatments, and wellness programs. If you are visiting us over several days, Bali Silent Retreat offers nearby accommodation that can complement your time with us.
+        </p>
+      </div>
+    </section>
+
+    <!-- 02 Where your care happens (copy supplied by the client in the demo) -->
+    <section class="chapter chapter--alt">
+      <div class="container care">
+        <div class="care__text">
+          <p class="chapter__num">02</p>
+          <p class="eyebrow eyebrow--lined">Ayurvedic Wellness House</p>
+          <h2 class="display display--xl display--left">Where your care happens</h2>
+          <p class="lead lead--left">Consultations with Dr. Komang, Ayurvedic treatments, Javanese energy healing and our wellness programs all take place at the Wellness House in Tabanan.</p>
+          <ul class="care__list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
+              Spectacular views of Mount Batukaru
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20c0-6 2-10 2-16"></path><path d="M9 20c0-6 1.5-10 1.5-14"></path><path d="M14 20c0-5 1.5-9 1.5-12"></path><path d="M19 20c0-4 1-7 1-9"></path></svg>
+              Peaceful rice field surroundings
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h11a3 3 0 1 0-3-3"></path><path d="M3 12h16a3 3 0 1 1-3 3"></path><path d="M3 16h8"></path></svg>
+              Fresh mountain air
+            </li>
+          </ul>
+          <div class="actions">
+            <a href="/program" class="btn btn-outline">See our treatments</a>
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline">Get directions</a>
+          </div>
+        </div>
+        <div class="care__photos">
+          <figure>
+            <Image src={room1Img} alt="Spa room at Ayurvedic Wellness House" width={640} loading="lazy" />
+            <figcaption>Wellness House · spa room</figcaption>
+          </figure>
+          <figure>
+            <Image src={room2Img} alt="Steam room at Ayurvedic Wellness House" width={640} loading="lazy" />
+            <figcaption>Wellness House · steam room</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <SectionDivider variant="simple" />
-
-    <!-- SECTION 3: Why Choose Us -->
-    <section class="why-us section section--alt">
+    <!-- 03 Why Choose Us: photo tiles -->
+    <section class="chapter">
       <div class="container">
-        <h2 class="section-eyebrow">Why Choose Us</h2>
-        <div class="why-us__grid">
-          <div class="why-us__card">
-            <div class="why-us__icon">
-              <!-- Sprout Icon representing Authentic Ayurveda -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 20h10"></path>
-                <path d="M12 20v-8"></path>
-                <path d="M12 12a5 5 0 0 0-5-5H3"></path>
-                <path d="M12 14a5 5 0 0 1 5-5h4"></path>
-              </svg>
+        <p class="chapter__num">03</p>
+        <h2 class="display display--xl display--left">Why Choose Us</h2>
+        <div class="tiles">
+          <article class="tile">
+            <Image src={consultationImg} alt="Consultation at Ayurvedic Wellness House" width={720} loading="lazy" class="tile__photo" />
+            <div class="tile__body">
+              <span class="tile__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 20h10"></path>
+                  <path d="M12 20v-8"></path>
+                  <path d="M12 12a5 5 0 0 0-5-5H3"></path>
+                  <path d="M12 14a5 5 0 0 1 5-5h4"></path>
+                </svg>
+              </span>
+              <h3 class="tile__title">Authentic Ayurveda</h3>
+              <p class="tile__text">Led by Dr. Komang Sudarmi — a licensed Ayurvedic physician with over a decade of clinical practice.</p>
             </div>
-            <h3 class="why-us__card-title">Authentic Ayurveda</h3>
-            <p class="why-us__card-text">Led by Dr. Komang Sudarmi — a licensed Ayurvedic physician with over a decade of clinical practice.</p>
-          </div>
-          <div class="why-us__card">
-            <div class="why-us__icon">
-              <!-- Elegant Leaf Icon representing Nusantara Healing & Herbs -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8a8.5 8.5 0 0 1-9 10z"></path>
-                <path d="M19 2c-2.26 4.33-5.27 7.14-8 8"></path>
-              </svg>
+          </article>
+          <article class="tile">
+            <Image src={javaneseImg} alt="Javanese energy healing session" width={720} loading="lazy" class="tile__photo" />
+            <div class="tile__body">
+              <span class="tile__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8a8.5 8.5 0 0 1-9 10z"></path>
+                  <path d="M19 2c-2.26 4.33-5.27 7.14-8 8"></path>
+                </svg>
+              </span>
+              <h3 class="tile__title">Javanese energy healing therapy</h3>
+              <p class="tile__text">Combining the Javanese energy healing therapy with authentic Ayurvedic protocols.</p>
             </div>
-            <h3 class="why-us__card-title">Javanese energy healing therapy</h3>
-            <p class="why-us__card-text">Combining the Javanese energy healing therapy with authentic Ayurvedic protocols.</p>
-          </div>
-          <div class="why-us__card">
-            <div class="why-us__icon">
-              <!-- Heart Icon representing Personalized Programs -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-              </svg>
+          </article>
+          <article class="tile">
+            <Image src={dharaImg} alt="Dhara therapy at Ayurvedic Wellness House" width={720} loading="lazy" class="tile__photo" />
+            <div class="tile__body">
+              <span class="tile__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+              </span>
+              <h3 class="tile__title">Personalized Programs</h3>
+              <p class="tile__text">Every treatment plan begins with a consultation to understand your unique constitution and needs.</p>
             </div>
-            <h3 class="why-us__card-title">Personalized Programs</h3>
-            <p class="why-us__card-text">Every treatment plan begins with a consultation to understand your unique constitution and needs.</p>
-          </div>
-          <div class="why-us__card">
-            <div class="why-us__icon">
-              <!-- Mountain Icon representing Natural Healing at Batukaru -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-                <path d="M12 21v-4"></path>
-              </svg>
+          </article>
+          <article class="tile">
+            <Image src={bsrMountainsImg} alt="Mountains and rice fields near Bali Silent Retreat" width={720} loading="lazy" class="tile__photo" />
+            <div class="tile__body">
+              <span class="tile__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
+                  <path d="M12 21v-4"></path>
+                </svg>
+              </span>
+              <h3 class="tile__title">Natural Healing</h3>
+              <p class="tile__text">Set near by <a href={bsrUrl} target="_blank" rel="noopener noreferrer">Bali Silent Retreat</a> — surrounded by rice fields, tropical forests, all-day buffet fresh foods daily and Mount Batukaru views.</p>
             </div>
-            <h3 class="why-us__card-title">Natural Healing</h3>
-            <p class="why-us__card-text">Set near by <strong><a href="https://www.balisilentretreat.com/" target="_blank" rel="noopener noreferrer">Bali Silent Retreat</a></strong> — surrounded by rice fields, tropical forests, all-day buffet fresh foods daily and Mount Batukaru views.</p>
-          </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <SectionDivider variant="simple" />
-
-    <!-- SECTION 4: CTA -->
-    <section class="home-cta section">
-      <div class="container">
-        <div class="home-cta__inner">
-          <h2 class="home-cta__title">Begin Your Healing Journey</h2>
-          <p class="home-cta__text">
-            Whether you seek relief from specific health concerns, a deep detox, or simply a renewed sense of balance — we are here to guide you.
-          </p>
-          <div class="home-cta__actions">
-            <a href="/contact" class="btn btn-primary">Book a Consultation</a>
-            <a href="/packages" class="btn btn-outline">View Wellness Programs</a>
+    <!-- 04 How booking works. Step titles come from the Book page; the short
+         descriptions match what the booking system actually does. -->
+    <section class="chapter how">
+      <div class="container how__grid">
+        <div class="how__intro">
+          <p class="chapter__num">04</p>
+          <p class="eyebrow eyebrow--lined">Book your visit</p>
+          <h2 class="display display--xl display--left">Reserve your time with us</h2>
+          <div class="actions">
+            <a href="/book" class="btn btn-primary">Book now</a>
+            <a href={waConsultUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline">Start Consultation</a>
           </div>
+        </div>
+
+        <ol class="how__steps">
+          <li class="how__step">
+            <span class="how__num">1</span>
+            <div>
+              <h3 class="how__title">Send your request</h3>
+              <p class="how__text">Choose a treatment or program, pick a date and time, and answer a few health questions.</p>
+            </div>
+          </li>
+          <li class="how__step">
+            <span class="how__num">2</span>
+            <div>
+              <h3 class="how__title">We confirm on WhatsApp</h3>
+              <p class="how__text">We check the schedule and confirm your booking on WhatsApp. You also receive the details by email.</p>
+            </div>
+          </li>
+          <li class="how__step">
+            <span class="how__num">3</span>
+            <div>
+              <h3 class="how__title">Come on your booked date</h3>
+              <p class="how__text">Come to Ayurvedic Wellness House in Tabanan at your booked time.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 05 Wellness programs -->
+    <section class="chapter">
+      <div class="container">
+        <p class="chapter__num">05</p>
+        <p class="eyebrow eyebrow--lined">Ayurvedic rejuvenation &amp; panchakarma programs</p>
+        <h2 class="display display--xl display--left">Our Wellness Programs</h2>
+        <p class="lead lead--left">Each program is designed around a specific wellness goal — from a single day to 21 days of deep classical Pancha Karma.</p>
+        <div class="program-grid">
+          {programs.map((p) => (
+            <article class="program">
+              <div class="program__photo">
+                <img src={p.image} alt={p.imageAlt} loading="lazy" decoding="async" />
+                {p.badge && <span class="program__badge">{p.badge}</span>}
+              </div>
+              <div class="program__body">
+                <h3 class="program__name">{p.name}</h3>
+                <p class="program__highlight">{p.highlight}</p>
+                <div class="price-regular">
+                  <p class="program__price">IDR {p.amount.toLocaleString('en-US')}++</p>
+                  <p class="program__approx">{idrToApprox(p.amount)}</p>
+                </div>
+                <div class="price-offer" data-amount={p.amount}>
+                  <p class="program__was">IDR {p.amount.toLocaleString('en-US')}++</p>
+                  <p class="program__price"><span class="price-amount"></span> <span class="offer-tag"></span></p>
+                  <p class="program__approx price-approx"></p>
+                </div>
+                <div class="program__actions">
+                  <a href={`/book?service=${slugify(p.name)}`} class="btn btn-primary">Book now</a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="center more">
+          <a href="/packages" class="btn btn-outline">View Wellness Programs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location & Stay (wording from the former sanctuary page) -->
+    <section class="chapter chapter--alt" id="location-stay">
+      <div class="container">
+        <div class="loc">
+          <div class="loc__intro">
+            <p class="eyebrow eyebrow--lined">Location &amp; Stay</p>
+            <h2 class="display display--lg display--left">A Sanctuary Beyond Words</h2>
+            <p class="lead lead--left">Immerse yourself in 6 hectares of nature — where rice fields, jungle, and mountain air create the perfect backdrop for healing.</p>
+          </div>
+          <dl class="loc__facts">
+            <div class="loc__fact">
+              <dt>Rooms</dt>
+              <dd><a href="https://www.balisilentretreat.com/accommodation/" target="_blank" rel="noopener noreferrer">5 types of rooms with 5 prices</a></dd>
+            </div>
+            <div class="loc__fact">
+              <dt>Food</dt>
+              <dd>delicious, organic, freshly picked <a href="https://www.balisilentretreat.com/food/" target="_blank" rel="noopener noreferrer">All-Day-Buffet</a></dd>
+            </div>
+            <div class="loc__fact">
+              <dt>Activities</dt>
+              <dd><a href="https://www.balisilentretreat.com/programs/" target="_blank" rel="noopener noreferrer">20+ activities</a>: nature, movement, meditation, and self-reflective activities, such as a labyrinth, jogging track, sound bath, curated jungle walk</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="gallery">
+          {gallery.map((g) => (
+            <figure class="gallery__item">
+              <Image src={g.src} alt={g.alt} width={640} loading="lazy" />
+              <figcaption>{g.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <div class="note">
+          <p><strong>Note:</strong> For accommodation and meal bookings, please visit</p>
+          <a href={bsrUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline">Bali Silent Retreat</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing CTA over a full-bleed photo -->
+    <section class="banner cta-photo" style="--banner-bg: url('/images/bg.webp')">
+      <div class="banner__shade" aria-hidden="true"></div>
+      <div class="container banner__inner center">
+        <h2 class="display display--xl">Begin Your Healing Journey</h2>
+        <p class="lead">
+          Whether you seek relief from specific health concerns, a deep detox, or simply a renewed sense of balance — we are here to guide you.
+        </p>
+        <div class="actions actions--center">
+          <a href="/book" class="btn btn-primary">Book now</a>
+          <a href="https://wa.me/6285926461359?text=Hello%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Dr.%20Komang." target="_blank" rel="noopener noreferrer" class="btn btn-outline">Start Consultation</a>
         </div>
       </div>
     </section>
@@ -120,180 +355,148 @@ import SectionDivider from '../components/SectionDivider.astro';
 
   <Footer />
   <FloatingWhatsApp />
+
+  <script is:inline>
+    // Same package offer as the packages page (Admin > Settings via /api/offer.php).
+    (function () {
+      function approx(idr) {
+        var up = function (v) { return Math.ceil(v / 5) * 5; };
+        return '≈ USD ' + up(idr / 16400).toLocaleString() + ' / AUD ' + up(idr / 10600).toLocaleString() + ' / EUR ' + up(idr / 17800).toLocaleString();
+      }
+      fetch('/api/offer.php').then(function (r) { return r.json(); }).then(function (o) {
+        if (!o || !o.percent) return;
+        var until = new Date(o.until + 'T00:00:00');
+        var month = until.toLocaleDateString('en-GB', { month: 'long' });
+        document.querySelectorAll('.price-offer[data-amount]').forEach(function (el) {
+          var price = Math.round(Number(el.dataset.amount) * (100 - o.percent) / 100);
+          el.querySelector('.offer-tag').textContent = o.percent + '% off until ' + until.getDate() + ' ' + month;
+          el.querySelector('.price-amount').textContent = 'IDR ' + price.toLocaleString('en-US') + '++';
+          el.querySelector('.price-approx').textContent = approx(price);
+        });
+        document.documentElement.classList.add('offer-on');
+      }).catch(function () {});
+    })();
+  </script>
 </BaseLayout>
 
 <style>
-  /* SECTION 1: Hero */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    background-color: #36521f;
+  .home {
+    background: var(--color-cream-base);
+    color: var(--color-olive);
   }
 
-  .hero__image {
-    position: absolute;
-    inset: 0;
-    background-image: url('/images/bg.webp');
-    background-size: cover;
-    background-position: center;
-    filter: none;
-    transform: none;
+  /* ---------- shared ---------- */
+  .chapter {
+    padding: clamp(4rem, 9vw, 8rem) 0;
   }
 
-  .hero__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: transparent;
+  .chapter--alt {
+    background: var(--color-cream-deep);
   }
 
-  .hero__content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    padding-top: 8rem;
-    padding-bottom: 4rem;
+  .narrow {
+    max-width: 60rem;
   }
 
-  .hero__title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(2rem, 1.25rem + 4vw, 4rem);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--color-cream-base);
-    line-height: 1.15;
-    margin-bottom: 2rem;
-    max-width: 18ch;
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  /* SECTION 2: Philosophy */
-  .philosophy {
-    background-color: var(--color-cream-base);
-  }
-
-  .philosophy__inner {
-    max-width: 52rem;
-    margin: 0 auto;
+  .center {
     text-align: center;
   }
 
-  .philosophy__title {
+  .chapter__num {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.5rem, 1rem + 2vw, 2.25rem);
-    font-weight: 400;
-    color: var(--color-olive);
-    line-height: 1.3;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--color-gold);
+    margin: 0 0 1rem;
   }
 
-  .philosophy__text {
-    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.125rem);
+  .eyebrow {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-gold-dark);
+    margin: 0 0 1.25rem;
+  }
+
+  .eyebrow a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Short gold rule before the label, as in the demo */
+  .eyebrow--lined::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    margin-right: 0.75rem;
+    vertical-align: middle;
+    background: currentColor;
+  }
+
+  .eyebrow--light {
+    color: var(--color-gold-light);
+  }
+
+  .display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-olive);
+    margin: 0 0 1.5rem;
+  }
+
+  .display--xl {
+    font-size: clamp(2.25rem, 1.3rem + 4vw, 4.5rem);
+  }
+
+  .display--lg {
+    font-size: clamp(1.9rem, 1.2rem + 2.8vw, 3.5rem);
+  }
+
+  .display--md {
+    font-size: clamp(1.6rem, 1.15rem + 1.8vw, 2.5rem);
+  }
+
+  .display--left {
+    text-align: left;
+  }
+
+  .display--light {
+    color: var(--color-cream-base);
+  }
+
+  .lead {
+    font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.75;
     color: var(--color-olive);
     opacity: 0.85;
-    line-height: 1.75;
-  }
-
-  /* SECTION 3: Why Choose Us */
-  .why-us__grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-    max-width: 64rem;
+    max-width: 46rem;
     margin: 0 auto;
   }
 
-  @media (min-width: 640px) {
-    .why-us__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .lead--left {
+    margin: 0 0 2.5rem;
   }
 
-  @media (min-width: 1024px) {
-    .why-us__grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
+  .more {
+    margin-top: 2.5rem;
   }
 
-  .why-us__card {
-    text-align: center;
-    padding: 1.5rem;
-  }
-
-  .why-us__icon {
-    width: 3rem;
-    height: 3rem;
-    margin: 0 auto 1rem;
-    color: var(--color-gold);
-  }
-
-  .why-us__icon svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .why-us__card-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--color-olive);
-    margin-bottom: 0.5rem;
-  }
-
-  .why-us__card-text {
-    font-size: 0.9375rem;
-    color: var(--color-sage);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .why-us__card-text a {
-    color: inherit;
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-  }
-
-  /* SECTION 4: CTA */
-  .home-cta {
-    background-color: var(--color-cream-base);
-  }
-
-  .home-cta__inner {
-    text-align: center;
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  .home-cta__title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
-    font-weight: 400;
-    color: var(--color-olive);
-    margin-bottom: 1rem;
-  }
-
-  .home-cta__text {
-    font-size: clamp(1rem, 0.9375rem + 0.25vw, 1.0625rem);
-    color: var(--color-olive);
-    opacity: 0.8;
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
-
-  .home-cta__actions {
+  .actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 1rem;
+  }
+
+  .actions--center {
+    justify-content: center;
+    margin-top: 2rem;
   }
 
   .btn-outline {
@@ -321,30 +524,625 @@ import SectionDivider from '../components/SectionDivider.astro';
     color: white;
   }
 
-  /* Section eyebrow */
-  .section-eyebrow {
-    font-family: 'Karla', sans-serif;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-gold);
-    text-align: center;
-    margin-bottom: 2rem;
+  /* ---------- hero: full-bleed photo ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #36521f;
   }
 
-  /* Responsive */
+  .hero__image {
+    position: absolute;
+    inset: 0;
+    background: url('/images/bg.webp') center / cover no-repeat;
+  }
+
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(16, 24, 13, 0.5) 0%, rgba(16, 24, 13, 0.15) 55%, rgba(16, 24, 13, 0) 100%);
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 8rem clamp(1.25rem, 5vw, 4rem) 4rem;
+  }
+
+  .hero__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.25rem, 1.25rem + 4.5vw, 4.5rem);
+    /* 500 italic is the heaviest italic loaded; higher weights get faked bold */
+    font-weight: 500;
+    font-style: italic;
+    color: var(--color-cream-base);
+    line-height: 1.12;
+    max-width: 18ch;
+    margin: 0 0 2rem;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ---------- where your care happens ---------- */
+  .care {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .care {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 5rem;
+    }
+  }
+
+  .care__list {
+    list-style: none;
+    margin: 0 0 2.25rem;
+    padding: 0;
+  }
+
+  .care__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.4rem 0;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.2rem, 1rem + 0.7vw, 1.55rem);
+    font-weight: 500;
+    color: var(--color-olive);
+  }
+
+  .care__list svg {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-gold);
+  }
+
+  .care__photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .care__photos figure {
+    margin: 0;
+  }
+
+  .care__photos :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .care__photos figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-sage-dark);
+  }
+
+  /* ---------- why: photo tiles ---------- */
+  .tiles {
+    display: grid;
+    gap: 4px;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .tiles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .tiles {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .tile {
+    position: relative;
+    min-height: 460px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .tile :global(.tile__photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .tile:hover :global(.tile__photo) {
+    transform: scale(1.04);
+  }
+
+  .tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(14, 20, 10, 0.88) 0%, rgba(14, 20, 10, 0.45) 50%, rgba(14, 20, 10, 0.05) 100%);
+  }
+
+  .tile__body {
+    position: relative;
+    z-index: 1;
+    padding: 1.75rem 1.5rem;
+  }
+
+  .tile__icon {
+    display: inline-flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--color-gold-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .tile__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .tile__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.4rem, 1.1rem + 0.9vw, 1.9rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-cream-base);
+    margin: 0 0 0.75rem;
+  }
+
+  .tile__text {
+    font-size: 0.975rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(250, 246, 240, 0.9);
+    margin: 0;
+  }
+
+  .tile__text a {
+    color: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  /* ---------- full-bleed photo banners ---------- */
+  .banner {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: clamp(4rem, 9vw, 8rem) 0;
+    background: var(--banner-bg) center / cover no-repeat;
+  }
+
+  .banner__shade {
+    position: absolute;
+    inset: 0;
+    background: rgba(16, 24, 13, 0.6);
+  }
+
+  .banner__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+  }
+
+  /* ---------- location & stay ---------- */
+  .loc {
+    display: grid;
+    gap: 2rem 5rem;
+    align-items: end;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .loc {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+  }
+
+  .loc__intro .display {
+    margin-bottom: 1rem;
+  }
+
+  .loc__intro .lead--left {
+    margin: 0;
+    max-width: 34rem;
+  }
+
+  /* Three facts as a tidy list with thin dividers */
+  .loc__facts {
+    margin: 0;
+    border-top: 1px solid rgba(63, 74, 50, 0.15);
+  }
+
+  .loc__fact {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(63, 74, 50, 0.15);
+  }
+
+  .loc__fact dt {
+    padding-top: 0.15rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold-dark);
+  }
+
+  .loc__fact dd {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--color-olive);
+  }
+
+  .loc__fact a {
+    color: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 480px) {
+    .loc__fact {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+
+  @media (min-width: 1024px) {
+    .gallery {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .gallery__item {
+    aspect-ratio: 4 / 3;
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .gallery__item :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .gallery__item:hover :global(img) {
+    transform: scale(1.05);
+  }
+
+  /* Captions always visible, as in the demo */
+  .gallery__item figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2.5rem 1rem 0.9rem;
+    background: linear-gradient(to top, rgba(14, 20, 10, 0.75), rgba(14, 20, 10, 0));
+    font-family: 'Karla', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+
+  .note p {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  /* ---------- closing CTA (on the photo banner) ---------- */
+  .cta-photo .display {
+    color: var(--color-cream-base);
+  }
+
+  .cta-photo .lead {
+    color: rgba(250, 246, 240, 0.9);
+    opacity: 1;
+  }
+
+  .cta-photo .btn-primary {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+  }
+
+  .cta-photo .btn-primary:hover {
+    background-color: var(--color-gold-dark);
+    border-color: var(--color-gold-dark);
+  }
+
+  .cta-photo .btn-outline {
+    border-color: rgba(250, 246, 240, 0.7);
+    color: var(--color-cream-base);
+  }
+
+  .cta-photo .btn-outline:hover {
+    background-color: var(--color-cream-base);
+    border-color: var(--color-cream-base);
+    color: var(--color-olive);
+  }
+
+  /* ---------- how booking works (olive block) ---------- */
+  .how {
+    background: var(--color-olive);
+  }
+
+  .how .chapter__num,
+  .how .eyebrow {
+    color: var(--color-gold-light);
+  }
+
+  .how .display {
+    color: var(--color-cream-base);
+  }
+
+  .how .btn-primary {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+  }
+
+  .how .btn-primary:hover {
+    background-color: var(--color-gold-dark);
+    border-color: var(--color-gold-dark);
+  }
+
+  .how .btn-outline {
+    border-color: rgba(250, 246, 240, 0.6);
+    color: var(--color-cream-base);
+  }
+
+  .how .btn-outline:hover {
+    background-color: var(--color-cream-base);
+    border-color: var(--color-cream-base);
+    color: var(--color-olive);
+  }
+
+  .how__grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .how__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: 3rem 6rem;
+      align-items: start;
+    }
+  }
+
+  /* Vertical timeline: numbers joined by a thin gold line */
+  .how__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .how__step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .how__step:last-child {
+    padding-bottom: 0;
+  }
+
+  .how__step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 1.75rem;
+    top: 3.75rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: rgba(201, 168, 118, 0.45);
+  }
+
+  .how__num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 1px solid var(--color-gold-light);
+    border-radius: 50%;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-gold-light);
+  }
+
+  .how__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.4rem, 1.15rem + 0.8vw, 1.85rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-cream-base);
+    margin: 0.6rem 0 0.5rem;
+  }
+
+  .how__text {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.65;
+    color: rgba(250, 246, 240, 0.82);
+    margin: 0;
+    max-width: 34rem;
+  }
+
+  /* ---------- programs ---------- */
+  .program-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .program-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .program {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-cream-base);
+    border: 1px solid rgba(63, 74, 50, 0.12);
+  }
+
+  .program__photo {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .program__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .program__badge {
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+    padding: 0.3rem 0.75rem;
+    background: var(--color-gold);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .program__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.5rem;
+  }
+
+  .program__name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-olive);
+    margin: 0 0 0.6rem;
+  }
+
+  .program__highlight {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    color: var(--color-gold-dark);
+    margin: 0 0 1rem;
+  }
+
+  .program__price {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-olive);
+    margin: 0;
+  }
+
+  .program__was {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-sage);
+    text-decoration: line-through;
+  }
+
+  .program__approx {
+    font-size: 0.85rem;
+    color: var(--color-sage-dark);
+    margin: 0.25rem 0 0;
+  }
+
+  .offer-tag {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--color-gold);
+    color: #fff;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .price-offer {
+    display: none;
+  }
+
+  :global(html.offer-on) .price-offer {
+    display: block;
+  }
+
+  :global(html.offer-on) .price-regular {
+    display: none;
+  }
+
+  .program__actions {
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
   @media (max-width: 640px) {
-    .hero {
-      min-height: 85vh;
+    .tile {
+      min-height: 380px;
     }
 
-    .hero__actions {
-      flex-direction: column;
-    }
-
-    .hero__actions .btn {
-      width: 100%;
+    .actions .btn,
+    .actions .btn-outline {
+      flex: 1 1 100%;
     }
   }
 </style>

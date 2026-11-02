@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
-import SectionDivider from '../components/SectionDivider.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
@@ -68,7 +67,7 @@ const treatmentOptions = allTreatments.map(t => ({
               </a>
             </div>
 
-            <SectionDivider variant="simple" />
+            <hr class="contact-rule" />
 
             <!-- Contact Form -->
             <div class="form-section">
@@ -168,10 +167,10 @@ const treatmentOptions = allTreatments.map(t => ({
                     </optgroup>
                     <optgroup label="Packages">
                       <option value="ayurvedic-javanese-healing">Ayurvedic Javanese Healing Experience</option>
-                      <option value="3-day-ayurvedic-nusantara">3-Day Ayurvedic & Nusantara Experience</option>
-                      <option value="7-day-ayurvedic-nusantara">7-Day Ayurvedic Pancha Karma & Nusantara</option>
-                      <option value="14-day-ayurvedic-nusantara">14-Day Ayurvedic Deep Pancha Karma & Nusantara</option>
-                      <option value="21-day-ayurvedic-nusantara">21-Day Complete Ayurvedic Deep Pancha Karma & Nusantara</option>
+                      <option value="3-day-ayurvedic-javanese-energy-healing">3-Day Ayurvedic & Javanese Energy Healing Experience</option>
+                      <option value="7-day-ayurvedic-javanese-energy-healing">7-Day Ayurvedic Pancha Karma & Javanese Energy Healing</option>
+                      <option value="14-day-ayurvedic-javanese-energy-healing">14-Day Ayurvedic Deep Pancha Karma & Javanese Energy Healing</option>
+                      <option value="21-day-ayurvedic-javanese-energy-healing">21-Day Complete Ayurvedic Deep Pancha Karma & Javanese Energy Healing</option>
                     </optgroup>
                     <option value="other">Other / General Inquiry</option>
                   </select>
@@ -373,7 +372,14 @@ const treatmentOptions = allTreatments.map(t => ({
 
   /* Quick Contact */
   .quick-contact {
-    margin-bottom: 3rem;
+    margin-bottom: 2.25rem;
+  }
+
+  /* Thin rule between WhatsApp and the form (the decorative divider left an uneven gap) */
+  .contact-rule {
+    border: 0;
+    border-top: 1px solid var(--color-cream-deep);
+    margin: 0;
   }
 
   .quick-contact__title {
@@ -423,7 +429,7 @@ const treatmentOptions = allTreatments.map(t => ({
 
   /* Form Section */
   .form-section {
-    margin-top: 3rem;
+    margin-top: 2.25rem;
   }
 
   .form-title {

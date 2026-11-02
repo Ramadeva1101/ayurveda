@@ -25,7 +25,7 @@ const testimonials = [
   {
     src: '/images/testimonials/guest-3.webp',
     alt: 'Guest testimonial — Ayurvedic Wellness House',
-    quote: 'The combination of Ayurvedic and Nusantara healing traditions gave me insights I never expected. I left feeling renewed in body and spirit.',
+    quote: 'The combination of Ayurvedic and Javanese healing traditions gave me insights I never expected. I left feeling renewed in body and spirit.',
     name: 'Guest',
     location: 'Singapore',
   },
@@ -52,33 +52,21 @@ const testimonials = [
   },
 ];
 
-// Video testimonials - YouTube embeds
+// Video testimonials from the clinic's YouTube channel (@ayurvedicwellnesshouse).
+// Names come from each video's YouTube title. Newest first.
+const youtubeChannel = 'https://www.youtube.com/@ayurvedicwellnesshouse';
 const videoTestimonials = [
-  {
-    youtubeId: '9Yc_3wSAe7I',
-    name: 'Guest',
-    location: 'Bali, Indonesia',
-  },
-  {
-    youtubeId: '6K2ax92R1zQ',
-    name: 'Guest',
-    location: 'Bali, Indonesia',
-  },
-  {
-    youtubeId: 'ouCT1nhIm00',
-    name: 'Guest',
-    location: 'Bali, Indonesia',
-  },
-  {
-    youtubeId: '1GDEUJZKjM4',
-    name: 'Guest',
-    location: 'Singapore',
-  },
+  { youtubeId: 'KW4Q5kK0TGU', name: 'Nisha', location: null },
+  { youtubeId: 'Jga5WdFywzI', name: 'Dr. Balvinder', location: null },
+  { youtubeId: '9Yc_3wSAe7I', name: 'Ms. Samantha', location: 'Bali, Indonesia' },
+  { youtubeId: '6K2ax92R1zQ', name: 'Mr. Mattias', location: 'Bali, Indonesia' },
+  { youtubeId: 'ouCT1nhIm00', name: 'Mr. Pulind Samant', location: 'Bali, Indonesia' },
+  { youtubeId: '1GDEUJZKjM4', name: 'Guest', location: 'Singapore' },
 ];
 ---
 
 <BaseLayout
-  title="Clients Journey"
+  title="Testimonials"
   description="Guest experiences at Ayurvedic Wellness House — real stories from those who have begun their healing journey with us."
 >
   <Navbar />
@@ -88,7 +76,7 @@ const videoTestimonials = [
     <!-- Page Hero -->
     <PageHero
       eyebrow="Guest Experiences"
-      title="Clients Journey"
+      title="Testimonials"
       subtitle="Real stories from those who have begun their healing journey with us."
       image="/images/fresh mountain air_11zon.webp"
       imageAlt="Guest relaxing and reading in the library at Bali Silent Retreat"
@@ -159,7 +147,7 @@ const videoTestimonials = [
                 <div class="video-card__media video-thumbnail" data-video-id={item.youtubeId}>
                   <img
                     src={`https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg`}
-                    alt="Video testimonial thumbnail"
+                    alt={`Video testimonial from ${item.name}`}
                     loading="lazy"
                     width="480"
                     height="270"
@@ -172,16 +160,19 @@ const videoTestimonials = [
                 </div>
                 <div class="video-card__info">
                   <p class="video-card__name">{item.name}</p>
-                  <p class="video-card__location">
+                  {item.location && <p class="video-card__location">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                     {item.location}
-                  </p>
+                  </p>}
                 </div>
               </div>
             ))}
+          </div>
+          <div class="videos__more">
+            <a class="btn btn-outline" href={youtubeChannel} target="_blank" rel="noopener">More videos on our YouTube channel</a>
           </div>
         </div>
       </section>
@@ -198,8 +189,8 @@ const videoTestimonials = [
             Every healing journey starts with a single step. We are here to guide yours.
           </p>
           <div class="cta-actions">
-            <a href="/contact" class="btn btn-primary">Book a Consultation</a>
-            <a href="/packages" class="btn btn-outline">View Wellness Programs</a>
+            <a href="/book" class="btn btn-primary">Book now</a>
+            <a href="https://wa.me/6285926461359?text=Hello%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Dr.%20Komang." target="_blank" rel="noopener noreferrer" class="btn btn-outline">Start Consultation</a>
           </div>
         </div>
       </div>
@@ -617,6 +608,10 @@ const videoTestimonials = [
   .btn-outline:hover {
     background-color: var(--color-sage);
     color: white;
+  }
+  .videos__more {
+    margin-top: 2.5rem;
+    text-align: center;
   }
 </style>
 

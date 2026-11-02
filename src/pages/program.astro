@@ -25,9 +25,15 @@ import katiBastiImg from '../assets/images/kati-basti.webp';
 import januBastiImg from '../assets/images/janu-basti.webp';
 import reflexioImg from '../assets/images/reflexio.webp';
 import svedanaImg from '../assets/images/svedana.webp';
-import oneOnOneImg from '../assets/images/one-on-one.webp';
-import nusantaraExpImg from '../assets/images/nusantara-experience.webp';
 import takradharaImg from '../assets/images/takradhara.webp';
+
+// Real clinic photos (October 2026 shoot) replace the earlier generated images
+import shirodharaRealImg from '../assets/images/awh-gallery/awh-10.webp';
+import hrdayaBastiRealImg from '../assets/images/awh-gallery/awh-07.webp';
+import cakraBastiRealImg from '../assets/images/awh-gallery/awh-08.webp';
+import javaneseHealingImg from '../assets/images/awh-gallery/awh-11.webp';
+import consultationImg from '../assets/images/awh-gallery/awh-03.webp';
+import { Image } from 'astro:assets';
 
 const allTreatments = await getCollection('treatments');
 
@@ -38,20 +44,19 @@ const treatmentImages: Record<string, ImageMetadata> = {
   'Navarakizhi': navarakizhiImg,
   'Patra Pinda Sveda': patrapindaImg,
   'Pizhichil': pizhichilImg,
-  'Shirodhara': shirodaraImg,
-  
+  'Shirodhara': shirodharaRealImg,
+
   'Netra Tarpana': netratarpanaImg,
   'Karna Purana': karnapurnaImg,
   'Nasya': nasyaImg,
-  'Hrdaya Basti': hrdayaBastiImg,
-  'Cakra Basti': cakraBastiImg,
+  'Hrdaya Basti': hrdayaBastiRealImg,
+  'Cakra Basti': cakraBastiRealImg,
   'Greeva Basti': greevaBastiImg,
   'Kati Basti': katiBastiImg,
   'Janu Basti': januBastiImg,
   'Reflexology': reflexioImg,
   'Svedana': svedanaImg,
-  'Ayurvedic One-on-One with Dr. Komang Sudarmi, BAMS., MS., PhD. (Ayurveda)': oneOnOneImg,
-  'Ayurvedic Wisdom combined with Javanese energy healing therapy': nusantaraExpImg,
+  'Ayurvedic Wisdom combined with Javanese energy healing therapy': javaneseHealingImg,
   'Takradhara': takradharaImg,
 };
 
@@ -62,18 +67,8 @@ const regularTreatments = allTreatments.filter(t => t.data.category !== 'signatu
 // Sort regular treatments alphabetically by name
 regularTreatments.sort((a, b) => a.data.name.localeCompare(b.data.name));
 
-// Sort signature: One-on-One (Consultation) first, Nusantara Experience second
-signatureTreatments.sort((a, b) => {
-  const aIsConsult = a.data.name.toLowerCase().includes('one-on-one');
-  const bIsConsult = b.data.name.toLowerCase().includes('one-on-one');
-  if (aIsConsult) return -1;
-  if (bIsConsult) return 1;
-  return 0;
-});
-
 // Collect all image URLs for prefetching
 const allImageUrls = Object.values(treatmentImages).map(img => img.src);
----
 ---
 
 <BaseLayout
@@ -101,22 +96,28 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
       <section class="special-treatments section" id="signature-experiences">
         <div class="container">
           <h2 class="special-section-title">Signature Experiences</h2>
-          <div class="special-grid">
-            {signatureTreatments.map((treatment) => (
-              <div class="special-card-wrapper">
-                <TreatmentCard
-                  name={treatment.data.name}
-                  sanskritName={treatment.data.sanskritName}
-                  description={treatment.data.description}
-                  image={treatmentImages[treatment.data.name]}
-                  category={treatment.data.category}
-                  icon={treatment.data.icon}
-                  featured={true}
-                  link="/contact"
-                />
+          {signatureTreatments.map((treatment) => (
+            <article class="signature-card">
+              <div class="signature-card__photos">
+                <Image src={consultationImg} alt="Consultation at Ayurvedic Wellness House" width={700} class="signature-card__photo" />
+                <Image src={treatmentImages[treatment.data.name] ?? javaneseHealingImg} alt={treatment.data.name} width={700} class="signature-card__photo" />
               </div>
-            ))}
-          </div>
+              <div class="signature-card__body">
+                <h3 class="signature-card__title">{treatment.data.name}</h3>
+                {treatment.data.sanskritName && (
+                  <p class="signature-card__sanskrit">{treatment.data.sanskritName}</p>
+                )}
+                <p class="signature-card__text">{treatment.data.description}</p>
+                <a href="/book?service=ayurvedic-javanese-healing-experience" class="signature-card__link">
+                  Book
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
     )}
@@ -156,8 +157,6 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
       </div>
     </section>
 
-    <SectionDivider variant="simple" />
-
     <!-- CTA Section -->
     <section class="therapy-cta section">
       <div class="container">
@@ -167,8 +166,8 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
             Every treatment plan starts here. We'll assess your constitution, discuss your health goals, and recommend a program tailored to you.
           </p>
           <div class="cta-actions">
-            <a href="/contact" class="btn btn-primary">Book a Consultation</a>
-            <a href="/packages" class="btn btn-outline">View Wellness Programs</a>
+            <a href="/book" class="btn btn-primary">Book now</a>
+            <a href="https://wa.me/6285926461359?text=Hello%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Dr.%20Komang." target="_blank" rel="noopener noreferrer" class="btn btn-outline">Start Consultation</a>
           </div>
         </div>
       </div>
@@ -190,6 +189,11 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
 
   .all-treatments.section {
     padding-top: clamp(1.5rem, 3vw, 3rem);
+    padding-bottom: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .therapy-cta.section {
+    padding-top: clamp(2rem, 4vw, 3.5rem);
   }
 
   /* Our Treatments Intro Section */
@@ -260,7 +264,7 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
 
   .special-section-title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.25rem, 1rem + 1.5vw, 1.75rem);
+    font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem);
     font-weight: 500;
     color: var(--color-olive);
     text-align: center;
@@ -268,57 +272,91 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
     letter-spacing: 0.02em;
   }
 
-  .special-grid {
+  /* Wide signature card: two clinic photos on the left, text on the right */
+  .signature-card {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    max-width: 900px;
+    max-width: 1180px;
     margin: 0 auto;
+    background: var(--color-cream-base);
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 18px 50px rgba(63, 74, 50, 0.12);
+    overflow: hidden;
   }
 
-  @media (min-width: 768px) {
-    .special-grid {
-      grid-template-columns: repeat(2, 1fr);
-      align-items: stretch;
+  @media (min-width: 900px) {
+    .signature-card {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
     }
   }
 
-  /* Special card wrapper with enhanced border */
-  .special-card-wrapper {
-    position: relative;
-    display: flex;
+  .signature-card__photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    min-height: 360px;
+    background: var(--color-cream-deep);
   }
 
-  .special-card-wrapper::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border: 2px solid var(--color-gold);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .special-card-wrapper .treatment-card {
-    border: 1px solid var(--color-gold);
-    background-color: var(--color-cream-base);
+  .signature-card__photos :global(.signature-card__photo) {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
-  .special-card-wrapper .treatment-card__content {
-    flex: 1;
+  .signature-card__body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    padding: clamp(1.75rem, 4vw, 3.25rem);
   }
 
-  .special-card-wrapper .treatment-card__title {
+  .signature-card__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.25rem + 1.6vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-olive);
+    margin: 0 0 0.5rem;
+  }
+
+  .signature-card__sanskrit {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--color-sage);
+    margin: 0 0 1.25rem;
+  }
+
+  .signature-card__text {
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    font-weight: 500;
+    line-height: 1.75;
+    color: var(--color-olive);
+    opacity: 0.9;
+    margin: 0 0 1.5rem;
+  }
+
+  .signature-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-sage-dark);
+    text-decoration: none;
+  }
+
+  .signature-card__link:hover {
     color: var(--color-olive);
   }
 
-  .special-card-wrapper .treatment-card__description {
-    color: var(--color-olive);
-    flex: 1;
+  .signature-card__link svg {
+    width: 1rem;
+    height: 1rem;
   }
 
   /* Treatments Grid */

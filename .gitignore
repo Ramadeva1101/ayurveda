@@ -25,3 +25,12 @@ pnpm-debug.log*
 
 # temporary files
 *.tmp
+
+# backend secrets
+backend/app/config.php
+
+# cPanel upload packages (rebuilt by deploy/make-package.py)
+deploy/*.zip
+
+# leftover folder from testing the extracted cPanel package
+deploy/awh-app/

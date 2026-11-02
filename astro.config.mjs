@@ -8,6 +8,10 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://ayurvedicwellnesshouse.com',
   output: 'static',
+  // Our Sanctuary was merged into the home page (Location & Stay)
+  redirects: {
+    '/sanctuary': '/',
+  },
   image: {
     service: sharpImageService(),
   },
@@ -15,6 +19,16 @@ export default defineConfig({
     prefetchAll: true,        // prefetch all internal links automatically
     defaultStrategy: 'hover', // start fetching when user hovers a link
   },
-  integrations: [alpinejs(), sitemap()]
+  integrations: [alpinejs(), sitemap()],
+  // Local development only: send /api and /admin to the PHP backend
+  // (started with backend/dev/start.cmd). Production serves both from cPanel.
+  vite: {
+    server: {
+      proxy: {
+        '/api': 'http://127.0.0.1:8099',
+        '/admin': 'http://127.0.0.1:8099',
+      },
+    },
+  },
 });
 
