@@ -115,16 +115,21 @@ admin_header($b['code'], $user);
 <?php if ($next): ?>
 <section class="card">
   <h2>Actions</h2>
+  <p class="muted" style="margin-top:-.4rem">Tick "+ email" to send the guest a short standard email with the action. To write your own message, use "Reply to guest by email" below.</p>
   <div class="actions">
     <?php foreach ($next as $to): ?>
     <form method="post" class="action"<?= $to === 'cancelled' ? ' onsubmit="return confirm(\'Cancel this booking?\')"' : '' ?>>
       <?= Csrf::field() ?>
       <input type="hidden" name="action" value="status">
       <input type="hidden" name="to" value="<?= $to ?>">
-      <?php if (in_array($to, $emailsGuest, true)): ?>
-        <label class="check"><input type="checkbox" name="notify" <?= $b['email'] ? '' : 'disabled' ?>> Send standard email<?= $b['email'] ? '' : ' (no email)' ?></label>
-      <?php endif; ?>
       <button class="<?= $to === 'cancelled' || $to === 'no_show' ? 'danger' : ($to === 'confirmed' ? '' : 'ghost') ?>"><?= $actionLabels[$to] ?></button>
+      <?php if (in_array($to, $emailsGuest, true)): ?>
+        <?php if ($b['email']): ?>
+          <label class="check small"><input type="checkbox" name="notify"> + email <?= $to === 'confirmed' ? 'confirmation' : 'cancellation' ?> to guest</label>
+        <?php else: ?>
+          <small class="muted">Guest has no email</small>
+        <?php endif; ?>
+      <?php endif; ?>
     </form>
     <?php endforeach; ?>
   </div>
@@ -137,7 +142,9 @@ admin_header($b['code'], $user);
     <?php if ($b['service_type'] !== 'program'): ?>
       <label>New time<input type="time" name="time" value="<?= e(substr((string) $b['start_time'], 0, 5)) ?>" required></label>
     <?php endif; ?>
-    <label class="check"><input type="checkbox" name="notify" <?= $b['email'] ? '' : 'disabled' ?>> Send standard email</label>
+    <?php if ($b['email']): ?>
+      <label class="check"><input type="checkbox" name="notify"> + email new time to guest</label>
+    <?php endif; ?>
     <label class="check"><input type="checkbox" name="force"> Move anyway if full</label>
     <button>Move booking</button>
   </form>

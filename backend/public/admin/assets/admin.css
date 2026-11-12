@@ -83,6 +83,7 @@ h2 .count { margin-left: auto; font-family: var(--sans); font-size: .85rem; colo
 /* Forms */
 label { display: flex; flex-direction: column; gap: .35rem; font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .9rem; }
 label.check { flex-direction: row; align-items: center; gap: .5rem; text-transform: none; letter-spacing: 0; font-size: .92rem; font-weight: 500; color: var(--ink); }
+label.check.small { font-size: .82rem; color: var(--muted); }
 input, select, textarea { font: inherit; font-size: .95rem; text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--ink); padding: .6rem .75rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
 input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
 input[type=checkbox] { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
@@ -177,8 +178,8 @@ table.kv th { width: 34%; text-transform: none; letter-spacing: 0; font-size: .8
 .bcard .tags { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .55rem; }
 
 /* Booking detail */
-.actions { display: flex; flex-wrap: wrap; gap: .8rem; align-items: flex-end; }
-form.action { display: flex; flex-direction: column; gap: .35rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .8rem 1.2rem; align-items: flex-start; }
+form.action { display: flex; flex-direction: column; align-items: flex-start; gap: .45rem; }
 form.action label { margin: 0; }
 .flags { margin: 0 0 .6rem; padding-left: 1.1rem; color: var(--bad); }
 .log { list-style: none; padding: 0; margin: 0; font-size: .9rem; }
