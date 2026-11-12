@@ -42,7 +42,7 @@ const whatsappUrl = 'https://wa.me/6285926461359?text=' + encodeURIComponent("He
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <h2>Thank you, we received your request</h2>
-        <p class="bk-lead">We'll get back to you after checking the availability.</p>
+        <p class="bk-lead">We'll get back to you within 24 hours after checking the availability.</p>
         <p class="bk-ref">Reference <strong x-text="code"></strong></p>
         <dl class="bk-done-list">
           <div><dt>Service</dt><dd x-text="service ? service.name : ''"></dd></div>
@@ -50,8 +50,8 @@ const whatsappUrl = 'https://wa.me/6285926461359?text=' + encodeURIComponent("He
           <div><dt>Price</dt><dd x-text="service ? priceText(service) : ''"></dd></div>
         </dl>
         <p>
-          This is a request, not yet a confirmed booking. We will contact you on WhatsApp at{' '}
-          <strong x-text="form.whatsapp"></strong>{' '}to confirm.
+          This is a request, not yet a confirmed booking. We will reply by email or on WhatsApp at{' '}
+          <strong x-text="form.whatsapp"></strong>.
           <span x-show="form.email"> A copy is on its way to <strong x-text="form.email"></strong>.</span>
         </p>
         <a class="bk-link" href="/">Back to home</a>

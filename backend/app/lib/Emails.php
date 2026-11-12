@@ -41,11 +41,11 @@ final class Emails
                    'Guests' => (string) $b['guests_count'], 'Price' => self::priceEn($b)];
             $intro = $id
                 ? '<p>Halo ' . e($b['name']) . ',</p><p>Terima kasih, kami sudah menerima permintaan booking Anda. '
-                  . '<b>Kami akan menghubungi Anda kembali setelah mengecek ketersediaan.</b></p>'
+                  . '<b>Kami akan membalas dalam 24 jam setelah mengecek ketersediaan.</b></p>'
                   . '<p>Ini masih permintaan, belum terkonfirmasi. Kami akan membalas lewat email ini atau WhatsApp di '
                   . e($b['whatsapp']) . '.</p>'
                 : '<p>Hello ' . e($b['name']) . ',</p><p>Thank you, we received your booking request. '
-                  . '<b>We\'ll get back to you after checking the availability.</b></p>'
+                  . '<b>We\'ll get back to you within 24 hours after checking the availability.</b></p>'
                   . '<p>This is a request and is not confirmed yet. We will reply to this email or contact you on WhatsApp at '
                   . e($b['whatsapp']) . '.</p>';
             Mailer::queue((int) $b['id'], 'booking_received_guest', $b['email'],
