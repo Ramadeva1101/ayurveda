@@ -1,0 +1,450 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import FloatingWhatsApp from '../../components/FloatingWhatsApp.astro';
+import PageHero from '../../components/PageHero.astro';
+import { services, type Service } from '../../data/services';
+import { waLink } from '../../data/menu';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props as { service: Service };
+const plain = (html: string) => html.replace(/&amp;/g, '&').replace(/<[^>]+>/g, '');
+const bookHref = service.cta.bookService ? `/book?service=${service.cta.bookService}` : waLink(service.cta.waText);
+const bookExternal = !service.cta.bookService;
+---
+
+<BaseLayout title={plain(service.eyebrow)} description={service.intro[0]}>
+  <Navbar />
+
+  <main id="main-content">
+    <PageHero
+      eyebrow={service.eyebrow}
+      title={service.title}
+      subtitle={service.subtitle}
+      image={service.image}
+      imageAlt={service.imageAlt}
+      bottomColor="#FAF6F0"
+    />
+
+    <section class="svc-intro section">
+      <div class="container svc-narrow">
+        {service.intro.map((p, i) => <p class:list={['svc-p', { 'svc-p--lead': i === 0 }]}>{p}</p>)}
+        {service.location && (
+          <p class="svc-location">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span><strong>Location:</strong> {service.location}</span>
+          </p>
+        )}
+      </div>
+    </section>
+
+    {service.blocks.map((block, i) => (
+      <section class:list={['section', 'svc-block', { 'section--alt': i % 2 === 0 }]}>
+        <div class="container svc-narrow">
+          <h2 class="svc-title" set:html={block.title} />
+
+          {block.type === 'steps' && (
+            <>
+              {block.intro && <p class="svc-p">{block.intro}</p>}
+              <ol class="svc-steps">
+                {block.items.map((item, n) => (
+                  <li><span class="svc-num">{n + 1}</span><span set:html={item} /></li>
+                ))}
+              </ol>
+            </>
+          )}
+
+          {block.type === 'list' && (
+            <>
+              {block.intro && <p class="svc-p">{block.intro}</p>}
+              <ul class="svc-list">
+                {block.items.map((item) => (
+                  <li>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              {block.after?.map((p) => <p class="svc-p svc-p--small">{p}</p>)}
+            </>
+          )}
+
+          {block.type === 'cards' && (
+            <div class="svc-cards">
+              {block.items.map((card) => (
+                <article class="svc-card">
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </article>
+              ))}
+            </div>
+          )}
+
+          {block.type === 'chips' && (
+            <ul class="svc-chips">
+              {block.items.map((item) => <li>{item}</li>)}
+            </ul>
+          )}
+
+          {block.type === 'text' && block.paragraphs.map((p) => <p class="svc-p">{p}</p>)}
+
+          {block.type === 'people' && (
+            <ul class="svc-people">
+              {block.items.map((person) => (
+                <li><strong>{person.name}</strong><span>{person.role}</span></li>
+              ))}
+            </ul>
+          )}
+
+          {block.type === 'video' && (
+            block.youtubeId ? (
+              <div class="svc-video">
+                <iframe src={`https://www.youtube-nocookie.com/embed/${block.youtubeId}`} title={plain(block.title)} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            ) : (
+              <div class="svc-video svc-video--empty">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+                <p>Video coming soon</p>
+              </div>
+            )
+          )}
+        </div>
+      </section>
+    ))}
+
+    {(service.notice || service.disclaimer) && (
+      <section class="section svc-notes">
+        <div class="container svc-narrow">
+          {service.notice && (
+            <div class="svc-notice">
+              <h2 class="svc-notice__title">{service.notice.title}</h2>
+              <p>{service.notice.text}</p>
+            </div>
+          )}
+          {service.disclaimer && <p class="svc-disclaimer">{service.disclaimer}</p>}
+        </div>
+      </section>
+    )}
+
+    <section class="svc-cta">
+      <div class="container svc-narrow">
+        <h2 class="svc-cta__title">{service.cta.title}</h2>
+        <p class="svc-cta__text">{service.cta.text}</p>
+        <div class="svc-cta__actions">
+          <a href={bookHref} class="btn btn-primary" target={bookExternal ? '_blank' : undefined} rel={bookExternal ? 'noopener noreferrer' : undefined}>{service.cta.bookLabel}</a>
+          {!bookExternal && (
+            <a href={waLink(service.cta.waText)} target="_blank" rel="noopener noreferrer" class="btn btn-outline svc-cta__wa">Start Consultation</a>
+          )}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  .svc-narrow {
+    max-width: 52rem;
+  }
+
+  .svc-p {
+    margin: 0 0 1.1rem;
+    font-size: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+    font-weight: 500;
+    line-height: 1.75;
+    color: var(--color-olive);
+  }
+
+  .svc-p--lead {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.85rem);
+    line-height: 1.45;
+  }
+
+  .svc-p--small {
+    font-size: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .svc-location {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin: 1.75rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(184, 147, 90, 0.35);
+    font-weight: 500;
+    color: var(--color-olive);
+  }
+
+  .svc-location svg {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color-gold);
+  }
+
+  .svc-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-olive);
+    margin: 0 0 1.75rem;
+  }
+
+  .svc-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .svc-steps li {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 1px solid var(--color-cream-deep);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--color-olive);
+  }
+
+  .svc-num {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1.5px dotted var(--color-gold);
+    border-radius: 50%;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.15rem;
+    color: var(--color-gold-dark);
+  }
+
+  .svc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .svc-list li {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 1.08rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--color-olive);
+  }
+
+  .svc-list svg {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    color: var(--color-gold);
+  }
+
+  .svc-cards {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .svc-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .svc-card {
+    padding: 1.75rem 1.5rem;
+    background: #fff;
+    border-top: 3px solid var(--color-gold);
+  }
+
+  .svc-card h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--color-olive);
+    margin: 0 0 0.75rem;
+  }
+
+  .svc-card p {
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.65;
+    color: var(--color-sage-dark, var(--color-olive));
+  }
+
+  .svc-chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .svc-chips li {
+    padding: 0.7rem 1.3rem;
+    border: 1px solid var(--color-gold);
+    border-radius: 999px;
+    font-weight: 600;
+    color: var(--color-olive);
+    background: #fff;
+  }
+
+  .svc-people {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .svc-people {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .svc-people li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1.25rem 1.5rem;
+    background: #fff;
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .svc-people strong {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--color-olive);
+  }
+
+  .svc-people span {
+    font-weight: 600;
+    color: var(--color-gold-dark);
+  }
+
+  .svc-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--color-olive);
+  }
+
+  .svc-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .svc-video--empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: rgba(250, 246, 240, 0.7);
+  }
+
+  .svc-video--empty p {
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .svc-notice {
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--color-gold);
+    background: rgba(184, 147, 90, 0.08);
+  }
+
+  .svc-notice__title {
+    margin: 0 0 0.5rem;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold-dark);
+  }
+
+  .svc-notice p {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.65;
+    color: var(--color-olive);
+  }
+
+  .svc-disclaimer {
+    margin: 1.5rem 0 0;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--color-sage);
+  }
+
+  .svc-cta {
+    padding: 5rem 0;
+    background: var(--color-olive);
+    text-align: center;
+  }
+
+  .svc-cta__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    font-weight: 500;
+    color: var(--color-cream-base);
+    margin: 0 0 0.75rem;
+  }
+
+  .svc-cta__text {
+    margin: 0 auto 2rem;
+    max-width: 36rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(250, 246, 240, 0.85);
+  }
+
+  .svc-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .svc-cta .btn-primary {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+  }
+
+  .svc-cta__wa {
+    border-color: rgba(250, 246, 240, 0.6);
+    color: var(--color-cream-base);
+  }
+
+  .svc-cta__wa:hover {
+    background-color: var(--color-cream-base);
+    color: var(--color-olive);
+  }
+</style>

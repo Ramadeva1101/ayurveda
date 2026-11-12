@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import FloatingWhatsApp from '../../components/FloatingWhatsApp.astro';
+import PageHero from '../../components/PageHero.astro';
+import MenuIcon from '../../components/MenuIcon.astro';
+import { serviceMenu } from '../../data/menu';
+
+// One line per service, taken from the opening sentence of each service page.
+const summaries: Record<string, string> = {
+  '/services/consultation': 'Personalised Ayurvedic consultations to help you understand your individual constitution, identify current imbalances, and make informed choices for your well-being.',
+  '/services/javanese-energy-healing': 'Traditional Javanese healing practices, focusing on the relationship between the body, its natural balance, and the flow of energy.',
+  '/services/ayurvedic-therapy': 'Every therapy is built on classical Ayurvedic principles and adapted to your specific needs.',
+  '/services/water-purification': 'A traditional water purification ritual at Pura Kedatuan Raksa Sidhi, Jatiluwih, using water from a natural, mineral-rich source.',
+};
+---
+
+<BaseLayout
+  title="Our Service"
+  description="Ayurvedic consultation, Javanese energy healing, Ayurvedic therapy and traditional water purification at Ayurvedic Wellness House, Tabanan, Bali."
+>
+  <Navbar />
+
+  <main id="main-content">
+    <PageHero
+      eyebrow="Ayurvedic Wellness House"
+      title="Our Service"
+      subtitle="Consultation, Javanese Energy Healing, Ayurvedic Therapy and Water Purification."
+      image="/images/consultation-hero.webp"
+      imageAlt="Ayurvedic pulse reading during a consultation at Ayurvedic Wellness House"
+      bottomColor="#FAF6F0"
+    />
+
+    <section class="section">
+      <div class="container">
+        <ul class="sv-grid">
+          {serviceMenu.map((item) => (
+            <li>
+              <a href={item.href} class="sv-card">
+                <span class="sv-card__icon"><MenuIcon name={item.icon} size={52} /></span>
+                <h2 class="sv-card__title">{item.label}</h2>
+                <p class="sv-card__text">{summaries[item.href]}</p>
+                <span class="sv-card__more">Read more</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  .sv-grid {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 768px) {
+    .sv-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .sv-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    padding: 2.25rem 2rem;
+    background: #fff;
+    border-top: 3px solid var(--color-gold);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .sv-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(31, 42, 34, 0.12);
+  }
+
+  .sv-card__icon {
+    display: grid;
+    place-items: center;
+    width: 5.5rem;
+    height: 5.5rem;
+    margin-bottom: 1.25rem;
+    border: 1.5px dotted var(--color-gold);
+    border-radius: 50%;
+    color: var(--color-gold-dark);
+  }
+
+  .sv-card__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2rem);
+    font-weight: 500;
+    color: var(--color-olive);
+    margin: 0 0 0.6rem;
+  }
+
+  .sv-card__text {
+    margin: 0 0 1.25rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.65;
+    color: var(--color-sage);
+  }
+
+  .sv-card__more {
+    margin-top: auto;
+    font-weight: 700;
+    color: var(--color-gold-dark);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+</style>

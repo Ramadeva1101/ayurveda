@@ -41,7 +41,8 @@ const whatsappUrl = 'https://wa.me/6285926461359?text=' + encodeURIComponent("He
         <div class="bk-done-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h2>Request sent</h2>
+        <h2>Thank you, we received your request</h2>
+        <p class="bk-lead">We'll get back to you after checking the availability.</p>
         <p class="bk-ref">Reference <strong x-text="code"></strong></p>
         <dl class="bk-done-list">
           <div><dt>Service</dt><dd x-text="service ? service.name : ''"></dd></div>
@@ -487,6 +488,7 @@ const whatsappUrl = 'https://wa.me/6285926461359?text=' + encodeURIComponent("He
   .bk-message h2, .bk-done h2 { font-size: 1.7rem; margin: 0 0 .5rem; }
 
   .bk-done { text-align: left; }
+  .bk-lead { font-size: 1.15rem; font-weight: 600; color: var(--color-olive); margin: 0 0 .75rem; }
   .bk-done-icon { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: #e7efe0; color: var(--color-olive); margin-bottom: 1rem; }
   .bk-ref { font-size: 1.05rem; margin: 0 0 1.25rem; }
   .bk-ref strong { font-size: 1.25rem; letter-spacing: .04em; color: var(--color-gold-dark); }

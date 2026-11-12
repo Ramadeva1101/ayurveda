@@ -170,10 +170,19 @@ const encodedImage = encodeURI(image);
     color: rgba(255, 252, 235, 1);
     margin: 0 0 1rem;
     letter-spacing: -0.01em;
+    /* Long words must wrap on narrow phones (iPhone cut off "Wellness Programs") */
+    overflow-wrap: break-word;
+    text-wrap: balance;
     /* soft multi-layer glow — tidak hitam keras */
     filter:
       drop-shadow(0 1px 3px rgba(3, 10, 2, 0.6))
       drop-shadow(0 3px 16px rgba(3, 10, 2, 0.45));
+  }
+
+  @media (max-width: 480px) {
+    .ph-title {
+      font-size: clamp(2rem, 1.2rem + 4.4vw, 2.6rem);
+    }
   }
 
   .ph-subtitle {

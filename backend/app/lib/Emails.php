@@ -40,12 +40,14 @@ final class Emails
                 : ['Reference' => $b['code'], 'Service' => $b['service_name'], 'When' => Booking::whenText($b),
                    'Guests' => (string) $b['guests_count'], 'Price' => self::priceEn($b)];
             $intro = $id
-                ? '<p>Halo ' . e($b['name']) . ',</p><p>Terima kasih. Kami sudah menerima permintaan booking Anda. '
-                  . '<b>Ini masih permintaan, belum terkonfirmasi.</b> Kami akan mengecek jadwal dan menghubungi Anda lewat WhatsApp di '
-                  . e($b['whatsapp']) . ' untuk konfirmasi.</p>'
-                : '<p>Hello ' . e($b['name']) . ',</p><p>Thank you. We have received your booking request. '
-                  . '<b>This is a request and is not confirmed yet.</b> We will check the schedule and contact you on WhatsApp at '
-                  . e($b['whatsapp']) . ' to confirm.</p>';
+                ? '<p>Halo ' . e($b['name']) . ',</p><p>Terima kasih, kami sudah menerima permintaan booking Anda. '
+                  . '<b>Kami akan menghubungi Anda kembali setelah mengecek ketersediaan.</b></p>'
+                  . '<p>Ini masih permintaan, belum terkonfirmasi. Kami akan membalas lewat email ini atau WhatsApp di '
+                  . e($b['whatsapp']) . '.</p>'
+                : '<p>Hello ' . e($b['name']) . ',</p><p>Thank you, we received your booking request. '
+                  . '<b>We\'ll get back to you after checking the availability.</b></p>'
+                  . '<p>This is a request and is not confirmed yet. We will reply to this email or contact you on WhatsApp at '
+                  . e($b['whatsapp']) . '.</p>';
             Mailer::queue((int) $b['id'], 'booking_received_guest', $b['email'],
                 $id ? "Permintaan booking Anda sudah kami terima ({$b['code']})" : "We received your booking request ({$b['code']})",
                 self::layout($intro . self::table($rows)));
@@ -77,6 +79,17 @@ final class Emails
             "Waktu booking Anda berubah ({$b['code']})",
             'The time of your booking has changed. The new details are below.',
             'Waktu booking Anda berubah. Detail terbaru ada di bawah.');
+    }
+
+    // Free text written by an admin in the booking page. Sent as typed, with the
+    // booking reference added at the bottom so the guest can quote it.
+    public static function customReply(array $b, string $subject, string $message): void
+    {
+        $html = self::layout(
+            '<p>' . nl2br(e($message)) . '</p>'
+            . '<p style="color:#6b746c;font-size:13px">' . ($b['language'] === 'id' ? 'Kode booking: ' : 'Booking reference: ') . e($b['code']) . '</p>'
+        );
+        Mailer::queue((int) $b['id'], 'custom_reply', $b['email'], $subject, $html);
     }
 
     private static function guestNotice(array $b, string $template, string $subEn, string $subId, string $lineEn, string $lineId): void

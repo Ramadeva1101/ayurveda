@@ -95,10 +95,10 @@ const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
       <div class="hero__image" aria-hidden="true"></div>
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="hero__content">
-        <h1 class="hero__title">Authentic Ayurveda in Bali, In combination with Javanese energy healing therapy</h1>
+        <h1 class="hero__title">Authentic Ayurveda in Bali, Combined with Traditional Javanese Energy healing.</h1>
         <div class="actions">
           <a href="https://wa.me/6285926461359?text=Hello%2C%20I%20would%20like%20to%20book%20a%20consultation%20with%20Dr.%20Komang." target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book Consultation</a>
-          <a href="/program" class="btn btn-secondary">Explore Programs</a>
+          <a href="/packages" class="btn btn-secondary">Explore Programs</a>
         </div>
       </div>
     </section>
@@ -122,7 +122,7 @@ const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
           <p class="chapter__num">02</p>
           <p class="eyebrow eyebrow--lined">Ayurvedic Wellness House</p>
           <h2 class="display display--xl display--left">Where your care happens</h2>
-          <p class="lead lead--left">Consultations with Dr. Komang, Ayurvedic treatments, Javanese energy healing and our wellness programs all take place at the Wellness House in Tabanan.</p>
+          <p class="lead lead--left">Consultations, Ayurvedic treatments, Javanese energy healing and the wellness programs take place at the Wellness House in Tabanan.</p>
           <ul class="care__list">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
@@ -138,7 +138,7 @@ const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
             </li>
           </ul>
           <div class="actions">
-            <a href="/program" class="btn btn-outline">See our treatments</a>
+            <a href="/services/ayurvedic-therapy" class="btn btn-outline">See our treatments</a>
             <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline">Get directions</a>
           </div>
         </div>
@@ -305,7 +305,11 @@ const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
             <p class="eyebrow eyebrow--lined">Location &amp; Stay</p>
             <h2 class="display display--lg display--left">A Sanctuary Beyond Words</h2>
             <p class="lead lead--left">Immerse yourself in 6 hectares of nature — where rice fields, jungle, and mountain air create the perfect backdrop for healing.</p>
+            <p class="loc__text">We believe that true healing happens when professional care is combined with a peaceful environment.</p>
+            <p class="loc__text">The combination of authentic Ayurveda, the healing traditions of Java, and the serene surroundings of Bali Silent Retreat — known as a hidden gem: an eco-sustainable nature sanctuary, with 6 hectares of nature, surrounded by UNESCO-Jatiluwih rice fields, jungle, and mountains — creates a unique opportunity to step away from daily life, reconnect with yourself, and embrace a healthier way of living.</p>
           </div>
+          <div class="loc__side">
+          <p class="loc__text loc__text--strong">Ayurvedic Wellness House is located next to Bali Silent Retreat, Tabanan, which provides an easy and restful Food &amp; Accommodations Package:</p>
           <dl class="loc__facts">
             <div class="loc__fact">
               <dt>Rooms</dt>
@@ -320,6 +324,7 @@ const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
               <dd><a href="https://www.balisilentretreat.com/programs/" target="_blank" rel="noopener noreferrer">20+ activities</a>: nature, movement, meditation, and self-reflective activities, such as a labyrinth, jogging track, sound bath, curated jungle walk</dd>
             </div>
           </dl>
+          </div>
         </div>
         <div class="gallery">
           {gallery.map((g) => (
@@ -539,12 +544,14 @@ const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
     position: absolute;
     inset: 0;
     background: url('/images/bg.webp') center / cover no-repeat;
+    /* the photo itself is dusky; lift it a little */
+    filter: brightness(1.12) saturate(1.05);
   }
 
   .hero__shade {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(16, 24, 13, 0.5) 0%, rgba(16, 24, 13, 0.15) 55%, rgba(16, 24, 13, 0) 100%);
+    background: linear-gradient(90deg, rgba(16, 24, 13, 0.32) 0%, rgba(16, 24, 13, 0.08) 50%, rgba(16, 24, 13, 0) 100%);
   }
 
   .hero__content {
@@ -741,6 +748,19 @@ const slugify = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
     position: relative;
     z-index: 1;
     max-width: 56rem;
+  }
+
+  .loc__text {
+    margin: 1rem 0 0;
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    font-weight: 500;
+    line-height: 1.7;
+    color: var(--color-olive);
+  }
+
+  .loc__text--strong {
+    margin: 0 0 1.25rem;
+    font-weight: 700;
   }
 
   /* ---------- location & stay ---------- */

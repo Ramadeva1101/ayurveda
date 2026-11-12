@@ -26,6 +26,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $err = Booking::reschedule($id, (string) ($_POST['date'] ?? ''), (string) ($_POST['time'] ?? '') ?: null,
             (int) $user['id'], $notify, isset($_POST['force']));
         $ok = 'Booking moved.';
+    } elseif ($action === 'email') {
+        $subject = trim((string) ($_POST['subject'] ?? ''));
+        $message = trim((string) ($_POST['message'] ?? ''));
+        if (!$b['email']) {
+            $err = 'This guest has no email address. Use WhatsApp.';
+        } elseif ($subject === '' || $message === '') {
+            $err = 'Write a subject and a message.';
+        } else {
+            Emails::customReply($b, mb_substr($subject, 0, 200), mb_substr($message, 0, 10000));
+            Booking::log($id, (int) $user['id'], 'email', 'Sent email: ' . mb_substr($subject, 0, 200));
+            $ok = 'Email sent.';
+        }
     } elseif ($action === 'note') {
         $note = trim((string) ($_POST['note'] ?? ''));
         if ($note === '') {
@@ -110,7 +122,7 @@ admin_header($b['code'], $user);
       <input type="hidden" name="action" value="status">
       <input type="hidden" name="to" value="<?= $to ?>">
       <?php if (in_array($to, $emailsGuest, true)): ?>
-        <label class="check"><input type="checkbox" name="notify" <?= $b['email'] ? 'checked' : 'disabled' ?>> Email the guest<?= $b['email'] ? '' : ' (no email)' ?></label>
+        <label class="check"><input type="checkbox" name="notify" <?= $b['email'] ? '' : 'disabled' ?>> Send standard email<?= $b['email'] ? '' : ' (no email)' ?></label>
       <?php endif; ?>
       <button class="<?= $to === 'cancelled' || $to === 'no_show' ? 'danger' : ($to === 'confirmed' ? '' : 'ghost') ?>"><?= $actionLabels[$to] ?></button>
     </form>
@@ -125,7 +137,7 @@ admin_header($b['code'], $user);
     <?php if ($b['service_type'] !== 'program'): ?>
       <label>New time<input type="time" name="time" value="<?= e(substr((string) $b['start_time'], 0, 5)) ?>" required></label>
     <?php endif; ?>
-    <label class="check"><input type="checkbox" name="notify" <?= $b['email'] ? 'checked' : 'disabled' ?>> Email the guest</label>
+    <label class="check"><input type="checkbox" name="notify" <?= $b['email'] ? '' : 'disabled' ?>> Send standard email</label>
     <label class="check"><input type="checkbox" name="force"> Move anyway if full</label>
     <button>Move booking</button>
   </form>
@@ -165,6 +177,22 @@ admin_header($b['code'], $user);
     </ul>
   </section>
 </div>
+
+<section class="card">
+  <h2>Reply to guest by email</h2>
+  <?php if (!$b['email']): ?>
+    <p class="muted">This guest did not give an email address. Use the WhatsApp button above.</p>
+  <?php else: ?>
+  <form method="post">
+    <?= Csrf::field() ?>
+    <input type="hidden" name="action" value="email">
+    <p class="muted">To: <?= e($b['email']) ?>. Write anything you like. The booking reference is added at the bottom.</p>
+    <label>Subject<input name="subject" maxlength="200" required value="<?= e(($b['language'] === 'id' ? 'Booking Anda ' : 'Your booking ') . $b['code'] . ' – Ayurvedic Wellness House') ?>"></label>
+    <label>Message<textarea name="message" rows="8" required placeholder="<?= e(($b['language'] === 'id' ? 'Halo ' : 'Hello ') . $b['name'] . ',') ?>"></textarea></label>
+    <button>Send email</button>
+  </form>
+  <?php endif; ?>
+</section>
 
 <section class="card">
   <h2>Emails</h2>

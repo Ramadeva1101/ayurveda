@@ -2,18 +2,64 @@
 import { Image } from 'astro:assets';
 import logoImg from '../assets/images/logo.png';
 
-const navItems = [
-  { label: 'Location & Stay', href: '/' },
-  { label: 'Ayurvedic Therapy', href: '/program' },
-  { label: 'Healing & Wellness Package', href: '/packages' },
-  { label: 'About', href: '/about' },
-  { label: 'Testimonials', href: '/testimonials' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Our Local Partner', href: '/our-local-partner' },
+import { navItems, serviceMenu, waLink } from '../data/menu';
+
+// Selected guest videos shown above the footer on every page (the separate
+// Testimonials page was removed). Names come from each video's YouTube title.
+const youtubeChannel = 'https://www.youtube.com/@ayurvedicwellnesshouse';
+const guestVideos = [
+  { youtubeId: 'KW4Q5kK0TGU', name: 'Nisha' },
+  { youtubeId: 'Jga5WdFywzI', name: 'Dr. Balvinder' },
+  { youtubeId: '9Yc_3wSAe7I', name: 'Ms. Samantha' },
 ];
+const mapsUrl = 'https://maps.app.goo.gl/gRzEuCPrURoJJ8rG8';
+const waConsult = waLink('Hello, I would like to book a consultation with Dr. Komang.');
 
 const currentYear = new Date().getFullYear();
 ---
+
+<!-- Guest videos (shown on every page) -->
+<section class="guest-videos" id="guest-videos" aria-labelledby="guest-videos-title">
+  <div class="container">
+    <p class="gv-eyebrow">Testimonials</p>
+    <h2 class="gv-title" id="guest-videos-title">Hear from our guests</h2>
+    <div class="gv-grid">
+      {guestVideos.map((v) => (
+        <button type="button" class="gv-card" data-video-id={v.youtubeId} aria-label={`Play video: ${v.name}`}>
+          <img src={`https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`} alt="" loading="lazy" width="480" height="360" />
+          <span class="gv-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+          <span class="gv-name">{v.name}</span>
+        </button>
+      ))}
+    </div>
+    <p class="gv-more"><a href={youtubeChannel} target="_blank" rel="noopener noreferrer">More videos on YouTube</a></p>
+  </div>
+</section>
+
+<!-- Contact (shown on every page) -->
+<section class="contact-band" id="contact" aria-labelledby="contact-band-title">
+  <div class="container contact-band__inner">
+    <div>
+      <p class="gv-eyebrow">Contact</p>
+      <h2 class="contact-band__title" id="contact-band-title">Get in Touch</h2>
+      <p class="contact-band__text">Ayurvedic Wellness House, Tabanan, Bali, Indonesia.</p>
+    </div>
+    <div class="contact-band__actions">
+      <a href={waConsult} target="_blank" rel="noopener noreferrer" class="cb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.5A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+        <span><b>WhatsApp</b>+62 859-2646-1359</span>
+      </a>
+      <a href="mailto:booking@ayurvedicwellnesshouse.com" class="cb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span><b>Email</b>booking@ayurvedicwellnesshouse.com</span>
+      </a>
+      <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="cb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <span><b>Location</b>View on Google Maps</span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="container">
@@ -55,10 +101,11 @@ const currentYear = new Date().getFullYear();
 
       <!-- Services -->
       <div class="footer-services">
-        <h4 class="footer-heading">Ayurvedic Therapy</h4>
+        <h4 class="footer-heading">Our Service</h4>
         <ul class="footer-menu">
-          <li><a href="/program#signature-experiences" class="footer-link">Ayurvedic wisdom + Javanese healing</a></li>
-          <li><a href="/program#our-treatments" class="footer-link">Ayurvedic therapy</a></li>
+          {serviceMenu.map((item) => (
+            <li><a href={item.href} class="footer-link">{item.label}</a></li>
+          ))}
         </ul>
       </div>
 
@@ -117,7 +164,195 @@ const currentYear = new Date().getFullYear();
   </div>
 </footer>
 
+<script>
+  // Load the YouTube player only when a guest video is clicked.
+  document.querySelectorAll<HTMLButtonElement>('.gv-card').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = `https://www.youtube-nocookie.com/embed/${btn.dataset.videoId}?autoplay=1`;
+      frame.title = btn.getAttribute('aria-label') || 'Guest video';
+      frame.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.className = 'gv-frame';
+      btn.replaceWith(frame);
+    });
+  });
+</script>
+
 <style>
+  .guest-videos {
+    padding: 5rem 0;
+    background: var(--color-cream-base);
+    text-align: center;
+  }
+
+  .gv-eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold-dark);
+  }
+
+  .gv-title,
+  .contact-band__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.8rem);
+    font-weight: 500;
+    color: var(--color-olive);
+    margin: 0 0 2.25rem;
+  }
+
+  .gv-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .gv-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .gv-card,
+  :global(.gv-frame) {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    background: #000;
+    cursor: pointer;
+  }
+
+  .gv-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.3s ease;
+  }
+
+  .gv-card:hover img {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+
+  .gv-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    border-radius: 50%;
+    background: var(--color-gold);
+    color: #fff;
+    transform: translate(-50%, -50%);
+  }
+
+  .gv-name {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.5rem 1rem 0.75rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: #fff;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .gv-more {
+    margin: 1.75rem 0 0;
+  }
+
+  .gv-more a {
+    font-weight: 700;
+    color: var(--color-olive);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .contact-band {
+    padding: 4rem 0;
+    background: #fff;
+    border-top: 1px solid var(--color-cream-deep);
+  }
+
+  .contact-band__inner {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .contact-band__inner {
+      grid-template-columns: 1fr 2.6fr;
+    }
+  }
+
+  .contact-band__title {
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-band__text {
+    margin: 0;
+    font-weight: 500;
+    color: var(--color-sage);
+  }
+
+  .contact-band__actions {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .contact-band__actions {
+      grid-template-columns: 1fr 1.6fr 1fr;
+    }
+  }
+
+  .cb-link {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--color-cream-deep);
+    color: var(--color-olive);
+    text-decoration: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .cb-link:hover {
+    border-color: var(--color-gold);
+    background: var(--color-cream-base);
+  }
+
+  .cb-link svg {
+    flex-shrink: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--color-gold);
+  }
+
+  .cb-link span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+
+  .cb-link b {
+    font-size: 1rem;
+  }
+
   .footer {
     background-color: var(--color-cream-deep);
     padding-top: 4rem;

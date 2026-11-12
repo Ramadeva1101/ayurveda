@@ -11,6 +11,9 @@ export default defineConfig({
   // Our Sanctuary was merged into the home page (Location & Stay)
   redirects: {
     '/sanctuary': '/',
+    '/program': '/services/ayurvedic-therapy',
+    '/testimonials': '/#guest-videos',
+    '/contact': '/#contact',
   },
   image: {
     service: sharpImageService(),

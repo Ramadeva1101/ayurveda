@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import PageHero from '../components/PageHero.astro';
+
+// Every answer repeats what the site or the clinic's own documents already say.
+// The clinic should review this list before it goes live and add its own questions.
+const faqs = [
+  {
+    q: 'Where is Ayurvedic Wellness House?',
+    a: 'In Tabanan, Bali, Indonesia, next to Bali Silent Retreat. <a href="https://maps.app.goo.gl/gRzEuCPrURoJJ8rG8" target="_blank" rel="noopener noreferrer">View on Google Maps</a>.',
+  },
+  {
+    q: 'Is accommodation included?',
+    a: 'No. Ayurveda Wellness House provides Ayurvedic consultations and wellness services. Accommodation, meals, yoga facilities, and retreat activities are arranged separately through <a href="https://www.balisilentretreat.com/" target="_blank" rel="noopener noreferrer">Bali Silent Retreat</a>.',
+  },
+  {
+    q: 'How do I book?',
+    a: 'Choose a treatment or program on the <a href="/book">booking page</a>, pick a date and time, and answer a few health questions. We\'ll get back to you after checking the availability, by email or on WhatsApp.',
+  },
+  {
+    q: 'Is my booking confirmed when I send the form?',
+    a: 'Not yet. The form sends a request. We check the schedule first and then confirm your booking.',
+  },
+  {
+    q: 'Do I need a consultation before a therapy?',
+    a: 'Yes. A consultation is required before your first session.',
+  },
+  {
+    q: 'Can I have a consultation online?',
+    a: 'Yes. Online Ayurvedic Consultation lets you receive personalised Ayurvedic guidance remotely. Follow-up consultations may be arranged online or in person.',
+  },
+  {
+    q: 'How should I prepare for my consultation?',
+    a: 'Bring a brief history of your health concerns, recent medical reports if available, and a list of current medications, supplements, and herbal products. See <a href="/services/consultation">Ayurvedic Consultation</a> for the full list.',
+  },
+  {
+    q: 'Should I stop my medication?',
+    a: 'No. Please continue prescribed medication unless your treating healthcare professional advises otherwise.',
+  },
+  {
+    q: 'Who can join the water purification ritual?',
+    a: 'Women who are menstruating are not permitted to participate in the water purification ritual. Please plan your booking accordingly and inform the administration when making your reservation. See <a href="/services/water-purification">Water Purification</a>.',
+  },
+  {
+    q: 'What are the prices of the wellness programs?',
+    a: 'Please enquire for price and accommodation. Each program on the <a href="/packages">Wellness Package</a> page has an Enquire now button.',
+  },
+];
+---
+
+<BaseLayout title="FAQ" description="Frequently asked questions about booking, consultations, accommodation and services at Ayurvedic Wellness House, Tabanan, Bali.">
+  <Navbar />
+
+  <main id="main-content">
+    <PageHero
+      eyebrow="Ayurvedic Wellness House"
+      title="Frequently Asked Questions"
+      image="/images/rice field surrounding_11zon.webp"
+      imageAlt="Rice fields around Ayurvedic Wellness House"
+      height="60vh"
+      bottomColor="#FAF6F0"
+    />
+
+    <section class="section">
+      <div class="container faq">
+        {faqs.map((f, i) => (
+          <details class="faq__item" open={i === 0}>
+            <summary class="faq__q">{f.q}</summary>
+            <p class="faq__a" set:html={f.a} />
+          </details>
+        ))}
+        <p class="faq__more">Another question? Message us on <a href="https://wa.me/6285926461359" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FloatingWhatsApp />
+</BaseLayout>
+
+<style>
+  .faq {
+    max-width: 52rem;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--color-cream-deep);
+  }
+
+  .faq__q {
+    position: relative;
+    padding: 1.4rem 2.5rem 1.4rem 0;
+    list-style: none;
+    cursor: pointer;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--color-olive);
+  }
+
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__q::after {
+    content: '+';
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Karla', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--color-gold);
+  }
+
+  .faq__item[open] .faq__q::after {
+    content: '−';
+  }
+
+  .faq__a {
+    margin: 0 0 1.5rem;
+    font-size: 1.08rem;
+    font-weight: 500;
+    line-height: 1.7;
+    color: var(--color-olive);
+  }
+
+  .faq__a :global(a),
+  .faq__more a {
+    color: var(--color-gold-dark);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .faq__more {
+    margin: 2rem 0 0;
+    font-weight: 600;
+    color: var(--color-olive);
+  }
+</style>

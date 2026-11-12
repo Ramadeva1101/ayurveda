@@ -1,38 +1,37 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
-import SectionDivider from '../components/SectionDivider.astro';
-import TreatmentCard from '../components/TreatmentCard.astro';
-import PageHero from '../components/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import FloatingWhatsApp from '../../components/FloatingWhatsApp.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+import TreatmentCard from '../../components/TreatmentCard.astro';
+import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 // Import all treatment images using Astro's asset system
-import abhyangaImg from '../assets/images/abhyanga.webp';
-import udvartanaImg from '../assets/images/udvartana.webp';
-import navarakizhiImg from '../assets/images/navarakizhi.webp';
-import patrapindaImg from '../assets/images/patrapinda.webp';
-import pizhichilImg from '../assets/images/pizhichil.webp';
-import shirodaraImg from '../assets/images/shirodara.webp';
-import netratarpanaImg from '../assets/images/netratarpana.webp';
-import karnapurnaImg from '../assets/images/karnapurna.webp';
-import nasyaImg from '../assets/images/nasya.webp';
-import hrdayaBastiImg from '../assets/images/hrdaya-basti.webp';
-import cakraBastiImg from '../assets/images/cakra-basti.webp';
-import greevaBastiImg from '../assets/images/greeva-basti.webp';
-import katiBastiImg from '../assets/images/kati-basti.webp';
-import januBastiImg from '../assets/images/janu-basti.webp';
-import reflexioImg from '../assets/images/reflexio.webp';
-import svedanaImg from '../assets/images/svedana.webp';
-import takradharaImg from '../assets/images/takradhara.webp';
+import abhyangaImg from '../../assets/images/abhyanga.webp';
+import udvartanaImg from '../../assets/images/udvartana.webp';
+import navarakizhiImg from '../../assets/images/navarakizhi.webp';
+import patrapindaImg from '../../assets/images/patrapinda.webp';
+import pizhichilImg from '../../assets/images/pizhichil.webp';
+import shirodaraImg from '../../assets/images/shirodara.webp';
+import netratarpanaImg from '../../assets/images/netratarpana.webp';
+import karnapurnaImg from '../../assets/images/karnapurna.webp';
+import nasyaImg from '../../assets/images/nasya.webp';
+import hrdayaBastiImg from '../../assets/images/hrdaya-basti.webp';
+import cakraBastiImg from '../../assets/images/cakra-basti.webp';
+import greevaBastiImg from '../../assets/images/greeva-basti.webp';
+import katiBastiImg from '../../assets/images/kati-basti.webp';
+import januBastiImg from '../../assets/images/janu-basti.webp';
+import reflexioImg from '../../assets/images/reflexio.webp';
+import svedanaImg from '../../assets/images/svedana.webp';
+import takradharaImg from '../../assets/images/takradhara.webp';
 
 // Real clinic photos (October 2026 shoot) replace the earlier generated images
-import shirodharaRealImg from '../assets/images/awh-gallery/awh-10.webp';
-import hrdayaBastiRealImg from '../assets/images/awh-gallery/awh-07.webp';
-import cakraBastiRealImg from '../assets/images/awh-gallery/awh-08.webp';
-import javaneseHealingImg from '../assets/images/awh-gallery/awh-11.webp';
-import consultationImg from '../assets/images/awh-gallery/awh-03.webp';
+import shirodharaRealImg from '../../assets/images/awh-gallery/awh-10.webp';
+import hrdayaBastiRealImg from '../../assets/images/awh-gallery/awh-07.webp';
+import cakraBastiRealImg from '../../assets/images/awh-gallery/awh-08.webp';
+import javaneseHealingImg from '../../assets/images/awh-gallery/awh-11.webp';
 import { Image } from 'astro:assets';
 
 const allTreatments = await getCollection('treatments');
@@ -91,39 +90,6 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
       bottomColor="#FAF6F0"
     />
 
-    <!-- Signature Special Treatments (Top 2) -->
-    {signatureTreatments.length > 0 && (
-      <section class="special-treatments section" id="signature-experiences">
-        <div class="container">
-          <h2 class="special-section-title">Signature Experiences</h2>
-          {signatureTreatments.map((treatment) => (
-            <article class="signature-card">
-              <div class="signature-card__photos">
-                <Image src={consultationImg} alt="Consultation at Ayurvedic Wellness House" width={700} class="signature-card__photo" />
-                <Image src={treatmentImages[treatment.data.name] ?? javaneseHealingImg} alt={treatment.data.name} width={700} class="signature-card__photo" />
-              </div>
-              <div class="signature-card__body">
-                <h3 class="signature-card__title">{treatment.data.name}</h3>
-                {treatment.data.sanskritName && (
-                  <p class="signature-card__sanskrit">{treatment.data.sanskritName}</p>
-                )}
-                <p class="signature-card__text">{treatment.data.description}</p>
-                <a href="/book?service=ayurvedic-javanese-healing-experience" class="signature-card__link">
-                  Book
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    )}
-
-    <SectionDivider variant="ornate" />
-
     <!-- Our Treatments Intro Section -->
     <section class="our-treatments-intro section" id="our-treatments">
       <div class="container">
@@ -149,7 +115,7 @@ const allImageUrls = Object.values(treatmentImages).map(img => img.src);
               category={treatment.data.category}
               icon={treatment.data.icon}
               featured={false}
-              link="/contact"
+              link="/book"
               index={i}
             />
           ))}
